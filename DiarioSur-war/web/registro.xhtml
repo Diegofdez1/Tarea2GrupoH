@@ -48,11 +48,11 @@
 
                         <h:form id="gestionarRegistro" class="container center-align">
                             <div class="input-field row s2">
-                                <p:password class="validate" id="name" value="#{gestionarRegistro.nombre}" required="false"/>
+                                <p:inputText class="validate" id="name" value="#{gestionarRegistro.nombre}" required="false"/>
                                 <label for="name">Nombre</label>
                             </div>
                             <div class="input-field row s2">
-                                <p:password class="validate" id="surname" value="#{gestionarRegistro.apellidos}" required="false"/>
+                                <p:inputText class="validate" id="surname" value="#{gestionarRegistro.apellidos}" required="false"/>
                                 <label for="surname">Apellido</label>
                             </div>
                             <div class="input-field row s2">
@@ -69,11 +69,11 @@
                             </div>
 
                             <div class="input-field row s2">
-                                <p:password class="validate" id="phone" value="#{gestionarRegistro.telefono}" required="false"/>
-                                <label for="phone">Teléfono</label>
+                                <p:inputText class="validate" id="phone" value="#{gestionarRegistro.telefono}" required="true"/>
+                                <label for="phone">Teléfono*</label>
                             </div>
                             <div class="row">    
-                                <p:commandButton type="submit" class="btn btn-primary" value="Registrar" action="#{gestionarRegistro.validar()}" />
+                                <p:commandButton class="btn btn-primary" value="Registrar" action="#{gestionarRegistro.validar()}" />
                             </div>                            
                         </h:form>
                     </div>

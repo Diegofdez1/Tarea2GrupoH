@@ -107,7 +107,9 @@ public class GestionarRegistro {
         }else if(password.trim().equals("")){
             ctx.addMessage("gestionarRegistro:password", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password vacío","Password vacío"));
             return null;
-            
+        }else if(!password.equalsIgnoreCase(password2)){
+             ctx.addMessage("gestionarRegistro:password", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords no coinciden","Passwords no coinciden"));
+            return null;
         }else if(password2.trim().equals("")){
             ctx.addMessage("gestionarRegistro:password2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password2 vacío","Password2 vacío"));
             return null;
