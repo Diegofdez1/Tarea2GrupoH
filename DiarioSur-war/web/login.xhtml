@@ -49,16 +49,16 @@
                     <div class="col-sm-4 align-self-center">
                         <h:form class="container center-align">
                             <div class="input-field row s2">
-                                <p:inputText class="validate" id="email" value="#{userLoginView.email}" required="true"/>
+                                <p:inputText class="validate" id="email" value="#{login.corroE}" required="true"/>
                                 <label for="email">Usuario</label>
                             </div>  
                             <div class="input-field row s2">
-                                <p:password class="validate" id="password" value="#{userLoginView.password}" required="true"/>
+                                <p:password class="validate" id="password" value="#{login.pass}" required="true"/>
                                 <label for="email">Contraseña</label>
                             </div>  
                             
                             <div class="row">    
-                                <p:commandButton type="button" class="btn btn-primary" value="Acceder" update="growl" actionListener="#{userLoginView.login}"
+                                <p:commandButton type="button" class="btn btn-primary" value="Acceder" update="growl" actionListener="#{login.autenticar()}"
                                              oncomplete="handleLoginRequest(xhr, status, args)" />
                                 <h:link value="¿Olvidaste tu contraseña?" outcome="olvido.xhtml" style="margin:5px"/>
                             </div>                            

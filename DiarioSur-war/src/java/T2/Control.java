@@ -26,6 +26,15 @@ public class Control implements Serializable {
     public Control() {
     }
 
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+    
+
     public Usuario getUsuario() {
         return usuario;
     }

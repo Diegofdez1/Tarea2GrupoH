@@ -36,6 +36,16 @@ public class Login {
 
     }
 
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios() {
+        this.usuarios = control.getUsuarios();
+    }
+    
+    
+
     public String getPass() {
         return pass;
     }
