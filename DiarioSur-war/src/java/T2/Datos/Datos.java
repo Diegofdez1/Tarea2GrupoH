@@ -183,7 +183,7 @@ public class Datos implements Serializable {
     e1.setComentarios(comentarios1);
     e1.setContacto("contacto1");
     e1.setDescripcion("Sport");
-    //e1.setFecha_inicio(WED 12-11-2017); luego miro el formato 
+    //e1.setFecha_inicio(WED 12-11-2017); luego miro el formato y lo añado
     //e1.setFecha_fin(fecha_fin);
     e1.setFotos(fotos1);
     e1.setLocalizacion("Malaga");
