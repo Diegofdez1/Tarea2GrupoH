@@ -11,6 +11,7 @@ import Entidades.Evento.TipoEvento;
 import Entidades.Rol;
 import Entidades.Usuario;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
@@ -26,9 +27,85 @@ import org.primefaces.model.UploadedFile;
 @RequestScoped
 public class GestionarEvento {
 
+    
+    private String titulo;
+    private String contenido;
+    private String localizacion;
+    private Date fecha;
+    private String horaini;
+    private Long telefono;
+    private TipoEvento tipo;
+    private String foto;
+    private List<TipoEvento> listatipos;
+
+
     private Evento evento;
     private Usuario usuario;
     private UploadedFile file;
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
+
+    public String getLocalizacion() {
+        return localizacion;
+    }
+
+    public void setLocalizacion(String localizacion) {
+        this.localizacion = localizacion;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getHoraini() {
+        return horaini;
+    }
+
+    public void setHoraini(String horaini) {
+        this.horaini = horaini;
+    }
+
+    public Long getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(Long telefono) {
+        this.telefono = telefono;
+    }
+
+    public TipoEvento getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoEvento tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
     private Control control;
 
     //private List<Foto> fotos;
@@ -51,8 +128,17 @@ public class GestionarEvento {
         evento = e;
     }
 
-    public TipoEvento[] getTipos() {
-        return Evento.TipoEvento.values();
+    public List<TipoEvento> getListatipos() {
+        List<TipoEvento> tipos = new ArrayList<>();
+        for(TipoEvento tp: Evento.TipoEvento.values()){
+            tipos.add(tp);
+        }
+        return tipos;
+     
+    }
+
+    public void setListatipos(List<TipoEvento> listatipos) {
+        this.listatipos = listatipos;
     }
 
     public Evento getEvento() {
