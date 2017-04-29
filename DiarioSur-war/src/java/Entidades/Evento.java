@@ -28,6 +28,10 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Evento implements Serializable {
+
+    public Evento() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public enum TipoEvento {
     deporte, musica, cultura, viajes, cursos, restaurantes, tecnología

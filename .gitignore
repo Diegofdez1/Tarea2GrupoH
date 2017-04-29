@@ -1,3 +1,5 @@
 /DiarioSur-ejb/build/
 /DiarioSur-ejb/dist/
 /DiarioSur-war/dist/
+/nbproject/private/
+/DiarioSur-war/nbproject/private/
