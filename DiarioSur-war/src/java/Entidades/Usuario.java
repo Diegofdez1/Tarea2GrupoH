@@ -47,6 +47,18 @@ public class Usuario implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column (name = "rol", nullable = false, length = 10)
     private Rol rol;
+
+    public Usuario(String nombre, String apellidos, String correoE, String password, String password2, Long telefono,Rol rol) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.correoE = correoE;
+        this.password = password;
+        this.telefono = telefono;
+        this.rol =rol;
+        
+    }
+    
+    
     
     //--------Relaciones---------
     @OneToMany(mappedBy="usuario")

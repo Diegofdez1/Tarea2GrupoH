@@ -6,6 +6,7 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.sql.Time;
 //import java.sql.Time;
 import java.sql.Timestamp;
 //import java.util.Date;
@@ -27,6 +28,10 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Evento implements Serializable {
+    
+    public enum TipoEvento {
+    deporte, musica, cultura, viajes, cursos, restaurantes, tecnología
+}
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,13 +42,6 @@ public class Evento implements Serializable {
     @Column(name = "titulo", nullable = false, length = 60)
     private String titulo;
 
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
 
     @Column(name = "descripcion", nullable = false, length = 60)
     private String descripcion;
@@ -54,6 +52,9 @@ public class Evento implements Serializable {
     @Column(name = "fecha_inicio", nullable = false)
     private java.sql.Timestamp fecha_inicio;
 
+    @Column(name = "hora_inicio", nullable = false)
+    private java.sql.Time hora_inicio;
+    
     @Column(name = "fecha_fin", nullable = true)
     private java.sql.Timestamp fecha_fin;
 
@@ -61,7 +62,7 @@ public class Evento implements Serializable {
     private String contacto;
 
     @Column(name = "tipo_evento", nullable = false, length = 9)
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     private TipoEvento tipo_evento;
 
     @Column(name = "valoracion", nullable = false)
@@ -69,6 +70,33 @@ public class Evento implements Serializable {
     
     @Column(name = "image", nullable = false)
     private String image;
+
+    public Evento(Long id, String titulo, String descripcion, String localizacion, Timestamp fecha_inicio, Time hora_inicio, Timestamp fecha_fin, String contacto, TipoEvento tipo_evento, int valoracion, String image, Usuario usuario, List<Foto> fotos, List<Comentario> comentarios) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.localizacion = localizacion;
+        this.fecha_inicio = fecha_inicio;
+        this.hora_inicio = hora_inicio;
+        this.fecha_fin = fecha_fin;
+        this.contacto = contacto;
+        this.tipo_evento = tipo_evento;
+        this.valoracion = valoracion;
+        this.image = image;
+        this.usuario = usuario;
+        this.fotos = fotos;
+        this.comentarios = comentarios;
+    }
+    
+   
+    
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
     public String getImage() {
         return image;

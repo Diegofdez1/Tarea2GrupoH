@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1>Crear Evento</h1>
+        <h:form id="gestE" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <th>Titulo del Evento: </th>
+                    <td><h:inputText value="#{gestE.evento.titulo}"/></td>
+                </tr>
+                <tr>
+                    <th>Descripción: </th>
+                    <td><h:inputText value="#{gestE.evento.descripcion}"/></td>
+                </tr>
+
+                <tr>
+                    <th>Localización: </th>
+                    <td><h:inputText value="#{gestE.evento.localizacion}"/></td>
+                </tr>
+                <tr>
+                    <th>Fecha del Evento:  </th>
+                    <td><h:inputText value="#{gestE.evento.fecha_inicio}"/></td>
+                </tr>
+                <tr>
+                    <th>Hora de inicio: </th>
+                    <td><h:inputText value="#{gestE.evento.hora_inicio}"/></td>
+                </tr>
+                <tr>
+                    <th>Contacto: </th>
+                    <td><h:inputText value="#{gestE.evento.contacto}"/></td>
+                </tr>
+                <tr>
+                    <th>Tipo de Evento</th>
+                    <td>
+                        <h:selectOneMenu value="#{gestE.evento.tipo_evento}">
+                            <f:selectItems value="#{gestE.tipos}" />
+                        </h:selectOneMenu>
+                    </td>
+                </tr>            
+                <tr>
+                    <td>
+                        <h3>Insertar una Imagen</h3>
+                        <p:messages showDetail="true"/>  
+                        <p:fileUpload value="#{gestE.file}" mode="simple"/>  
+                        <p:commandButton value="Submit" ajax="false"  actionListener="#{gestE.upload}"/>  
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h:commandButton value="Subir Evento" action="#{gestE.nuevoEvento()}"/>
+                    </td>
+                </tr>
+
+            </table>
+        </h:form>
+    </h:body>
+</html>
+

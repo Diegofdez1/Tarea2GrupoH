@@ -7,6 +7,7 @@ package T2;
 
 import Entidades.Usuario;
 import java.io.Serializable;
+import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -20,6 +21,7 @@ import javax.faces.context.FacesContext;
 public class Control implements Serializable {
     
     private Usuario usuario;
+    private List<Usuario> usuarios;
     
     public Control() {
     }
@@ -30,6 +32,7 @@ public class Control implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+        usuarios.add(usuario);
     }
     
     public String home() 
