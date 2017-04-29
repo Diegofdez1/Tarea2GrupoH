@@ -47,7 +47,7 @@ public class Control implements Serializable {
                 case usuario_anonimo:
                     return "home.xhtml";
                 case usuario_registrado:
-                    return "paginausuario.xhtml";
+                    return "eventos.xhtml";
                 case periodista:
                     return "periodista.xhtml";
                 case superusuario:

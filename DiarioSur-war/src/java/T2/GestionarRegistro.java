@@ -93,6 +93,7 @@ public class GestionarRegistro {
     }
    
     public String validar(){
+        
         FacesContext ctx = FacesContext.getCurrentInstance(); 
         if(nombre.trim().equals("")){
          ctx.addMessage("gestionarRegistro:nombre", new FacesMessage(FacesMessage.SEVERITY_ERROR, "nombre vacío","Nombre vacío"));
