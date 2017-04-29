@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:mp="http://primefaces.org/ui/material">
+
+    <f:view contentType="text/html">
+        
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Diario Sur</title>
+            </f:facet>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"></link>
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+            <script type="text/javascript" src="js/materialize.min.js"></script> 
+        </h:head>
+
+        <h:body>
+            
+            <nav class="nav-extended">
+                <div class="nav-wrapper">
+                    <h:link class="brand-logo" value="Agenda Cultural" outcome="index.xhtml"/>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                        <li><h:link value="Registro" outcome="registro.xhtml"/></li>
+                        <li><h:link value="Login" outcome="login.xhtml"/></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                        <li><h:link value="Registro" outcome="registro.xhtml"/></li>
+                        <li><h:link value="Login" outcome="login.xhtml"/></li>
+                    </ul>
+                </div>
+
+            </nav>
+
+            <div class="page-header">
+                <h3>Perfil de usuario</h3>
+            </div>
+            <div>
+                <h4>Datos personales</h4>
+            </div>
+            <div>
+            <h:panelGrid columns="2" cellpadding="50">
+                    <h:outputLabel for="email" value="Email: " />
+                    <h:outputLabel for="email" value="xxxxx" />
+
+                    <h:outputLabel for="name" value="Nombre: " />
+                    <h:outputLabel for="name" value="xxxxx" />
+
+                    <h:outputLabel for="surname" value="Apellido: " />
+                    <h:outputLabel for="surname" value="xxxxx" />
+
+                    <h:outputLabel for="phone" value="Teléfono: " />
+                    <h:outputLabel for="phone" value="xxxxx" />
+
+                </h:panelGrid>
+            </div>
+            <div>
+                <h4>Datos de interés</h4>
+            </div>
+            <div>
+                <h:outputLabel for="phone" value="xxxxxxxxxxxxxxxxxxxxx" />
+            </div>       
+            <div>
+                <h:outputLabel value="¿Quieres formar parte de nuestro equipo de periodistas? Pincha " />
+                <h:link value=" aquí " outcome="contacto.xhtml"/>
+                <h:outputLabel value=" y contacta con nosotros. " />
+            </div>
+            
+        </h:body>
+        
+    </f:view>
+    
+</html>
