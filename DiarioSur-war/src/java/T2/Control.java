@@ -5,6 +5,7 @@
  */
 package T2;
 
+import Entidades.Evento;
 import Entidades.Usuario;
 import java.io.Serializable;
 import java.util.List;
@@ -22,6 +23,7 @@ public class Control implements Serializable {
     
     private Usuario usuario;
     private List<Usuario> usuarios;
+    private List<Evento> eventos;
     
     public Control() {
     }
@@ -42,6 +44,15 @@ public class Control implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         usuarios.add(usuario);
+    }
+
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(Evento e) {
+        eventos.add(e);
+        this.eventos = eventos;
     }
     
     public String home() 

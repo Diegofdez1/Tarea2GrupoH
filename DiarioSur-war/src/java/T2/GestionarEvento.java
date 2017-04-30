@@ -34,9 +34,8 @@ public class GestionarEvento {
     private Date fecha;
     private String horaini;
     private Long telefono;
-    private TipoEvento tipo;
+    private String tipo;
     private String foto;
-    private List<TipoEvento> listatipos;
 
 
     private Evento evento;
@@ -91,11 +90,11 @@ public class GestionarEvento {
         this.telefono = telefono;
     }
 
-    public TipoEvento getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoEvento tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
@@ -128,19 +127,7 @@ public class GestionarEvento {
         evento = e;
     }
 
-    public List<TipoEvento> getListatipos() {
-        List<TipoEvento> tipos = new ArrayList<>();
-        for(TipoEvento tp: Evento.TipoEvento.values()){
-            tipos.add(tp);
-        }
-        return tipos;
-     
-    }
-
-    public void setListatipos(List<TipoEvento> listatipos) {
-        this.listatipos = listatipos;
-    }
-
+   
     public Evento getEvento() {
         return evento;
     }
@@ -230,6 +217,7 @@ public class GestionarEvento {
             return null;
         }
 
+        control.setEventos(evento);
         return control.home();
 
     }

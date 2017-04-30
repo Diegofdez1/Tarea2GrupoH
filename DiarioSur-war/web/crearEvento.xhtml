@@ -56,17 +56,14 @@
                                 <p:inputText class="validate" id="phone" value="#{gestE.telefono}" required="true"/>
                                 <label for="phone">Tlf de Contacto*</label>
                             </div>
-               
+
                             <div class="input-field row s2">
                                 <label for="tipo">Tipo de Evento*</label>
-                                <p:selectOneMenu class="validate" id="menu" value="#{gestE.tipo}" required="true" >
-                                    <f:selectItems value="#{gestE.listatipos}" />
-                                    
-                                    
-                                    
-                                </p:selectOneMenu>
+                                 <p:inputText class="validate" id="tipo" value="#{gestE.tipo}" required="true"/>
+                             
+
                             </div>
-                            <br/><br/><br/><br/>
+              
 
 
                             <div class="input-field row s2">
@@ -87,10 +84,8 @@
                     </div>
                 </div>
             </div>
-
+          
         </h:body>
-
     </f:view>
-
 </html>
 
