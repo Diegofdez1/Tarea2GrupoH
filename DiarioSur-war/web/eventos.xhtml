@@ -46,15 +46,16 @@
                         <li class="tab"><a href="#cultura">Cultura</a></li>
                         <li class="tab"><a href="#social">Social</a></li>
                         <li class="tab"><a href="#tecnologia">Tecnología</a></li>
+                        <li class="tab right"><a href="#crearEvento">Crear Evento</a></li>
 
                     </ul>
                 </div>
             </nav>
             
-            <div id="todos" class="page-header">
+            <div id="todos" class="col s12">
                 <h3>Todos los Eventos</h3>
             </div>
-            <div id="deportes" class="page-header">
+            <div id="deportes" class="col s12">
                 <h3>Eventos Deportivos</h3>
             </div>
             <div id="cultura" class="col s12">
@@ -65,6 +66,70 @@
             </div>
             <div id="tecnologia" class="col s12">
                 <h3>Eventos Tecnológicos</h3>
+            </div>
+            <div id="crearEvento" class="col s12">
+                <h3>Crear Evento</h3>
+                <div class ="container">
+                <div class="row">
+                    <div class="col-sm-4 align-self-center">
+
+                        <h:form id="gestE" class="container center-align">
+                            <div class="input-field row s2">
+                                <p:inputText class="validate" id="titulo" value="#{gestE.titulo}" required="false"/>
+                                <label for="titulo">Titulo*</label>
+                            </div>
+                            <div class="input-field row s2">
+                                <p:inputText class="validate" id="contenido" value="#{gestE.contenido}" required="false"/>
+                                <label for="contenio">Contenido</label>
+                            </div>
+                            <div class="input-field row s2">
+                                <p:inputText class="validate" id="localizacion" value="#{gestE.localizacion}" required="true"/>
+                                <label for="localizacion">Localización*</label>
+                            </div>  
+                            <div class="input-field row s2">
+                                <p:password class="validate" id="fecha" value="#{gestE.fecha}" required="true"/>
+                                <label for="fecha">Fecha *</label>
+                            </div>
+                            <div class="input-field row s2">
+                                <p:password class="validate" id="horaini" value="#{gestE.horaini}" required="true"/>
+                                <label for="horaini">Hora de inicio *</label>
+                            </div>
+
+                            <div class="input-field row s2">
+                                <p:inputText class="validate" id="phone" value="#{gestE.telefono}" required="true"/>
+                                <label for="phone">Tlf de Contacto*</label>
+                            </div>
+
+                            <div class="input-field row s2">
+                                <label for="tipo">Tipo de Evento*</label>
+                                 <p:inputText class="validate" id="tipo" value="#{gestE.tipo}" required="true"/>
+                             
+
+                            </div>
+              
+
+
+                            <div class="input-field row s2">
+                                <h:form enctype="multipart/form-data">
+                                    <p:growl id="messages" showDetail="true" />
+                                    <div class="row">    
+                                        <p:fileUpload value="#{gestE.file}" mode="simple"/>
+ 
+                                    </div> 
+                                    
+                                    
+                                    <div class="row">    
+                                        <p:commandButton class="btn btn-primary align-self-center" value="Crear" onclick="#{gestE.nuevoEvento()}" />
+                                    </div>  
+                                </h:form>
+                                <label for="foto">Insertar Foto</label>
+                            </div>
+
+                                                      
+                        </h:form>
+                    </div>
+                </div>
+            </div>
             </div>
 
                         

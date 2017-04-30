@@ -13,6 +13,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+
 /**
  *
  * @author Hind
@@ -43,8 +49,6 @@ public class Login {
     public void setUsuarios() {
         this.usuarios = control.getUsuarios();
     }
-    
-    
 
     public String getPass() {
         return pass;
@@ -63,7 +67,7 @@ public class Login {
     }
 
     public String autenticar() {
-        String aux = null;
+        String aux = "Hola";
         for (Usuario u : usuarios) {
             if (u.getCorreoE().equalsIgnoreCase(correoE)) {
 
