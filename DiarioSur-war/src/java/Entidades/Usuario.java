@@ -48,7 +48,7 @@ public class Usuario implements Serializable {
     @Column (name = "rol", nullable = false, length = 10)
     private Rol rol;
 
-    public Usuario(String nombre, String apellidos, String correoE, String password, String password2, Long telefono,Rol rol) {
+    public Usuario(String nombre, String apellidos, String correoE, String password, Long telefono,Rol rol) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.correoE = correoE;
