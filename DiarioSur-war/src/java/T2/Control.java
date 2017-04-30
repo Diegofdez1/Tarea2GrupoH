@@ -57,25 +57,30 @@ public class Control implements Serializable {
     
     public String home() 
     {
+        
+        String aux=null;
+        
         if (usuario == null) 
         {
-            return "home.xhtml";
+            aux="index.xhtml";
         } 
         else 
         {
+            //usuarios.add(usuario.getId().intValue(), usuario);
             switch (usuario.getRol()) {
-                case usuario_anonimo:
-                    return "home.xhtml";
+               /* case usuario_anonimo:
+                  return "index.xhtml"; */
                 case usuario_registrado:
-                    return "eventos.xhtml";
+                    aux="eventos.xhtml";
                 case periodista:
-                    return "periodista.xhtml";
+                    aux="periodista.xhtml"; //(Vista no existente)
                 case superusuario:
-                    return "superusuario.xhtml";
+                    aux="superusuario.xhtml";  // (Vista no eistente)
                    
             }
-        }
-        return null;
+        } 
+        return aux;
+        //return "eventos.xhtml";
     }
     
     
