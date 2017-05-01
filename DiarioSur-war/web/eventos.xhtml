@@ -62,7 +62,9 @@
                     </h:form>-->
                     <ui:repeat var="event" value="#{gestE.todosEventos()}">
                         <li class="collection-item">
-                        <f:param name="titulo" value="#{event.getTitulo()}"/>
+                            <h:outputText escape="true" value="#{event.getTitulo()}"/>
+                            <h:link value="Detalles del evento" outcome="eventoInfo.xhtml?id=#{event.getId()}" />
+                            <!-- Mirar otras formas de pasar parámentos entre páginas-->
                         </li>
                     </ui:repeat>
                     <li class="collection-item">Alvin</li>
