@@ -75,13 +75,13 @@ public class GestionarPerfil implements Serializable {
     }
     
     
-    public String crearPerfil(Usuario u, String mail, String nom, String Ap, int tel)
+    public String crearPerfil(Usuario u)
     { //vista perfil.xhtml (Modificar perfil button)-->  a vista registrarse.xhtml modificarPerfil(...)->perfil.xhtml
         usuario=u;
-        usuario.setCorreoE(mail);
-        usuario.setNombre(nom);
-        usuario.setApellidos(Ap);
-        usuario.setTelefono(tel);
+        email=u.getCorreoE();
+        nombre=u.getNombre();
+        apellidos=u.getApellidos();
+        telefono=u.getTelefono();
         return "perfil.xhtml";
     }
     
