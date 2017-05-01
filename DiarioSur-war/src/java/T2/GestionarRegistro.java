@@ -104,7 +104,7 @@ public class GestionarRegistro {
 
         }
         if (email.trim().equals("")) {
-            ctx.addMessage("gestionarRegistro:email", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email vacío", "Email vacío"));
+            ctx.addMessage("gestionarRegistro:correoE", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email vacío", "Email vacío"));
             err=true;
 //aux="index.xhtml";
 
@@ -115,36 +115,36 @@ public class GestionarRegistro {
 //aux="index.xhtml";
 
         } 
-        if (!password.equalsIgnoreCase(password2)) {
+        if ((!password.equalsIgnoreCase(password2))||(password2.trim().equals(""))) {
             ctx.addMessage("gestionarRegistro:password", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords no coinciden", "Passwords no coinciden"));
             err=true;
             //aux="index.xhtml";
 
         }
-        if (password2.trim().equals("")) {
-            ctx.addMessage("gestionarRegistro:password2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password2 vacío", "Password2 vacío"));
-            err=true;
+        //if (password2.trim().equals("")) {
+         //   ctx.addMessage("gestionarRegistro:password2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password2 vacío", "Password2 vacío"));
+          //  err=true;
 //aux="index.xhtml";
 
-        }
+        //}
         if (telefono <=0) {
             ctx.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Telefono vacío", "Telefono vacío"));
             err=true;
         //aux="index.xhtml";
 
-        } if(!err) {
-            /*
+        } else if(!err) {
+            
             usuario = new Usuario(nombre, apellidos, email, password, telefono, Rol.usuario_registrado);
             control.setUsuario(usuario);
             control.getUsuarios().add(usuario);
-            perfil.crearPerfil(usuario, email, nombre, apellidos, telefono);
-            *
+            perfil.crearPerfil(usuario);
+            
             
             //aux=control.home();
-            FacesContext ct = FacesContext.getCurrentInstance();
-            ct.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_INFO, "Ussuario "+ usuario.getNombre()+" registrado correctamente", "Ussuario "+ usuario.getNombre()+" registrado correctamente"));
+            //FacesContext ct = FacesContext.getCurrentInstance();
+            //ct.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_INFO, "Ussuario "+ usuario.getNombre()+" registrado correctamente", "Ussuario "+ usuario.getNombre()+" registrado correctamente"));
     
-        */
+        
             
         }
 
