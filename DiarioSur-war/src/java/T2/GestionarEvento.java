@@ -28,6 +28,7 @@ import org.primefaces.model.UploadedFile;
 @RequestScoped
 public class GestionarEvento {
 
+
     private String titulo;
     private String contenido;
     private String localizacion;
@@ -200,7 +201,7 @@ public class GestionarEvento {
     }
 
     public String nuevoEvento() {
-        String vista = "eventoInfo.xhtml";
+        String vista = "eventos.xhtml";
         boolean err = false;
 
         FacesContext ctx = FacesContext.getCurrentInstance();
@@ -248,6 +249,14 @@ public class GestionarEvento {
         return e.getValoracion();
     }
 
+    public List<String> tiposeventos(){
+        List<String> res = new ArrayList<String>();
+        for(TipoEvento aux :  Evento.TipoEvento.values()){
+            res.add( aux.toString());
+        }
+        
+        return res;
+    }
     public List<Evento> eventosRelacionados(Evento e) {
         List<Evento> res = new ArrayList<Evento>();
         for (Evento x : res) {
@@ -296,4 +305,6 @@ public class GestionarEvento {
 
         return res;
     }
+    
+    
 }
