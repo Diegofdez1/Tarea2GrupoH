@@ -72,7 +72,7 @@ public class Datos implements Serializable {
     u1.setFotos(fotos1);
     u1.setPassword("idjsi");
     u1.setRol(Rol.administrador);
-    u1.setTelefono(Long.MIN_VALUE);
+    u1.setTelefono(691223455);
     allusuarios.add(u1);
     
     Usuario u2=new Usuario();
@@ -84,7 +84,7 @@ public class Datos implements Serializable {
     u2.setFotos(fotos2);
     u2.setPassword("id4jsi");
     u2.setRol(Rol.periodista);
-    u2.setTelefono(Long.MIN_VALUE+1);
+    u2.setTelefono(698233445);
     allusuarios.add(u2);
 
     Usuario u3=new Usuario();
@@ -96,7 +96,7 @@ public class Datos implements Serializable {
     u3.setFotos(fotos3);
     u3.setPassword("id44jsi");
     u3.setRol(Rol.superusuario);
-    u3.setTelefono(Long.MIN_VALUE+2);
+    u3.setTelefono(692873926);
     allusuarios.add(u3);
     
     Usuario u4=new Usuario();
@@ -108,7 +108,7 @@ public class Datos implements Serializable {
     u4.setFotos(fotos4);
     u4.setPassword("id44jsi");
     u4.setRol(Rol.usuario_registrado);
-    u4.setTelefono(Long.MIN_VALUE+3);
+    u4.setTelefono(93729873);
     allusuarios.add(u4);
     
     //// Deberíamos quitar el rol usuario anónimo... no sirve para nada porque no tiene que tener datos!! (Hind) 
