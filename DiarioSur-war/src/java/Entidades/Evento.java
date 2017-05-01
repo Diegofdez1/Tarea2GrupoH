@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.sql.Time;
 //import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Date;
 //import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -27,20 +28,17 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Evento implements Serializable {
-
-    public Evento() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public enum TipoEvento {
+public enum TipoEvento {
     deporte, musica, cultura, viajes, cursos, restaurantes, tecnología
 }
+
+    
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_evento")
-    private Long id;
+    private Integer id;
     
     @Column(name = "titulo", nullable = false, length = 60)
     private String titulo;
@@ -53,13 +51,13 @@ public class Evento implements Serializable {
     private String localizacion;
 
     @Column(name = "fecha_inicio", nullable = false)
-    private java.sql.Timestamp fecha_inicio;
+    private java.util.Date fecha_inicio;
 
     @Column(name = "hora_inicio", nullable = false)
     private java.sql.Time hora_inicio;
     
     @Column(name = "fecha_fin", nullable = true)
-    private java.sql.Timestamp fecha_fin;
+    private java.util.Date fecha_fin;
 
     @Column(name = "contacto_evento", nullable = false, length = 20)
     private String contacto;
@@ -71,10 +69,13 @@ public class Evento implements Serializable {
     @Column(name = "valoracion", nullable = false)
     private int valoracion;
     
+     @Column(name = "comentario", nullable = false, length = 60)
+    private String comentario;
+    
     @Column(name = "image", nullable = false)
     private String image;
 
-    public Evento(Long id, String titulo, String descripcion, String localizacion, Timestamp fecha_inicio, Time hora_inicio, Timestamp fecha_fin, String contacto, TipoEvento tipo_evento, int valoracion, String image, Usuario usuario, List<Foto> fotos, List<Comentario> comentarios) {
+    public Evento(int id, String titulo, String descripcion, String localizacion, Date fecha_inicio, Time hora_inicio, Date fecha_fin, String contacto, TipoEvento tipo_evento, int valoracion, String image, String comentario){
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -86,9 +87,7 @@ public class Evento implements Serializable {
         this.tipo_evento = tipo_evento;
         this.valoracion = valoracion;
         this.image = image;
-        this.usuario = usuario;
-        this.fotos = fotos;
-        this.comentarios = comentarios;
+        this.comentario = comentario;
     }
     
    
@@ -130,11 +129,11 @@ public class Evento implements Serializable {
 
     // valoracion
     //--------End Relaciones---------
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -154,7 +153,7 @@ public class Evento implements Serializable {
         this.localizacion = localizacion;
     }
 
-    public Timestamp getFecha_inicio() {
+    public java.util.Date getFecha_inicio() {
         return fecha_inicio;
     }
 
@@ -162,7 +161,7 @@ public class Evento implements Serializable {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public Timestamp getFecha_fin() {
+    public java.util.Date getFecha_fin() {
         return fecha_fin;
     }
 
@@ -194,6 +193,15 @@ public class Evento implements Serializable {
         this.usuario = usuario;
     }
 
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    
     public List<Foto> getFotos() {
         return fotos;
     }

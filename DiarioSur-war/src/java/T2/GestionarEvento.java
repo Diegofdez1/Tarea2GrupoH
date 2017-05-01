@@ -13,6 +13,7 @@ import Entidades.Usuario;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
@@ -27,20 +28,30 @@ import org.primefaces.model.UploadedFile;
 @RequestScoped
 public class GestionarEvento {
 
-    
+
     private String titulo;
     private String contenido;
     private String localizacion;
     private Date fecha;
-    private String horaini;
-    private Long telefono;
-    private String tipo;
+    private java.sql.Time horaini;
+    private String telefono;
+    private TipoEvento tipo;
     private String foto;
-
-
+    private List<Usuario> usuarios;
+    private List<Evento> pendientes;
     private Evento evento;
     private Usuario usuario;
     private UploadedFile file;
+    private List<Evento> eventos;
+
+    @PostConstruct
+    public void init() {
+        eventos = new ArrayList<Evento>();
+        eventos.add(new Evento(1, "Malaga Viva", "Contenido de la noticia1", "Malaga", new java.util.Date(2017, 5, 11), new java.sql.Time(2, 30, 00), new java.util.Date(2017, 5, 11), "607625489", TipoEvento.musica, 0, "/imagenes/foto1", ""));
+        eventos.add(new Evento(2, "Motos", "Contenido de la noticia2", "Malaga", new java.util.Date(2017, 6, 11), new java.sql.Time(2, 40, 00), new java.util.Date(2017, 6, 15), "607625489", TipoEvento.deporte, 0, "/imagenes/foto2", ""));
+        eventos.add(new Evento(3, "El mejor Restaurante", "Contenido de la noticia3", "Malaga", new java.util.Date(2017, 7, 11), new java.sql.Time(2, 50, 00), new java.util.Date(2017, 9, 19), "607625489", TipoEvento.restaurantes, 0, "/imagenes/foto3", ""));
+
+    }
 
     public String getTitulo() {
         return titulo;
@@ -74,27 +85,27 @@ public class GestionarEvento {
         this.fecha = fecha;
     }
 
-    public String getHoraini() {
+    public java.sql.Time getHoraini() {
         return horaini;
     }
 
-    public void setHoraini(String horaini) {
+    public void setHoraini(java.sql.Time horaini) {
         this.horaini = horaini;
     }
 
-    public Long getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Long telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public String getTipo() {
+    public TipoEvento getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoEvento tipo) {
         this.tipo = tipo;
     }
 
@@ -108,26 +119,15 @@ public class GestionarEvento {
     private Control control;
 
     //private List<Foto> fotos;
-    private List<Usuario> usuarios;
-    private List<Evento> eventos; // 
-    private List<Evento> pendientes;
     //private Comentario comentario;
     //private List<Comentario> comentarios;
-
     /**
      * Creates a new instance of GestionarEvento
      */
-    public GestionarEvento() {
-        eventos = new ArrayList();
-        usuarios = new ArrayList();   ///// Cargar con ficticios
-        pendientes = new ArrayList();
-    }
-
     public GestionarEvento(Evento e) {
         evento = e;
     }
 
-   
     public Evento getEvento() {
         return evento;
     }
@@ -217,7 +217,8 @@ public class GestionarEvento {
             return null;
         }
 
-        control.setEventos(evento);
+        Evento e = new Evento(5, titulo, contenido, localizacion,fecha, horaini, fecha, telefono, tipo, 0, foto, "");
+        control.setEventos(e);
         return control.home();
 
     }
@@ -252,9 +253,11 @@ public class GestionarEvento {
         return res;
 
     }
-    public List<Evento> EventosCulturales(){
+
+    public List<Evento> EventosCulturales() {
         return BuscarEvento("musica", "tipo");
     }
+
     public List<Evento> BuscarEvento(String busqueda, String filtro) {
         List<Evento> res = new ArrayList<Evento>();
         if (filtro.equalsIgnoreCase("titulo")) {
@@ -277,16 +280,13 @@ public class GestionarEvento {
         return res;
     }
 
-    public List<Evento> TodosEventos(){
+    public List<Evento> TodosEventos() {
         List<Evento> res = new ArrayList<Evento>();
-        for(Evento e : eventos){
+        for (Evento e : eventos) {
             res.add(e);
             System.out.println(e.getTitulo());
         }
-        
-        
-        
-        
+
         return res;
     }
 }

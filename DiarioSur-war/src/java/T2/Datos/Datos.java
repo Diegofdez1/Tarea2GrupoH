@@ -174,7 +174,7 @@ public class Datos implements Serializable {
     allfotos.add(f3);
     allfotos.add(f4);
     
-    
+  /*  
     Evento e1=new Evento();
     e1.setComentarios(comentarios1);
     e1.setContacto("contacto1");
@@ -236,7 +236,7 @@ public class Datos implements Serializable {
     alleventos.add(e2);
     alleventos.add(e1);
 
-    
+    */
 
 
     
