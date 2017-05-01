@@ -42,13 +42,13 @@ public class Usuario implements Serializable {
     private String password;
     
     @Column (name = "telefono", nullable = true, length = 12)
-    private Long telefono;
+    private int telefono;
     
     @Enumerated(EnumType.STRING)
     @Column (name = "rol", nullable = false, length = 10)
     private Rol rol;
 
-    public Usuario(String nombre, String apellidos, String correoE, String password, Long telefono,Rol rol) {
+    public Usuario(String nombre, String apellidos, String correoE, String password, int telefono,Rol rol) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.correoE = correoE;
@@ -155,11 +155,11 @@ public class Usuario implements Serializable {
         this.fotos = fotos;
     }
 
-    public Long getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
     
-    public void setTelefono(Long telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
     

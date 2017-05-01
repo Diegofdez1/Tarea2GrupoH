@@ -6,19 +6,66 @@
 package T2;
 
 import Entidades.Usuario;
+import java.io.Serializable;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
 
 /**
  *
  * @author Grupo H
  */
 @Named(value = "gestionarPerfil")
-@Dependent
-public class GestionarPerfil {
+@SessionScoped
+
+public class GestionarPerfil implements Serializable {
     private Usuario usuario;
-    //private List<Usuario> usuarios;
+    //private List<Usuario> usuarios; NO!!!!
+    private String email;
+    private String nombre;
+    private String apellidos;
+    private int telefono;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
     
 
     /**
@@ -28,11 +75,12 @@ public class GestionarPerfil {
     }
     
     
-    public String modificarPerfil(Usuario u,String nom, String App, Long tel)
+    public String crearPerfil(Usuario u, String mail, String nom, String Ap, int tel)
     { //vista perfil.xhtml (Modificar perfil button)-->  a vista registrarse.xhtml modificarPerfil(...)->perfil.xhtml
         usuario=u;
+        usuario.setCorreoE(mail);
         usuario.setNombre(nom);
-        usuario.setApellidos(App);
+        usuario.setApellidos(Ap);
         usuario.setTelefono(tel);
         return "perfil.xhtml";
     }

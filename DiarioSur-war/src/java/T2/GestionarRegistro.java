@@ -5,6 +5,7 @@
  */
 package T2;
 
+import Entidades.Evento;
 import Entidades.Rol;
 import Entidades.Usuario;
 import java.util.List;
@@ -29,8 +30,9 @@ public class GestionarRegistro {
     private String email;
     private String password;
     private String password2;
-    private Long telefono;
-  
+    private int telefono;
+    private GestionarPerfil perfil;
+    private Evento evento;
 
     
     private Control control;
@@ -77,11 +79,11 @@ public class GestionarRegistro {
         this.password2 = password2;
     }
 
-    public Long getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Long telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
@@ -114,19 +116,23 @@ public class GestionarRegistro {
             ctx.addMessage("gestionarRegistro:password2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password2 vacío", "Password2 vacío"));
             //aux="index.xhtml";
 
-        } else if (telefono == null) {
+        } else if (telefono <=0) {
             ctx.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Telefono vacío", "Telefono vacío"));
             //aux="index.xhtml";
 
         } else {
+            /*
             usuario = new Usuario(nombre, apellidos, email, password, telefono, Rol.usuario_registrado);
             control.setUsuario(usuario);
             control.getUsuarios().add(usuario);
-            aux=control.home();
+            perfil.crearPerfil(usuario, email, nombre, apellidos, telefono);
+            *
+            
+            //aux=control.home();
             FacesContext ct = FacesContext.getCurrentInstance();
             ct.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_INFO, "Ussuario "+ usuario.getNombre()+" registrado correctamente", "Ussuario "+ usuario.getNombre()+" registrado correctamente"));
     
-        
+        */
             
         }
         return aux;
