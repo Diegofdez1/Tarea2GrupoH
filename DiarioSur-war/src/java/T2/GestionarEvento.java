@@ -252,7 +252,9 @@ public class GestionarEvento {
         return res;
 
     }
-
+    public List<Evento> EventosCulturales(){
+        return BuscarEvento("musica", "tipo");
+    }
     public List<Evento> BuscarEvento(String busqueda, String filtro) {
         List<Evento> res = new ArrayList<Evento>();
         if (filtro.equalsIgnoreCase("titulo")) {
@@ -272,6 +274,19 @@ public class GestionarEvento {
                 }
             }
         }
+        return res;
+    }
+
+    public List<Evento> TodosEventos(){
+        List<Evento> res = new ArrayList<Evento>();
+        for(Evento e : eventos){
+            res.add(e);
+            System.out.println(e.getTitulo());
+        }
+        
+        
+        
+        
         return res;
     }
 }

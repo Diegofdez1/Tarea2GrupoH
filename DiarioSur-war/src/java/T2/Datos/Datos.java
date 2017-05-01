@@ -197,6 +197,17 @@ public class Datos implements Serializable {
     e2.setTipo_evento(TipoEvento.musica);
     e2.setUsuario(u2);
     
+    Evento e2bis=new Evento();
+    e2.setComentarios(comentarios2);
+    e2.setContacto("contacto2");
+    e2.setDescripcion("Musica2");
+    //e2.setFecha_inicio(WED 12-11-2017); luego miro el formato 
+    //e2.setFecha_fin(fecha_fin);
+    e2.setFotos(fotos2);
+    e2.setLocalizacion("Malaga");
+    e2.setTipo_evento(TipoEvento.musica);
+    e2.setUsuario(u2);
+    
     
     Evento e3=new Evento();
     e3.setComentarios(comentarios3);
