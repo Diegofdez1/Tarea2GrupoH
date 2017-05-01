@@ -89,6 +89,7 @@ public class GestionarRegistro {
 
  public String validar() {
         boolean err=false;
+        String aux="eventos.xhtml";
         
 
         FacesContext ctx = FacesContext.getCurrentInstance();
@@ -138,17 +139,14 @@ public class GestionarRegistro {
             control.setUsuario(usuario);
             control.getUsuarios().add(usuario);
             perfil.crearPerfil(usuario);
-            
-            
-            //aux=control.home();
-            //FacesContext ct = FacesContext.getCurrentInstance();
-            //ct.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_INFO, "Ussuario "+ usuario.getNombre()+" registrado correctamente", "Ussuario "+ usuario.getNombre()+" registrado correctamente"));
-    
+            FacesContext ct = FacesContext.getCurrentInstance();
+            ct.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_INFO, "Ussuario "+ usuario.getNombre()+" registrado correctamente", "Ussuario "+ usuario.getNombre()+" registrado correctamente"));
+            aux=control.home();
         
             
         }
 
-        return "eventos.xhtml";
+        return aux;
 
     }
     
