@@ -88,8 +88,6 @@ public class GestionarRegistro {
     }
 
  public String validar() {
-        //String aux= "eventos.xhtml";
-        //String aux="eventos.xhtml";
         boolean err=false;
         
 
@@ -149,7 +147,7 @@ public class GestionarRegistro {
         */
             
         }
-        //return aux;
+
         return "eventos.xhtml";
 
     }
