@@ -28,7 +28,6 @@ import org.primefaces.model.UploadedFile;
 @RequestScoped
 public class GestionarEvento {
 
-
     private String titulo;
     private String contenido;
     private String localizacion;
@@ -201,26 +200,34 @@ public class GestionarEvento {
     }
 
     public String nuevoEvento() {
+        String vista = "eventoInfo.xhtml";
+        boolean err = false;
 
         FacesContext ctx = FacesContext.getCurrentInstance();
         if (evento.getTitulo().trim().equals("")) {
             ctx.addMessage("gestE:titulo", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contacto vacío", "Contacto vacío"));
-            return null;
-        } else if (evento.getContacto().trim().equals("")) {
-            ctx.addMessage("gestE:contacto", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contacto vacío", "Contacto vacío"));
-            return null;
-        } else if (evento.getLocalizacion().trim().equals("")) {
-            ctx.addMessage("gestE:localizacion", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Dirección vacía", "Dirección vacía"));
-            return null;
-        } else if (evento.getDescripcion().trim().equals("")) {
-            ctx.addMessage("gestE:descripcion", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Descripción vacía", "Descripción vacía"));
-            return null;
+            err = true;
         }
+        if (evento.getContacto().trim().equals("")) {
+            ctx.addMessage("gestE:contacto", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contacto vacío", "Contacto vacío"));
+            err = true;
+        }
+        if (evento.getLocalizacion().trim().equals("")) {
+            ctx.addMessage("gestE:localizacion", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Dirección vacía", "Dirección vacía"));
+            err = true;
+        }
+        if (evento.getDescripcion().trim().equals("")) {
+            ctx.addMessage("gestE:descripcion", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Descripción vacía", "Descripción vacía"));
+            err = true;
+        }
+        if (!err) {
+            /*
 
         Evento e = new Evento(5, titulo, contenido, localizacion,fecha, horaini, fecha, telefono, tipo, 0, foto, "");
         control.setEventos(e);
-        return control.home();
-
+        aux=control.home();*/
+        }
+        return vista;
     }
 
     public void upload() {
