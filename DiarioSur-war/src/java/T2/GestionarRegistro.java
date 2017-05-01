@@ -87,40 +87,54 @@ public class GestionarRegistro {
         this.telefono = telefono;
     }
 
-    public String validar() {
+ public String validar() {
         //String aux= "eventos.xhtml";
-        String aux="eventos.xhtml";
+        //String aux="eventos.xhtml";
+        boolean err=false;
         
 
         FacesContext ctx = FacesContext.getCurrentInstance();
         if (nombre.trim().equals("")) {
             ctx.addMessage("gestionarRegistro:nombre", new FacesMessage(FacesMessage.SEVERITY_ERROR, "nombre vacío", "Nombre vacío"));
             //aux=null;
-        } else if (apellidos.trim().equals("")) {
+            err=true;
+        } 
+        if (apellidos.trim().equals("")) {
             ctx.addMessage("gestionarRegistro:apellidos", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Apellidos vacío", "Apellidos vacío"));
-            //aux="index.xhtml";
+            err=true;
+//aux="index.xhtml";
 
-        } else if (email.trim().equals("")) {
+        }
+        if (email.trim().equals("")) {
             ctx.addMessage("gestionarRegistro:email", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email vacío", "Email vacío"));
-            //aux="index.xhtml";
+            err=true;
+//aux="index.xhtml";
 
-        } else if (password.trim().equals("")) {
+        } 
+        if (password.trim().equals("")) {
             ctx.addMessage("gestionarRegistro:password", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password vacío", "Password vacío"));
-            //aux="index.xhtml";
+            err=true;
+//aux="index.xhtml";
 
-        } else if (!password.equalsIgnoreCase(password2)) {
+        } 
+        if (!password.equalsIgnoreCase(password2)) {
             ctx.addMessage("gestionarRegistro:password", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords no coinciden", "Passwords no coinciden"));
+            err=true;
             //aux="index.xhtml";
 
-        } else if (password2.trim().equals("")) {
+        }
+        if (password2.trim().equals("")) {
             ctx.addMessage("gestionarRegistro:password2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password2 vacío", "Password2 vacío"));
-            //aux="index.xhtml";
+            err=true;
+//aux="index.xhtml";
 
-        } else if (telefono <=0) {
+        }
+        if (telefono <=0) {
             ctx.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Telefono vacío", "Telefono vacío"));
-            //aux="index.xhtml";
+            err=true;
+        //aux="index.xhtml";
 
-        } else {
+        } if(!err) {
             /*
             usuario = new Usuario(nombre, apellidos, email, password, telefono, Rol.usuario_registrado);
             control.setUsuario(usuario);
@@ -135,8 +149,8 @@ public class GestionarRegistro {
         */
             
         }
-        return aux;
-
+        //return aux;
+        return "eventos.xhtml";
 
     }
     
