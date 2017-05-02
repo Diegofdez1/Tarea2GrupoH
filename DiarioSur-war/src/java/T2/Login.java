@@ -36,11 +36,11 @@ public class Login {
     private Control ctrl;
 
     /**
-     * Creates a new instance of Login
+     * Creates a new instance of Login          ///////CREO QUE EL CONSTRUCTOR VACIO NO HACE FALTA
      */
-    public Login() {
+   /* public Login() {
 
-    }
+    }*/
 
     public List<Usuario> getUsuarios() {
         return usuarios;
@@ -66,14 +66,15 @@ public class Login {
         this.correoE = correoE;
     }
 
-    public String autenticar() {
-        String aux = "Hola";
+    public String autenticar() { // autenticar checked and approved. 
+        
         for (Usuario u : usuarios) {
             if (u.getCorreoE().equalsIgnoreCase(correoE)) {
 
                 if (u.getPassword().equals(pass)) {
                     control.setUsuario(u);
-                    aux = control.home();
+                   
+                     
                 } else {
                     FacesContext ctx = FacesContext.getCurrentInstance();
                     ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "contraseña errónea", "contraseña errónea"));
@@ -83,7 +84,7 @@ public class Login {
                 ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario no existe", "El usuario no existe"));
             }
         }
-        return aux;
+        return control.home();
     }
 
 }

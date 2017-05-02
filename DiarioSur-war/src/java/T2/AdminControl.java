@@ -6,18 +6,20 @@
 package T2;
 
 import Entidades.Evento;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
 
 /**
  *
  * @author Grupo Hi
  */
 @Named(value = "admCtrl")
-@Dependent
-public class AdminControl {
+@SessionScoped
+public class AdminControl implements Serializable {
     private Evento evento;
     private List<Evento> pendientes;
     private List<Evento> eventos;

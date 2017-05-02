@@ -55,32 +55,28 @@ public class Control implements Serializable {
         this.eventos = eventos;
     }
     
-    public String home() 
+    public String home()  // Home Checked and approved
     {
-        
-        String aux=null;
         
         if (usuario == null) 
         {
-            aux="index.xhtml";
+            return "index.xhtml";
         } 
         else 
         {
             //usuarios.add(usuario.getId().intValue(), usuario);
             switch (usuario.getRol()) {
-               /* case usuario_anonimo:
-                  return "index.xhtml"; */
                 case usuario_registrado:
-                    aux="eventos.xhtml";
+                    return"eventos.xhtml";
                 case periodista:
-                    aux="periodista.xhtml"; //(Vista no existente)
+                    return "periodista.xhtml"; //(Vista no existente)
                 case superusuario:
-                    aux="superusuario.xhtml";  // (Vista no eistente)
+                    return"eventos.xhtml";  // (Vista no eistente)
                    
             }
         } 
-        return aux;
-        //return "eventos.xhtml";
+        return null;
+        
     }
     
     
