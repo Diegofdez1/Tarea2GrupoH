@@ -29,7 +29,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Event implements Serializable {
 public enum TipoEvento {
-    deporte, musica, cultura, viajes, cursos, restaurantes, tecnología
+    deporte, musica, cultura, viajes, cursos, restaurantes, tecnologia
 }
 
     

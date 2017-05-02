@@ -13,12 +13,12 @@ import Entidades.Usuario;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.UploadedFile;
 
@@ -47,6 +47,7 @@ public class ManageEvent {
     private UploadedFile file;
     private List<Event> eventos;
     private Control control;
+    public String id;
     
     public ManageEvent(){
         eventos = new ArrayList<Event>();
@@ -55,11 +56,37 @@ public class ManageEvent {
     @PostConstruct
     public void init() {
         eventos = new ArrayList<Event>();
-        eventos.add(new Event(1, "Malaga Viva", "Contenido de la noticia1", "Malaga", new java.util.Date(2017, 5, 11), new java.sql.Time(2, 30, 00), new java.util.Date(2017, 5, 11), "607625489", TipoEvento.musica, 0, "/imagenes/foto1", ""));
-        eventos.add(new Event(2, "Motos", "Contenido de la noticia2", "Malaga", new java.util.Date(2017, 6, 11), new java.sql.Time(2, 40, 00), new java.util.Date(2017, 6, 15), "607625489", TipoEvento.deporte, 0, "/imagenes/foto2", ""));
-        eventos.add(new Event(3, "El mejor Restaurante", "Contenido de la noticia3", "Malaga", new java.util.Date(2017, 7, 11), new java.sql.Time(2, 50, 00), new java.util.Date(2017, 9, 19), "607625489", TipoEvento.restaurantes, 0, "/imagenes/foto3", ""));
+        eventos.add(new Event(1, "Malaga Viva", "Contenido de la noticia1", "Malaga", new java.util.Date(2017, 5, 11), new java.sql.Time(2, 30, 00), new java.util.Date(2017, 5, 11), "607625489", TipoEvento.musica, 0, "foto1.jpeg", ""));
+        eventos.add(new Event(2, "Motos", "Contenido de la noticia2", "Malaga", new java.util.Date(2017, 6, 11), new java.sql.Time(2, 40, 00), new java.util.Date(2017, 6, 15), "607625489", TipoEvento.deporte, 0, "foto2.jpg", ""));
+        eventos.add(new Event(3, "El mejor Restaurante", "Contenido de la noticia3", "Malaga", new java.util.Date(2017, 7, 11), new java.sql.Time(2, 50, 00), new java.util.Date(2017, 9, 19), "607625489", TipoEvento.restaurantes, 0, "foto3.jpg", ""));
 
     }
+    
+    
+    //get value from "f:param"
+    public String getIdParam(FacesContext fc){
+            Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+            return params.get("id");
+    }
+    
+    public String outcome(){
+
+            FacesContext fc = FacesContext.getCurrentInstance();
+            id = getIdParam(fc);
+            for (Event e : eventos) {
+                if(String.valueOf(e.getId()).equals(id)){
+                    this.setEvento(e);
+                }
+            System.out.println(e.getTitulo());
+        }
+            System.out.println("hola");
+            return "eventoInfo.xhtml";
+    }
+    
+    public String getId(){
+        return id;
+    }
+            
 
     public String getTitulo() {
         return titulo;
@@ -268,11 +295,8 @@ public class ManageEvent {
 
     }
 
-    public List<Event> EventosCulturales() {
-        return BuscarEvento("musica", "tipo");
-    }
 
-    public List<Event> BuscarEvento(String busqueda, String filtro) {
+    public List<Event> buscarEvento(String busqueda, String filtro) {
         List<Event> res = new ArrayList<Event>();
         if (filtro.equalsIgnoreCase("titulo")) {
             for (Event e : eventos) {
@@ -294,7 +318,7 @@ public class ManageEvent {
         return res;
     }
 
-    public List<Event> TodosEventos() {
+    public List<Event> todosEventos() {
         List<Event> res = new ArrayList<Event>();
         for (Event e : eventos) {
             res.add(e);
@@ -302,6 +326,47 @@ public class ManageEvent {
         }
         return res;
     }
+    
+    public List<Event> eventosTipo(TipoEvento te) {
+        List<Event> res = new ArrayList<Event>();
+        for (Event e : eventos) {
+            if(te.equals(e.getTipo_evento())){
+              res.add(e);  
+            }
+            
+        }
+        return res;
+    }
+    
+    public List<Event> eventosDeportivos(){
+        return eventosTipo(TipoEvento.deporte);
+    }
+    
+    public List<Event> eventosMusicales(){
+        return eventosTipo(TipoEvento.musica);
+    }
+    
+    public List<Event> eventosCulturales(){
+        return eventosTipo(TipoEvento.cultura);
+    }
+    
+    public List<Event> eventosViajes(){
+        return eventosTipo(TipoEvento.viajes);
+    }
+    
+    public List<Event> eventosCursos(){
+        return eventosTipo(TipoEvento.cursos);
+    }
+    
+    public List<Event> eventosRestaurantes(){
+        return eventosTipo(TipoEvento.restaurantes);
+    }
+    
+    public List<Event> eventosTecnologia(){
+        return eventosTipo(TipoEvento.tecnologia);
+    }
+        
+    
     
     
 }
