@@ -4,10 +4,11 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:mp="http://primefaces.org/ui/material" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:mp="http://primefaces.org/ui/material" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 
     <view contentType="text/html">
-
+        
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
@@ -17,156 +18,168 @@
             <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
             <script type="text/javascript" src="js/materialize.min.js"></script> 
+            <script>                
+                $(document).ready(function() {
+                    $('select').material_select();
+                });
+            </script>
+            <script>
+                $('.datepicker').pickadate({
+                    selectMonths: true, // Creates a dropdown to control month
+                    selectYears: 15 // Creates a dropdown of 15 years to control year
+                });
 
+            </script>
         </h:head>
 
-                <h:body>
+        <h:body>
 
-                    <nav class="nav-extended">
-                        <div class="nav-wrapper">
-                            <a href="#" class="brand-logo">Agenda Cultural</a>
-                            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                                <li><h:link value="Home" outcome="index.xhtml"/></li>
-                                <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
-                                <li><h:link value="Registro" outcome="registro.xhtml"/></li>
-                                <li><h:link value="Login" outcome="login.xhtml"/></li>
-                            </ul>
-                            <ul class="side-nav" id="mobile-demo">
-                                <li><h:link value="Home" outcome="index.xhtml"/></li>
-                                <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
-                                <li><h:link value="Registro" outcome="registro.xhtml"/></li>
-                                <li><h:link value="Login" outcome="login.xhtml"/></li>
-                            </ul>
-                        </div>
-                        <div class="nav-content">
-                            <ul class="tabs tabs-transparent">
-                                <li class="tab"><a href="#todos">Todos</a></li>
-                                <li class="tab"><a href="#deportes">Deportes</a></li>
-                                <li class="tab"><a href="#cultura">Cultura</a></li>
-                                <li class="tab"><a href="#social">Social</a></li>
-                                <li class="tab"><a href="#tecnologia">Tecnología</a></li>
-                                <li class="tab right"><a href="#crearEvento">Crear Evento</a></li>
+            <nav class="nav-extended">
+                <div class="nav-wrapper">
+                    <h:link class="brand-logo" value="Agenda Cultural" outcome="index.xhtml"/>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                        <li><h:link value="Registro" outcome="registro.xhtml"/></li>
+                        <li><h:link value="Login" outcome="login.xhtml"/></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                        <li><h:link value="Registro" outcome="registro.xhtml"/></li>
+                        <li><h:link value="Login" outcome="login.xhtml"/></li>
+                    </ul>
+                </div>
+                <div class="nav-content">
+                    <ul class="tabs tabs-transparent">
+                        <li class="tab"><a href="#todos">Todos</a></li>
+                        <li class="tab"><a href="#deportes">Deportes</a></li>
+                        <li class="tab"><a href="#cultura">Cultura</a></li>
+                        <li class="tab"><a href="#social">Social</a></li>
+                        <li class="tab"><a href="#tecnologia">Tecnología</a></li>
+                        <li class="tab right"><a href="#crearEvento">Crear Evento</a></li>
 
-                            </ul>
-                        </div>
-                    </nav>
+                    </ul>
+                </div>
+            </nav>
 
-                    <div id="todos" class="col s12">
-                        <ul class="collection with-header">
-                            <li class="collection-header"><h4>Todos los Eventos</h4></li>
-                            <!--<c:set var="tipo" value="musica" />
-                            <c:set var="t" value="tipo" />-->
-                            <!--<h:form>
-                            <p:commandButton type="submit" class="btn btn-primary" value="Acceder" onclick="#{gestE.todosEventos()}"/>                        
-                            </h:form>-->
-                            <ui:repeat var="event" value="#{gestE.todosEventos()}">
-                                <li class="collection-item">
-                                <h:outputText escape="true" value="#{event.getTitulo()}"/>
-                                <h:link value="Detalles del evento" outcome="eventoInfo.xhtml?id=#{event.getId()}" />
-                                <!-- Mirar otras formas de pasar parámentos entre páginas-->
-                                </li>
-                            </ui:repeat>
-                            <li class="collection-item">Alvin</li>
-                            <li class="collection-item">Alvin</li>
-                            <li class="collection-item">Alvin</li>
-                            <li class="collection-item">Alvin</li>
-                        </ul>
-                    </div>
-                    <div id="deportes" class="col s12">
-                        <h3>Eventos Deportivos</h3>
-                    </div>
-                    <div id="cultura" class="col s12">
-                        <ul class="collection with-header">
-                            <li class="collection-header"><h4>Eventos culturales</h4></li>
-                            <!--<c:set var="tipo" value="musica" />
-                            <c:set var="t" value="tipo" />-->
+            <div id="todos" class="col s12">
+                <ul class="collection with-header">
+                    <li class="collection-header"><h4>Todos los Eventos</h4></li>
+                    <!--<c:set var="tipo" value="musica" />
+                    <c:set var="t" value="tipo" />-->
+                    <!--<h:form>
+                    <p:commandButton type="submit" class="btn btn-primary" value="Acceder" onclick="#{gestE.todosEventos()}"/>                        
+                    </h:form>-->
+                    <ui:repeat var="event" value="#{gestE.todosEventos()}">
+                        <li class="collection-item">
+                        <h:outputText escape="true" value="#{event.getTitulo()}"/>
+                        <h:link value="Detalles del evento" outcome="eventoInfo.xhtml?id=#{event.getId()}" />
+                        <!-- Mirar otras formas de pasar parámentos entre páginas-->
+                        </li>
+                    </ui:repeat>
+                    <li class="collection-item">Alvin</li>
+                    <li class="collection-item">Alvin</li>
+                    <li class="collection-item">Alvin</li>
+                    <li class="collection-item">Alvin</li>
+                </ul>
+            </div>
+            <div id="deportes" class="col s12">
+                <h3>Eventos Deportivos</h3>
+            </div>
+            <div id="cultura" class="col s12">
+                <ul class="collection with-header">
+                    <li class="collection-header"><h4>Eventos culturales</h4></li>
+                    <!--<c:set var="tipo" value="musica" />
+                    <c:set var="t" value="tipo" />-->
 
-                            <ui:repeat var="event" value="#{gestE.eventosCulturales()}">
-                                <li class="collection-item">
-                                <f:param name="titulo" value="#{event.getTitulo()}"/>
-                                </li>
-                            </ui:repeat>
-                            <li class="collection-item">Alvin</li>
-                            <li class="collection-item">Alvin</li>
-                            <li class="collection-item">Alvin</li>
-                            <li class="collection-item">Alvin</li>
-                        </ul>
-                    </div>
-                    <div id="social" class="col s12">
-                        <h3>Eventos Sociales</h3>
-                    </div>
-                    <div id="tecnologia" class="col s12">
-                        <h3>Eventos Tecnológicos</h3>
-                    </div>
-                    <div id="crearEvento" class="col s12">
-                        <h3>Crear Evento</h3>
-                        <div class ="container">
-                            <div class="row">
-                                <div class="col-sm-4 align-self-center">
+                    <ui:repeat var="event" value="#{gestE.eventosCulturales()}">
+                        <li class="collection-item">
+                        <f:param name="titulo" value="#{event.getTitulo()}"/>
+                        </li>
+                    </ui:repeat>
+                    <li class="collection-item">Alvin</li>
+                    <li class="collection-item">Alvin</li>
+                    <li class="collection-item">Alvin</li>
+                    <li class="collection-item">Alvin</li>
+                </ul>
+            </div>
+            <div id="social" class="col s12">
+                <h3>Eventos Sociales</h3>
+            </div>
+            <div id="tecnologia" class="col s12">
+                <h3>Eventos Tecnológicos</h3>
+            </div>
+            <div id="crearEvento" class="col s12">
+                <h3>Crear Evento</h3>
+                <div class ="container">
+                    <div class="row">
+                        <div class="col-sm-4 align-self-center">
 
-                                    <h:form id="gestE" class="container center-align">
-                                        <div class="input-field row s2">
-                                            <p:inputText class="validate" id="titulo" value="#{gestE.titulo}" required="true"/>
-                                            <label for="titulo">Titulo*</label>
-                                        </div>
-                                        <div class="input-field row s2">
-                                            <p:inputText class="validate" id="contenido" value="#{gestE.contenido}" required="true"/>
-                                            <label for="contenio">Contenido*</label>
-                                        </div>
-                                        <div class="input-field row s2">
-                                            <p:inputText class="validate" id="localizacion" value="#{gestE.localizacion}" required="true"/>
-                                            <label for="localizacion">Localización*</label>
-                                        </div>  
-                                        <div class="input-field row s2">
-                                            <p:password class="validate" id="fecha" value="#{gestE.fecha}" required="false"/>
-                                            <label for="fecha">Fecha </label>
-                                        </div>
-                                        <div class="input-field row s2">
-                                            <p:password class="validate" id="horaini" value="#{gestE.horaini}" required="false"/>
-                                            <label for="horaini">Hora de inicio </label>
-                                        </div>
-
-                                        <div class="input-field row s2">
-                                            <p:inputText class="validate" id="phone" value="#{gestE.telefono}" required="true"/>
-                                            <label for="phone">Tlf de Contacto*</label>
-                                        </div>
-
-                                        <div class="input-field row s2">
-                                            <label for="tipo">Tipo de Evento*</label>
-                                            <p:inputText class="validate" id="tipo" value="#{gestE.tipo}" required="true"/>
-
-                                        </div>
-
-
-
-                                        <div class="input-field row s2">
-                                            <h:form enctype="multipart/form-data">
-                                                <p:growl id="messages" showDetail="true" />
-                                                <div class="row">    
-                                                    <p:fileUpload value="#{gestE.file}" mode="simple" required="false"/>
-
-                                                </div> 
-
-
-                                                <div class="row">    
-                                                    <p:commandButton class="btn btn-primary align-self-center" value="Crear" onclick="#{gestE.nuevoEvento()}" />
-                                                </div>  
-                                            </h:form>
-                                            <label for="foto">Insertar Foto</label>
-                                        </div>
-
-
-                                    </h:form>
+                            <h:form id="gestE" class="container center-align">
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <select class="validate" id="tipo" value="#{gestE.tipo}" required="true">
+                                          <option value="" disabled="true" selected="true">Tipo de evento*</option>
+                                          <option value="1">Evento deportivo</option>
+                                          <option value="2">Evento cultural</option>
+                                          <option value="3">Evento social</option>
+                                          <option value="4">Evento tecnológico</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <p:inputText class="validate" id="phone" value="#{gestE.telefono}" required="true"/>
+                                        <label for="phone">Tlf de Contacto*</label>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <p:inputText class="validate" id="titulo" value="#{gestE.titulo}" required="true"/>
+                                        <label for="titulo">Titulo*</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <p:inputText class="validate" id="contenido" value="#{gestE.contenido}" required="true"/>
+                                        <label for="contenio">Contenido*</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <p:inputText class="validate" id="localizacion" value="#{gestE.localizacion}" required="true"/>
+                                        <label for="localizacion">Localización*</label>
+                                    </div>
+                                </div>  
+                                <div class="row">
+                                    <div class="input-field col s6">                                                
+                                        <p:inputText type="date" class="datepicker validate" id="fecha" value="#{gestE.fecha}" required="false"/>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <p:inputText class="validate" id="horaini" value="#{gestE.horaini}" required="false"/>
+                                        <label for="horaini">Hora de inicio </label>
+                                    </div>
+                                </div>
+                                <div class="row center-align">
+                                        <div class="file-field input-field col s6 offset-s3">
+                                            <div class="btn center-align">
+                                                <span>Foto</span>
+                                                <p:fileUpload value="#{gestE.file}" mode="simple" required="false"/>
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text"></input>
+                                            </div>
+                                        </div>
+                                </div>                               
+                                <div class="row center-align">    
+                                    <p:commandButton class="btn btn-primary align-self-center" value="Crear" onclick="#{gestE.nuevoEvento()}" style="margin-top:20px"/>
+                                </div>
+                            </h:form>
                         </div>
                     </div>
-
-
-                </h:body>
-
-
+                </div>
+            </div>
+            
+        </h:body>
+        
     </view>
 
 </html>
