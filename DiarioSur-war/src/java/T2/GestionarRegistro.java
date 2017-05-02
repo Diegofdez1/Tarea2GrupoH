@@ -32,12 +32,8 @@ public class GestionarRegistro {
     private String password2;
     private int telefono;
     private GestionarPerfil perfil;
-    private Evento evento;
 
-    
     private Control control;
-
-
 
     public String getNombre() {
         return nombre;
@@ -87,68 +83,68 @@ public class GestionarRegistro {
         this.telefono = telefono;
     }
 
- public String validar() {
-        boolean err=false;
-        String aux="eventos.xhtml";
-        
+    public String validar() {
+        boolean err = false;
+        String aux = "eventos.xhtml";
 
         FacesContext ctx = FacesContext.getCurrentInstance();
         if (nombre.trim().equals("")) {
             ctx.addMessage("gestionarRegistro:nombre", new FacesMessage(FacesMessage.SEVERITY_ERROR, "nombre vacío", "Nombre vacío"));
             //aux=null;
-            err=true;
-        } 
+            err = true;
+        }
         if (apellidos.trim().equals("")) {
             ctx.addMessage("gestionarRegistro:apellidos", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Apellidos vacío", "Apellidos vacío"));
-            err=true;
+            err = true;
 //aux="index.xhtml";
 
         }
         if (email.trim().equals("")) {
             ctx.addMessage("gestionarRegistro:correoE", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email vacío", "Email vacío"));
-            err=true;
+            err = true;
 //aux="index.xhtml";
 
-        } 
+        }
         if (password.trim().equals("")) {
             ctx.addMessage("gestionarRegistro:password", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password vacío", "Password vacío"));
-            err=true;
+            err = true;
 //aux="index.xhtml";
 
-        } 
-        if ((!password.equalsIgnoreCase(password2))||(password2.trim().equals(""))) {
+        }
+
+        if (password2.trim().equals("")) {
+            ctx.addMessage("gestionarRegistro:password2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password2 vacío", "Password2 vacío"));
+            err = true;
+            //aux="index.xhtml";
+        }
+
+        if ((!password.equalsIgnoreCase(password2)) || (password2.trim().equals(""))) {
             ctx.addMessage("gestionarRegistro:password", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords no coinciden", "Passwords no coinciden"));
-            err=true;
+            err = true;
+            //aux="index.xhtml";
+        }
+
+        //}
+        if (telefono <= 0) {
+            ctx.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Telefono vacío", "Telefono vacío"));
+            err = true;
             //aux="index.xhtml";
 
         }
-        //if (password2.trim().equals("")) {
-         //   ctx.addMessage("gestionarRegistro:password2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password2 vacío", "Password2 vacío"));
-          //  err=true;
-//aux="index.xhtml";
+        if (!err) {
 
-        //}
-        if (telefono <=0) {
-            ctx.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Telefono vacío", "Telefono vacío"));
-            err=true;
-        //aux="index.xhtml";
-
-        } else if(!err) {
-            
             usuario = new Usuario(nombre, apellidos, email, password, telefono, Rol.usuario_registrado);
             control.setUsuario(usuario);
             control.getUsuarios().add(usuario);
             perfil.crearPerfil(usuario);
             FacesContext ct = FacesContext.getCurrentInstance();
-            ct.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_INFO, "Ussuario "+ usuario.getNombre()+" registrado correctamente", "Ussuario "+ usuario.getNombre()+" registrado correctamente"));
-            aux=control.home();
-        
-            
+            ct.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_INFO, "Ussuario " + usuario.getNombre() + " registrado correctamente", "Ussuario " + usuario.getNombre() + " registrado correctamente"));
+            aux = control.home();
+
         }
 
         return aux;
 
     }
-    
 
 }
