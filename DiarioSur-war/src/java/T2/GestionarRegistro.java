@@ -33,7 +33,13 @@ public class GestionarRegistro {
     private int telefono;
     private GestionarPerfil perfil;
 
+    @Inject
     private Control control;
+
+    public GestionarRegistro() {
+    }
+    
+    
 
     public String getNombre() {
         return nombre;
@@ -84,66 +90,15 @@ public class GestionarRegistro {
     }
 
     public String validar() {
-        boolean err = false;
-        String aux = "eventos.xhtml";
 
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        if (nombre.trim().equals("")) {
-            ctx.addMessage("gestionarRegistro:nombre", new FacesMessage(FacesMessage.SEVERITY_ERROR, "nombre vacío", "Nombre vacío"));
-            //aux=null;
-            err = true;
-        }
-        if (apellidos.trim().equals("")) {
-            ctx.addMessage("gestionarRegistro:apellidos", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Apellidos vacío", "Apellidos vacío"));
-            err = true;
-//aux="index.xhtml";
-
-        }
-        if (email.trim().equals("")) {
-            ctx.addMessage("gestionarRegistro:correoE", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email vacío", "Email vacío"));
-            err = true;
-//aux="index.xhtml";
-
-        }
-        if (password.trim().equals("")) {
-            ctx.addMessage("gestionarRegistro:password", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password vacío", "Password vacío"));
-            err = true;
-//aux="index.xhtml";
-
-        }
-
-        if (password2.trim().equals("")) {
-            ctx.addMessage("gestionarRegistro:password2", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password2 vacío", "Password2 vacío"));
-            err = true;
-            //aux="index.xhtml";
-        }
-
-        if ((!password.equalsIgnoreCase(password2)) || (password2.trim().equals(""))) {
-            ctx.addMessage("gestionarRegistro:password", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords no coinciden", "Passwords no coinciden"));
-            err = true;
-            //aux="index.xhtml";
-        }
-
-        //}
-        if (telefono <= 0) {
-            ctx.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Telefono vacío", "Telefono vacío"));
-            err = true;
-            //aux="index.xhtml";
-
-        }
-        if (!err) {
+      
 
             usuario = new Usuario(nombre, apellidos, email, password, telefono, Rol.usuario_registrado);
+            System.out.println(usuario.toString());
             control.setUsuario(usuario);
             control.getUsuarios().add(usuario);
-            perfil.crearPerfil(usuario);
-            FacesContext ct = FacesContext.getCurrentInstance();
-            ct.addMessage("gestionarRegistro:telefono", new FacesMessage(FacesMessage.SEVERITY_INFO, "Ussuario " + usuario.getNombre() + " registrado correctamente", "Ussuario " + usuario.getNombre() + " registrado correctamente"));
-            aux = control.home();
-
-        }
-
-        return aux;
+ 
+        return "login.xhtml";
 
     }
 

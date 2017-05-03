@@ -5,8 +5,11 @@
  */
 package T2;
 
+import Entidades.Rol;
 import Entidades.Usuario;
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -27,27 +30,32 @@ import javax.faces.event.ActionEvent;
 @RequestScoped
 public class Login {
 
-    private String correoE;
+    private String email;
     private String pass;
     private List<Usuario> usuarios;
-    private Control control;
 
     @Inject
     private Control ctrl;
+    
+    
+    @PostConstruct
+    public void init() {
+        usuarios = new ArrayList<>();
+         for(Usuario u : ctrl.getUsuarios()){
+            usuarios.add(u);
+        }
+    }
 
-    /**
-     * Creates a new instance of Login          ///////CREO QUE EL CONSTRUCTOR VACIO NO HACE FALTA
-     */
-   /* public Login() {
-
-    }*/
-
+    public Login(){
+  
+    }
+    
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
 
     public void setUsuarios() {
-        this.usuarios = control.getUsuarios();
+        this.usuarios = ctrl.getUsuarios();
     }
 
     public String getPass() {
@@ -58,23 +66,21 @@ public class Login {
         this.pass = pass;
     }
 
-    public String getCorreoE() {
-        return correoE;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreoE(String correoE) {
-        this.correoE = correoE;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
+   
 
     public String autenticar() { // autenticar checked and approved. 
-        
         for (Usuario u : usuarios) {
-            if (u.getCorreoE().equalsIgnoreCase(correoE)) {
-
+            if (u.getCorreoE().equalsIgnoreCase(email)) {
                 if (u.getPassword().equals(pass)) {
-                    control.setUsuario(u);
-                   
-                     
+                    ctrl.setUsuario(u);
                 } else {
                     FacesContext ctx = FacesContext.getCurrentInstance();
                     ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "contraseña errónea", "contraseña errónea"));
@@ -84,7 +90,7 @@ public class Login {
                 ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario no existe", "El usuario no existe"));
             }
         }
-        return control.home();
+        return ctrl.home();
     }
 
 }
