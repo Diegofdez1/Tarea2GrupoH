@@ -194,13 +194,16 @@
                             <h:form id="manageEvent" class="container center-align">
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <select class="validate" id="tipo" value="#{manageEvent.tipo}" required="true">
-                                          <option value="" disabled="true" selected="true">Tipo de evento*</option>
-                                          <option value="1">Evento deportivo</option>
-                                          <option value="2">Evento cultural</option>
-                                          <option value="3">Evento social</option>
-                                          <option value="4">Evento tecnológico</option>
-                                        </select>
+                                        <h:selectOneMenu class="validate" id="tipo" value="" required="true">
+                                            <f:selectItem itemValue="" itemDisabled="true" itemLabel="Tipo de evento*"/>
+                                            <f:selectItem itemValue="1" itemLabel="Evento deportivo"/>
+                                            <f:selectItem itemValue="1" itemLabel="Evento musical"/>
+                                            <f:selectItem itemValue="1" itemLabel="Evento cultural"/>
+                                            <f:selectItem itemValue="1" itemLabel="Evento para viajar"/>
+                                            <f:selectItem itemValue="1" itemLabel="Evento para aprender"/>
+                                            <f:selectItem itemValue="1" itemLabel="Evento en restaurante"/>
+                                            <f:selectItem itemValue="1" itemLabel="Evento tecnológico"/>
+                                        </h:selectOneMenu>
                                          <p:message for="tipo" display="text"></p:message>
                                     </div>
                                     <div class="input-field col s6">
