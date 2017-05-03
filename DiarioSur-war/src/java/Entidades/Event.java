@@ -89,7 +89,7 @@ public enum TipoEvento {
         this.comentario = comentario;
     }
     
-    public Event(int id, String titulo, String descripcion, String localizacion, Date fecha_inicio, Time hora_inicio, String contacto, TipoEvento tipo_evento){
+    /*public Event(int id, String titulo, String descripcion, String localizacion, Date fecha_inicio, Time hora_inicio, String contacto, TipoEvento tipo_evento){
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -98,6 +98,18 @@ public enum TipoEvento {
         this.hora_inicio = hora_inicio;
         this.contacto = contacto;
         this.tipo_evento = tipo_evento;
+    }*/
+    
+    public Event(int id, String titulo, String descripcion, String localizacion, Date fecha_inicio, Time hora_inicio, String contacto, TipoEvento tipo_evento, String image){
+        this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.localizacion = localizacion;
+        this.fecha_inicio = fecha_inicio;
+        this.hora_inicio = hora_inicio;
+        this.contacto = contacto;
+        this.tipo_evento = tipo_evento;
+        this.image = image;
     }
     
    

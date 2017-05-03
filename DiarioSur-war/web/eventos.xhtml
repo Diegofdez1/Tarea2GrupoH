@@ -33,7 +33,7 @@
         </h:head>
 
         <h:body>
-
+            <p:growl id="growl" showDetail="true" sticky="true"/>
             <nav class="nav-extended">
                 <div class="nav-wrapper">
                     <h:link class="brand-logo" value="Agenda Cultural" outcome="index.xhtml"/>
@@ -191,18 +191,18 @@
                     <div class="row">
                         <div class="col-sm-4 align-self-center">
 
-                            <h:form id="manageEvent" class="container center-align">
+                            <h:form enctype="multipart/form-data" id="manageEvent" class="container center-align">
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <h:selectOneMenu class="validate" id="tipo" value="" required="true">
+                                        <h:selectOneMenu class="validate" id="tipo" value="#{manageEvent.tipoNum}" required="true">
                                             <f:selectItem itemValue="" itemDisabled="true" itemLabel="Tipo de evento*"/>
-                                            <f:selectItem itemValue="1" itemLabel="Evento deportivo"/>
-                                            <f:selectItem itemValue="1" itemLabel="Evento musical"/>
-                                            <f:selectItem itemValue="1" itemLabel="Evento cultural"/>
-                                            <f:selectItem itemValue="1" itemLabel="Evento para viajar"/>
-                                            <f:selectItem itemValue="1" itemLabel="Evento para aprender"/>
-                                            <f:selectItem itemValue="1" itemLabel="Evento en restaurante"/>
-                                            <f:selectItem itemValue="1" itemLabel="Evento tecnológico"/>
+                                            <f:selectItem itemValue="deporte" itemLabel="Evento deportivo"/>
+                                            <f:selectItem itemValue="musica" itemLabel="Evento musical"/>
+                                            <f:selectItem itemValue="cultura" itemLabel="Evento cultural"/>
+                                            <f:selectItem itemValue="viajes" itemLabel="Evento para viajar"/>
+                                            <f:selectItem itemValue="cursos" itemLabel="Evento para aprender"/>
+                                            <f:selectItem itemValue="restaurantes" itemLabel="Evento en restaurante"/>
+                                            <f:selectItem itemValue="tecnologia" itemLabel="Evento tecnológico"/>
                                         </h:selectOneMenu>
                                          <p:message for="tipo" display="text"></p:message>
                                     </div>
@@ -235,24 +235,25 @@
                                 </div>  
                                 <div class="row">
                                     <div class="input-field col s6">                                                
-                                        <p:inputText type="date" class="datepicker validate" id="fecha" value="#{manageEvent.fecha}" required="false"/>
+                                        <p:inputText type="date" class="datepicker validate" id="fecha" value="#{manageEvent.fechaString}" required="false"/>
                                     </div>
                                     <div class="input-field col s6">
-                                        <p:inputText class="validate" id="horaini" value="#{manageEvent.horaini}" required="false"/>
+                                        <p:inputText class="validate" id="horaini" value="#{manageEvent.horainiString}" required="false"/>
                                         <label for="horaini">Hora de inicio </label>
                                     </div>
                                 </div>
-                                <div class="row center-align">
+                                   <div class="row center-align">
                                         <div class="file-field input-field col s6 offset-s3">
                                             <div class="btn center-align">
                                                 <span>Foto</span>
-                                                <p:fileUpload value="#{manageEvent.file}" mode="simple" required="false"/>
+                                                <p:fileUpload fileUploadListener="#{manageEvent.uploadFile}" mode="simple" required="false"/>
                                             </div>
                                             <div class="file-path-wrapper">
                                                 <input class="file-path validate" type="text"></input>
                                             </div>
                                         </div>
-                                </div>                               
+                                    </div> 
+                                                           
                                 <div class="row center-align">    
                                     <h:commandButton class="btn btn-primary align-self-center" value="Crear" action="#{manageEvent.nuevoEvento()}" style="margin-top:20px"/>
                                 </div>

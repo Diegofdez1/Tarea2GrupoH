@@ -10,6 +10,7 @@ import Entidades.Event;
 import Entidades.Event.TipoEvento;
 import Entidades.Rol;
 import Entidades.Usuario;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +22,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -37,15 +39,27 @@ public class ManageEvent {
     private String contenido;
     private String localizacion;
     private Date fecha;
+    private String fechaString;
     private java.sql.Time horaini;
+    private String horainiString;
     private String telefono;
     private TipoEvento tipo;
+    private String tipoNum;
     private String foto;
     private List<Usuario> usuarios;
     private List<Event> pendientes;
     private Event evento;
     private Usuario usuario;
     private UploadedFile file;
+    private String fileName;
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
     private List<Event> eventos;
     private Control control;
     public String id;
@@ -133,6 +147,22 @@ public class ManageEvent {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+    
+    public void setFechaString(String fechaString) {
+        this.fechaString = fechaString;
+    }
+
+    public void setTipoNum(String tipoNum) {
+        this.tipoNum = tipoNum;
+    }
+
+    public String getFechaString() {
+        return fechaString;
+    }
+
+    public String getTipoNum() {
+        return tipoNum;
+    }
 
     public java.sql.Time getHoraini() {
         return horaini;
@@ -140,6 +170,14 @@ public class ManageEvent {
 
     public void setHoraini(java.sql.Time horaini) {
         this.horaini = horaini;
+    }
+    
+    public void setHorainiString(String horainiString) {
+        this.horainiString = horainiString;
+    }
+
+    public String getHorainiString() {
+        return horainiString;
     }
 
     public String getTelefono() {
@@ -245,13 +283,40 @@ public class ManageEvent {
 
     public String nuevoEvento() {
         Random rnd = new Random();
-        Event e = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo );
+        tipo = TipoEvento.valueOf(tipoNum);
+        String[] parts = fechaString.split("-");
+        fecha = new java.util.Date(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+        String[] parts1 = horainiString.split(":");
+        horaini = new java.sql.Time(Integer.parseInt(parts1[0]), Integer.parseInt(parts1[1]), 00);
+        Event e;
+        if(fileName==null){
+            e = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, "noimage.jpg");
+        }else{
+            e = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, fileName);
+        }
         setEvento(e);
         eventos.add(e);
+        
         return "eventoInfo.xhtml";
      
     }
-
+    
+    public void uploadFile(FileUploadEvent event) throws Exception{
+        UploadedFile uploadedFile = event.getFile();
+        fileName = uploadedFile.getFileName();
+        String contentType = uploadedFile.getContentType();
+        byte[] contents = uploadedFile.getContents();
+        FileOutputStream fos = new FileOutputStream("/resources/"+fileName);
+        try{
+        fos.write(contents);
+        }catch(Exception e){
+            System.out.println(e);
+        }finally{
+            fos.close();
+        }
+        
+        
+    }
     public void upload() {
         if (file != null) {
             FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
