@@ -5,7 +5,7 @@
  */
 package T2;
 
-import Entidades.Evento;
+import Entidades.Event;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ import javax.enterprise.context.SessionScoped;
 @Named(value = "admCtrl")
 @SessionScoped
 public class AdminControl implements Serializable {
-    private Evento evento;
-    private List<Evento> pendientes;
-    private List<Evento> eventos;
+    private Event evento;
+    private List<Event> pendientes;
+    private List<Event> eventos;
 
     /**
      * Creates a new instance of AdminControl
@@ -32,20 +32,20 @@ public class AdminControl implements Serializable {
         eventos= new ArrayList<>();
     }
     
-    public String borrarEvento(Evento e)
+    public String borrarEvento(Event e)
     {
      eventos.remove(e);
      return "eventosAdm.xhtm";
     }
     
-    public void validarEvento(Evento e)
+    public void validarEvento(Event e)
     {
         evento=e;
         eventos.add(evento);
         pendientes.remove(e);
         //Nos quedamos en la misma vista con el evento validado
     }
-    public void rechazarEvento (Evento e)
+    public void rechazarEvento (Event e)
     {
         pendientes.remove(e);
     }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package T2.Datos;
+/*package T2.Datos;
 
 
 import Entidades.Comentario;
@@ -21,6 +21,7 @@ import javax.enterprise.context.ApplicationScoped;
  *
  * @author GrupoH
  */
+/*
 @ApplicationScoped
 public class Datos implements Serializable {
 
@@ -174,13 +175,13 @@ public class Datos implements Serializable {
     allfotos.add(f3);
     allfotos.add(f4);
     
-  /*  
+   
     Evento e1=new Evento();
     e1.setComentarios(comentarios1);
     e1.setContacto("contacto1");
     e1.setDescripcion("Sport");
-    //e1.setFecha_inicio(WED 12-11-2017); luego miro el formato y lo añado
-    //e1.setFecha_fin(fecha_fin);
+    e1.setFecha_inicio(WED 12-11-2017); luego miro el formato y lo añado
+    e1.setFecha_fin(fecha_fin);
     e1.setFotos(fotos1);
     e1.setLocalizacion("Malaga");
     e1.setTipo_evento(TipoEvento.deporte);
@@ -190,8 +191,8 @@ public class Datos implements Serializable {
     e2.setComentarios(comentarios2);
     e2.setContacto("contacto2");
     e2.setDescripcion("Musica");
-    //e2.setFecha_inicio(WED 12-11-2017); luego miro el formato 
-    //e2.setFecha_fin(fecha_fin);
+    e2.setFecha_inicio(WED 12-11-2017); luego miro el formato 
+   e2.setFecha_fin(fecha_fin);
     e2.setFotos(fotos2);
     e2.setLocalizacion("Malaga");
     e2.setTipo_evento(TipoEvento.musica);
@@ -201,8 +202,8 @@ public class Datos implements Serializable {
     e2.setComentarios(comentarios2);
     e2.setContacto("contacto2");
     e2.setDescripcion("Musica2");
-    //e2.setFecha_inicio(WED 12-11-2017); luego miro el formato 
-    //e2.setFecha_fin(fecha_fin);
+    e2.setFecha_inicio(WED 12-11-2017); luego miro el formato 
+    e2.setFecha_fin(fecha_fin);
     e2.setFotos(fotos2);
     e2.setLocalizacion("Malaga");
     e2.setTipo_evento(TipoEvento.musica);
@@ -236,7 +237,7 @@ public class Datos implements Serializable {
     alleventos.add(e2);
     alleventos.add(e1);
 
-    */
+    
 
 
     
@@ -373,4 +374,4 @@ public class Datos implements Serializable {
     
 
     
-}
+}*/

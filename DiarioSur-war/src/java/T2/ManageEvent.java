@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
@@ -26,7 +27,7 @@ import org.primefaces.model.UploadedFile;
  *
  * @author Grupo H
  */
-@Named(value = "gestE")
+@Named(value = "manageEvent")
 @RequestScoped
 @ManagedBean
 public class ManageEvent {
@@ -230,30 +231,12 @@ public class ManageEvent {
     }
 
     public String nuevoEvento() {
-        String vista = "eventos.xhtml";
-        boolean err = false;
-
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        if (evento.getTitulo().trim().equals("")) {
-            ctx.addMessage("gestEvent:titulo", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contacto vacío", "Contacto vacío"));
-            err = true;
-        }
-        if (evento.getContacto().trim().equals("")) {
-            ctx.addMessage("gestEvent:contacto", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contacto vacío", "Contacto vacío"));
-            err = true;
-        }
-        if (evento.getLocalizacion().trim().equals("")) {
-            ctx.addMessage("gestEvent:localizacion", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Dirección vacía", "Dirección vacía"));
-            err = true;
-        }
-        if (evento.getDescripcion().trim().equals("")) {
-            ctx.addMessage("gestEvent:descripcion", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Descripción vacía", "Descripción vacía"));
-            err = true;
-        }
-        if (!err) {
-
-        }
-        return vista;
+        Random rnd = new Random();
+        Event e = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo );
+        setEvento(e);
+        eventos.add(e);
+        return "eventoInfo.xhtml";
+     
     }
 
     public void upload() {

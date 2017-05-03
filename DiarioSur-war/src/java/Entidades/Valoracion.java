@@ -5,7 +5,7 @@
  */
 package Entidades;
 
-import Entidades.Evento;
+import Entidades.Event;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -29,7 +29,7 @@ public class Valoracion implements Serializable {
 
     @JoinColumn(name="valEvento",referencedColumnName="descripcion")
     @ManyToOne
-    private Evento evento;
+    private Event evento;
     
     @JoinColumn(name="valUsuario",referencedColumnName="id_usuario")
     @ManyToOne

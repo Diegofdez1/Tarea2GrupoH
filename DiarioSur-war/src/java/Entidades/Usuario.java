@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Entidades;
-import Entidades.Evento;
 import java.util.List;
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -62,7 +61,7 @@ public class Usuario implements Serializable {
     
     //--------Relaciones---------
     @OneToMany(mappedBy="usuario")
-    private List<Evento> eventos;
+    private List<Event> eventos;
     
     @OneToMany(mappedBy="usuario")
     private List<Foto> fotos;
@@ -137,11 +136,11 @@ public class Usuario implements Serializable {
     
     
 
-    public List<Evento> getEventos() {
+    public List<Event> getEventos() {
         return eventos;
     }
 
-    public void setEventos(List<Evento> eventos) {
+    public void setEventos(List<Event> eventos) {
         this.eventos = eventos;
     }
     

@@ -7,10 +7,8 @@ package Entidades;
 
 import java.io.Serializable;
 import java.sql.Time;
-//import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
-//import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +25,8 @@ import javax.persistence.OneToMany;
  * @author diego
  */
 @Entity
-public class Event implements Serializable {
+public class Event implements Serializable{
+    
 public enum TipoEvento {
     deporte, musica, cultura, viajes, cursos, restaurantes, tecnologia
 }
@@ -239,7 +238,7 @@ public enum TipoEvento {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Evento)) {
+        if (!(object instanceof Event)) {
             return false;
         }
         Event other = (Event) object;

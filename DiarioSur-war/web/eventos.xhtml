@@ -191,46 +191,51 @@
                     <div class="row">
                         <div class="col-sm-4 align-self-center">
 
-                            <h:form id="gestE" class="container center-align">
+                            <h:form id="manageEvent" class="container center-align">
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <select class="validate" id="tipo" value="#{gestE.tipo}" required="true">
+                                        <select class="validate" id="tipo" value="#{manageEvent.tipo}" required="true">
                                           <option value="" disabled="true" selected="true">Tipo de evento*</option>
                                           <option value="1">Evento deportivo</option>
                                           <option value="2">Evento cultural</option>
                                           <option value="3">Evento social</option>
                                           <option value="4">Evento tecnológico</option>
                                         </select>
+                                         <p:message for="tipo" display="text"></p:message>
                                     </div>
                                     <div class="input-field col s6">
-                                        <p:inputText class="validate" id="phone" value="#{gestE.telefono}" required="true"/>
+                                        <p:inputText class="validate" id="phone" value="#{manageEvent.telefono}" required="true"/>
                                         <label for="phone">Tlf de Contacto*</label>
+                                         <p:message for="phone" display="text"></p:message>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <p:inputText class="validate" id="titulo" value="#{gestE.titulo}" required="true"/>
+                                        <p:inputText class="validate" id="titulo" value="#{manageEvent.titulo}" required="true"/>
                                         <label for="titulo">Titulo*</label>
+                                         <p:message for="titulo" display="text"></p:message>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <p:inputText class="validate" id="contenido" value="#{gestE.contenido}" required="true"/>
+                                        <p:inputText class="validate" id="contenido" value="#{manageEvent.contenido}" required="true"/>
                                         <label for="contenio">Contenido*</label>
+                                         <p:message for="contenido" display="text"></p:message>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <p:inputText class="validate" id="localizacion" value="#{gestE.localizacion}" required="true"/>
+                                        <p:inputText class="validate" id="localizacion" value="#{manageEvent.localizacion}" required="true"/>
                                         <label for="localizacion">Localización*</label>
+                                         <p:message for="localizacion" display="text"></p:message>
                                     </div>
                                 </div>  
                                 <div class="row">
                                     <div class="input-field col s6">                                                
-                                        <p:inputText type="date" class="datepicker validate" id="fecha" value="#{gestE.fecha}" required="false"/>
+                                        <p:inputText type="date" class="datepicker validate" id="fecha" value="#{manageEvent.fecha}" required="false"/>
                                     </div>
                                     <div class="input-field col s6">
-                                        <p:inputText class="validate" id="horaini" value="#{gestE.horaini}" required="false"/>
+                                        <p:inputText class="validate" id="horaini" value="#{manageEvent.horaini}" required="false"/>
                                         <label for="horaini">Hora de inicio </label>
                                     </div>
                                 </div>
@@ -238,7 +243,7 @@
                                         <div class="file-field input-field col s6 offset-s3">
                                             <div class="btn center-align">
                                                 <span>Foto</span>
-                                                <p:fileUpload value="#{gestE.file}" mode="simple" required="false"/>
+                                                <p:fileUpload value="#{manageEvent.file}" mode="simple" required="false"/>
                                             </div>
                                             <div class="file-path-wrapper">
                                                 <input class="file-path validate" type="text"></input>
@@ -246,7 +251,7 @@
                                         </div>
                                 </div>                               
                                 <div class="row center-align">    
-                                    <p:commandButton class="btn btn-primary align-self-center" value="Crear" onclick="#{gestE.nuevoEvento()}" style="margin-top:20px"/>
+                                    <h:commandButton class="btn btn-primary align-self-center" value="Crear" action="#{manageEvent.nuevoEvento()}" style="margin-top:20px"/>
                                 </div>
                             </h:form>
                         </div>
