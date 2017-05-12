@@ -77,19 +77,23 @@ public class Login {
    
 
     public String autenticar() { // autenticar checked and approved. 
+        boolean encontrado = false;
         for (Usuario u : usuarios) {
             if (u.getCorreoE().equalsIgnoreCase(email)) {
                 if (u.getPassword().equals(pass)) {
                     ctrl.setUsuario(u);
-                } else {
-                    FacesContext ctx = FacesContext.getCurrentInstance();
-                    ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "contraseña errónea", "contraseña errónea"));
+                   encontrado=true;
                 }
-            } else {
-                FacesContext ctx = FacesContext.getCurrentInstance();
-                ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario no existe", "El usuario no existe"));
             }
         }
+                
+        if(!encontrado){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "contraseña errónea", "contraseña errónea"));
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario no existe", "El usuario no existe"));
+            return "login.xhtml";
+        }
+        
         return ctrl.home();
     }
 

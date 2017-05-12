@@ -74,7 +74,7 @@ public class Control implements Serializable {
             //usuarios.add(usuario.getId().intValue(), usuario);
             switch (usuario.getRol()) {
                 case usuario_registrado:
-                    return "eventos.xhtml";
+                    return "eventosregistrado.xhtml";
                 case periodista:
                     return "periodista.xhtml"; //(Vista no existente)
                 case superusuario:
@@ -89,7 +89,7 @@ public class Control implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.getExternalContext().invalidateSession();
         usuario = null;
-        return "home.xhtml";
+        return "login.xhtml";
 
     }
 
