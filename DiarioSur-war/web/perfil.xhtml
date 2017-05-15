@@ -27,13 +27,16 @@
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
-                        <li><h:link value="Registro" outcome="registro.xhtml"/></li>
-                        <li><h:link value="Login" outcome="login.xhtml"/></li>
+                        <li> <h:form>
+                        <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                        </h:form> </li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
                         <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
-                        <li><h:link value="Registro" outcome="registro.xhtml"/></li>
-                        <li><h:link value="Login" outcome="login.xhtml"/></li>
+                        <li> <h:form>
+                        <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                        </h:form> </li>
+                        
                     </ul>
                 </div>
 
@@ -48,25 +51,23 @@
             <div>
             <h:panelGrid columns="2" cellpadding="50">
                     <h:outputLabel for="email" value="Email: " />
-                    <h:outputLabel for="email" value="#{gestionarPerfil.email}" />
+                    <h:outputLabel for="email" value="#{control.usuario.correoE}" />
 
                     <h:outputLabel for="name" value="Nombre: " />
-                    <h:outputLabel for="name" value="#{gestionarPerfil.nombre}" />
+                    <h:outputLabel for="name" value="#{control.usuario.nombre}" />
 
-                    <h:outputLabel for="surname" value="Apellido: " />
-                    <h:outputLabel for="surname" value="#{gestionarPerfil.apellidos}"  />
+                    <h:outputLabel for="surname" value="Apellidos: " />
+                    <h:outputLabel for="surname" value="#{control.usuario.apellidos}"  />
 
                     <h:outputLabel for="phone" value="Teléfono: " />
-                    <h:outputLabel for="phone" value="#{gestionarPerfil.email}"  />
+                    <h:outputLabel for="phone" value="#{control.usuario.telefono}"  />
 
                 </h:panelGrid>
             </div>
             <div>
                 <h4>Datos de interés</h4>
             </div>
-            <div>
-                <h:outputLabel for="phone" value="xxxxxxxxxxxxxxxxxxxxx" />
-            </div>       
+             
             <div>
                 <h:outputLabel value="¿Quieres formar parte de nuestro equipo de periodistas? Pincha " />
                 <h:link value=" aquí " outcome="contacto.xhtml"/>

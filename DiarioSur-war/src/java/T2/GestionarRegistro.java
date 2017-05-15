@@ -26,7 +26,6 @@ public class GestionarRegistro {
     private String password;
     private String password2;
     private int telefono;
-    private GestionarPerfil perfil;
 
     @Inject
     private Control control;
@@ -85,8 +84,6 @@ public class GestionarRegistro {
     }
 
     public String validar() {
-
-      
 
             usuario = new Usuario(nombre, apellidos, email, password, telefono, Rol.usuario_registrado);
             System.out.println(usuario.toString());
