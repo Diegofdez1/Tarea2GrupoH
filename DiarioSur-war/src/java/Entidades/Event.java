@@ -68,7 +68,7 @@ public enum TipoEvento {
     @Column(name = "valoracion", nullable = true)
     private int valoracion;
     
-     @Column(name = "comentario", nullable = true, length = 60)
+    @Column(name = "comentario", nullable = true, length = 60)
     private String comentario;
     
     @Column(name = "image", nullable = true)

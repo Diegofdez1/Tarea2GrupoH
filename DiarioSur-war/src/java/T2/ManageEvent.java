@@ -52,6 +52,7 @@ public class ManageEvent {
     private Usuario usuario;
     private UploadedFile file;
     private String fileName;
+    private Comentario comentario;
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -95,6 +96,21 @@ public class ManageEvent {
     public String getIdParam(FacesContext fc){
             Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
             return params.get("id");
+    }
+    
+    public void createComment(){
+       comentario.setUsuario(usuario);
+       List<Comentario> aux = evento.getComentarios();
+       aux.add(comentario);
+       evento.setComentarios(aux);  
+    }
+
+    public void setComentario(Comentario comentario) {
+        this.comentario = comentario;
+    }
+
+    public Comentario getComentario() {
+        return comentario;
     }
     
     public String outcome(){

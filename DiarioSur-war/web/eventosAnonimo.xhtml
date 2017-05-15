@@ -64,8 +64,8 @@
                 </div>
             </nav>
 
-            <div id="todos" class="col s12">
-                <div class="col s6"> 
+            <div id="todos" class="row s6">
+                <div class="col s8"> 
                 <ul class="collection with-header">
                     <li class="collection-header"><h3>Todos los Eventos</h3></li>
                     <ui:repeat var="event" value="#{manageEvent.todosEventos()}">
@@ -80,12 +80,12 @@
                     </ui:repeat>
                 </ul>
                 </div>
-                <div class="col s6">
+                <div class="col s4">
                     <p:inputText type="date" class="datepicker validate" id="fecha" value="#{manageEvent.fechaString}" required="false"/>
                     <p:inputText type="date" id="dateTodos" class="datepicker" />
                 </div>
             </div>
-            <div id="deportes" class="col s12">
+            <div id="deportes" class="col s8">
                 <ul class="collection with-header">
                     <li class="collection-header"><h3>Eventos deportivos</h3></li>
                     <ui:repeat var="event" value="#{manageEvent.eventosDeportivos()}">
@@ -100,7 +100,7 @@
                     </ui:repeat>
                 </ul>
             </div>
-            <div id="musica" class="col s12">
+            <div id="musica" class="col s8">
                 <ul class="collection with-header">
                     <li class="collection-header"><h3>Eventos musicales</h3></li>
                     <ui:repeat var="event" value="#{manageEvent.eventosMusicales()}">
