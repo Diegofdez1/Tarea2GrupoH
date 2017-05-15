@@ -281,7 +281,7 @@ public class ManageEvent {
         return "eventos.xhtml";
     }
 
-    public String nuevoEvento() {
+    public String nuevoEvento() throws Exception{
         Random rnd = new Random();
         tipo = TipoEvento.valueOf(tipoNum);
         String[] parts = fechaString.split("-");
@@ -289,9 +289,19 @@ public class ManageEvent {
         String[] parts1 = horainiString.split(":");
         horaini = new java.sql.Time(Integer.parseInt(parts1[0]), Integer.parseInt(parts1[1]), 00);
         Event e;
-        if(fileName==null){
+        if(file==null){
             e = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, "noimage.jpg");
         }else{
+            fileName = file.getFileName();
+            byte[] contents = file.getContents();
+            FileOutputStream fos = new FileOutputStream("/resources/"+fileName);
+            try{
+                fos.write(contents);
+            }catch(Exception exc){
+                System.out.println(exc);
+            }finally{
+                fos.close();
+            }
             e = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, fileName);
         }
         setEvento(e);
@@ -301,7 +311,7 @@ public class ManageEvent {
      
     }
     
-    public void uploadFile(FileUploadEvent event) throws Exception{
+    /*public void uploadFile(FileUploadEvent event) throws Exception{
         UploadedFile uploadedFile = event.getFile();
         fileName = uploadedFile.getFileName();
         String contentType = uploadedFile.getContentType();
@@ -313,10 +323,9 @@ public class ManageEvent {
             System.out.println(e);
         }finally{
             fos.close();
-        }
-        
-        
-    }
+        }    
+    }*/
+    
     public void upload() {
         if (file != null) {
             FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");

@@ -65,6 +65,7 @@
             </nav>
 
             <div id="todos" class="col s12">
+                <div class="col s6"> 
                 <ul class="collection with-header">
                     <li class="collection-header"><h3>Todos los Eventos</h3></li>
                     <ui:repeat var="event" value="#{manageEvent.todosEventos()}">
@@ -78,7 +79,11 @@
                         </li>
                     </ui:repeat>
                 </ul>
-                
+                </div>
+                <div class="col s6">
+                    <p:inputText type="date" class="datepicker validate" id="fecha" value="#{manageEvent.fechaString}" required="false"/>
+                    <p:inputText type="date" id="dateTodos" class="datepicker" />
+                </div>
             </div>
             <div id="deportes" class="col s12">
                 <ul class="collection with-header">
@@ -246,7 +251,7 @@
                                         <div class="file-field input-field col s6 offset-s3">
                                             <div class="btn center-align">
                                                 <span>Foto</span>
-                                                <p:fileUpload fileUploadListener="#{manageEvent.uploadFile}" mode="simple" required="false"/>
+                                                <h:inputFile value="#{manageEvent.file}" id="file" required="false"/>
                                             </div>
                                             <div class="file-path-wrapper">
                                                 <input class="file-path validate" type="text"></input>
