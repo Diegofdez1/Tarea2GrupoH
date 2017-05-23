@@ -406,17 +406,30 @@ public class ManageEvent {
 
     public List<Event> todosEventos() {
         List<Event> res = new ArrayList<Event>();
+        java.util.Date selectedDate = null;
+        if(fechaString!=null && fechaString.matches("(\\d{4})-(\\d{2})-(\\d{2})")){
+            String fecha[] = fechaString.split("-");
+            selectedDate = new java.util.Date(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[2]));
+        }
+        
         for (Event e : eventos) {
-            res.add(e);
-            System.out.println(e.getTitulo());
+            if(selectedDate==null || e.getFecha_inicio().equals(selectedDate)){
+                res.add(e);
+            }    
         }
         return res;
     }
     
     public List<Event> eventosTipo(TipoEvento te) {
+
+        java.util.Date selectedDate = null;
+        if(fechaString!=null && fechaString.matches("(\\d{4})-(\\d{2})-(\\d{2})")){
+            String fecha[] = fechaString.split("-");
+            selectedDate = new java.util.Date(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[2]));
+        }
         List<Event> res = new ArrayList<Event>();
         for (Event e : eventos) {
-            if(te.equals(e.getTipo_evento())){
+            if((selectedDate==null || e.getFecha_inicio().equals(selectedDate)) && te.equals(e.getTipo_evento())){
               res.add(e);  
             }
             

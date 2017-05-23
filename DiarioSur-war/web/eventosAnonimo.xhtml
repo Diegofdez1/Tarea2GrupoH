@@ -66,129 +66,248 @@
 
             <div id="todos" class="row s6">
                 <div class="col s8"> 
-                <ul class="collection with-header">
-                    <li class="collection-header"><h3>Todos los Eventos</h3></li>
-                    <ui:repeat var="event" value="#{manageEvent.todosEventos()}">
-                        <li class="collection-item">
-                        <h:outputText escape="true" value="#{event.titulo}"/>
-                        <h:form>
-                            <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
-                                <f:param name="id" value="#{event.id}"/>
-                            </h:commandLink>
-                        </h:form>
-                        </li>
-                    </ui:repeat>
-                </ul>
+                    <ul id ="todosList" class="collection with-header">
+                        <li class="collection-header"><h3>Todos los Eventos</h3></li>
+                        <h:panelGroup id="todosEventos">
+                            <ui:repeat var="event" value="#{manageEvent.todosEventos()}">
+                                <li class="collection-item">
+                                    <h:outputText escape="true" value="#{event.titulo}"/>
+                                    <h:form>
+                                        <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
+                                            <f:param name="id" value="#{event.id}"/>
+                                        </h:commandLink>
+                                    </h:form>
+                                </li>
+                            </ui:repeat> 
+                        </h:panelGroup>
+                    </ul>
                 </div>
                 <div class="col s4">
-                    <p:inputText type="date" class="datepicker validate" id="fecha" value="#{manageEvent.fechaString}" required="false"/>
-                    <p:inputText type="date" id="dateTodos" class="datepicker" />
+                    
+                    <h:form>
+                        <p:inputText type="date" class="datepicker validate" id="fechaTodos" value="#{manageEvent.fechaString}" required="false" />
+                        <h:commandButton class="btn btn-primary" value="Actualizar fecha">
+                            <f:ajax execute="fechaTodos" render="todosEventos" />                        
+                        </h:commandButton>   
+                    </h:form>
+                    
+                    
                 </div>
             </div>
-            <div id="deportes" class="col s8">
-                <ul class="collection with-header">
-                    <li class="collection-header"><h3>Eventos deportivos</h3></li>
-                    <ui:repeat var="event" value="#{manageEvent.eventosDeportivos()}">
-                        <li class="collection-item">
-                        <h:outputText escape="true" value="#{event.titulo}"/>
-                        <h:form>
-                            <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
-                                <f:param name="id" value="#{event.id}"/>
-                            </h:commandLink>
-                        </h:form>
-                        </li>
-                    </ui:repeat>
-                </ul>
+            <div id="deportes" class="row s6">
+                <div class="col s8">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h3>Eventos deportivos</h3></li>
+                        <h:panelGroup id="deportesEventos">
+                            <ui:repeat var="event" value="#{manageEvent.eventosDeportivos()}">
+                                <li class="collection-item">
+                                <h:outputText escape="true" value="#{event.titulo}"/>
+                                <h:form>
+                                    <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
+                                        <f:param name="id" value="#{event.id}"/>
+                                    </h:commandLink>
+                                </h:form>
+                                </li>
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </ul>
+                </div>
+                <div class="col s4">
+                    
+                    <h:form>
+                        <p:inputText type="date" class="datepicker validate" id="fechaDeportivos" value="#{manageEvent.fechaString}" required="false" />
+                        <h:commandButton class="btn btn-primary" value="Actualizar fecha">
+                            <f:ajax execute="fechaDeportivos" render="deportesEventos" />                   
+                        </h:commandButton>   
+                    </h:form>
+                 
+                    
             </div>
-            <div id="musica" class="col s8">
-                <ul class="collection with-header">
-                    <li class="collection-header"><h3>Eventos musicales</h3></li>
-                    <ui:repeat var="event" value="#{manageEvent.eventosMusicales()}">
-                        <li class="collection-item">
-                        <h:outputText escape="true" value="#{event.titulo}"/>
-                        <h:form>
-                            <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
-                                <f:param name="id" value="#{event.id}"/>
-                            </h:commandLink>
-                        </h:form>
-                        </li>
-                    </ui:repeat>
-                </ul>
+                    
+                    
             </div>
-            <div id="cultura" class="col s12">
-                <ul class="collection with-header">
-                    <li class="collection-header"><h3>Eventos culturales</h3></li>
-                    <ui:repeat var="event" value="#{manageEvent.eventosCulturales()}">
-                        <li class="collection-item">
-                        <h:outputText escape="true" value="#{event.titulo}"/>
-                        <h:form>
-                            <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
-                                <f:param name="id" value="#{event.id}"/>
-                            </h:commandLink>
-                        </h:form>
-                        </li>
-                    </ui:repeat>
-                </ul>
+            
+            <div id="musica" class="row s6">
+                <div class="col s8">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h3>Eventos musicales</h3></li>
+                        <h:panelGroup id="musicaEventos">
+                            <ui:repeat var="event" value="#{manageEvent.eventosMusicales()}">
+                                <li class="collection-item">
+                                <h:outputText escape="true" value="#{event.titulo}"/>
+                                <h:form>
+                                    <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
+                                        <f:param name="id" value="#{event.id}"/>
+                                    </h:commandLink>
+                                </h:form>
+                                </li>
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </ul>
+                </div>
+                <div class="col s4">
+                    
+                    <h:form>
+                        <p:inputText type="date" class="datepicker validate" id="fechaMusica" value="#{manageEvent.fechaString}" required="false" />
+                        <h:commandButton class="btn btn-primary" value="Actualizar fecha">
+                            <f:ajax execute="fechaMusica" render="musicaEventos" />           
+                        </h:commandButton>   
+                    </h:form>
+                 
+                    
+                </div>
             </div>
-            <div id="viajes" class="col s12">
-                <ul class="collection with-header">
-                    <li class="collection-header"><h3>Eventos para viajar</h3></li>
-                    <ui:repeat var="event" value="#{manageEvent.eventosViajes()}">
-                        <li class="collection-item">
-                        <h:outputText escape="true" value="#{event.titulo}"/>
-                        <h:form>
-                            <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
-                                <f:param name="id" value="#{event.id}"/>
-                            </h:commandLink>
-                        </h:form>
-                        </li>
-                    </ui:repeat>
-                </ul>
+            
+            <!--CULTURA-->
+            <div id="cultura" class="row s6">
+                <div class="col s8">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h3>Eventos culturales</h3></li>
+                        <h:panelGroup id="culturaEventos">
+                            <ui:repeat var="event" value="#{manageEvent.eventosCulturales()}">
+                                <li class="collection-item">
+                                <h:outputText escape="true" value="#{event.titulo}"/>
+                                <h:form>
+                                    <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
+                                        <f:param name="id" value="#{event.id}"/>
+                                    </h:commandLink>
+                                </h:form>
+                                </li>
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </ul>
+                </div>
+                <div class="col s4">
+                    
+                    <h:form>
+                        <p:inputText type="date" class="datepicker validate" id="fechaCultura" value="#{manageEvent.fechaString}" required="false" />
+                        <h:commandButton class="btn btn-primary" value="Actualizar fecha">
+                            <f:ajax execute="fechaCultura" render="culturaEventos" />                    
+                        </h:commandButton>   
+                    </h:form>
+                 
+                    
+                </div>
             </div>
-            <div id="cursos" class="col s12">
-                <ul class="collection with-header">
-                    <li class="collection-header"><h3>Eventos para aprender</h3></li>
-                    <ui:repeat var="event" value="#{manageEvent.eventosCursos()}">
-                        <li class="collection-item">
-                        <h:outputText escape="true" value="#{event.titulo}"/>
-                        <h:form>
-                            <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
-                                <f:param name="id" value="#{event.id}"/>
-                            </h:commandLink>
-                        </h:form>
-                        </li>
-                    </ui:repeat>
-                </ul>
+            <div id="viajes" class="row s6">
+                <div class="col s8">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h3>Eventos para viajar</h3></li>
+                        <h:panelGroup id="viajesEventos">
+                            <ui:repeat var="event" value="#{manageEvent.eventosViajes()}">
+                                <li class="collection-item">
+                                <h:outputText escape="true" value="#{event.titulo}"/>
+                                <h:form>
+                                    <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
+                                        <f:param name="id" value="#{event.id}"/>
+                                    </h:commandLink>
+                                </h:form>
+                                </li>
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </ul>
+                </div>
+                <div class="col s4">
+                    
+                    <h:form>
+                        <p:inputText type="date" class="datepicker validate" id="fechaViajes" value="#{manageEvent.fechaString}" required="false" />
+                        <h:commandButton class="btn btn-primary" value="Actualizar fecha">
+                            <f:ajax execute="fechaViajes" render="viajesEventos" />                    
+                        </h:commandButton>   
+                    </h:form>
+                 
+                    
+                </div>
             </div>
-            <div id="restaurantes" class="col s12">
-                <ul class="collection with-header">
-                    <li class="collection-header"><h3>Eventos en restaurantes</h3></li>
-                    <ui:repeat var="event" value="#{manageEvent.eventosRestaurantes()}">
-                        <li class="collection-item">
-                        <h:outputText escape="true" value="#{event.titulo}"/>
-                        <h:form>
-                            <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
-                                <f:param name="id" value="#{event.id}"/>
-                            </h:commandLink>
-                        </h:form>
-                        </li>
-                    </ui:repeat>
-                </ul>
+            <div id="cursos" class="row s6">
+                <div class="col s8">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h3>Eventos para aprender</h3></li>
+                        <h:panelGroup id="cursosEventos">
+                            <ui:repeat var="event" value="#{manageEvent.eventosCursos()}">
+                                <li class="collection-item">
+                                <h:outputText escape="true" value="#{event.titulo}"/>
+                                <h:form>
+                                    <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
+                                        <f:param name="id" value="#{event.id}"/>
+                                    </h:commandLink>
+                                </h:form>
+                                </li>
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </ul>
+                </div>
+                <div class="col s4">
+                    
+                    <h:form>
+                        <p:inputText type="date" class="datepicker validate" id="fechaCursos" value="#{manageEvent.fechaString}" required="false" />
+                        <h:commandButton class="btn btn-primary" value="Actualizar fecha">
+                            <f:ajax execute="fechaCursos" render="cursosEventos" />                    
+                        </h:commandButton>   
+                    </h:form>
+                 
+                    
+                </div>
             </div>
-            <div id="tecnologia" class="col s12">
-                <ul class="collection with-header">
-                    <li class="collection-header"><h3>Eventos tecnológicos</h3></li>
-                    <ui:repeat var="event" value="#{manageEvent.eventosTecnologia()}">
-                        <li class="collection-item">
-                        <h:outputText escape="true" value="#{event.titulo}"/>
-                        <h:form>
-                            <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
-                                <f:param name="id" value="#{event.id}"/>
-                            </h:commandLink>
-                        </h:form>
-                        </li>
-                    </ui:repeat>
-                </ul>
+            <div id="restaurantes" class="row s6">
+                <div class="col s8">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h3>Eventos en restaurantes</h3></li>
+                        <h:panelGroup id="restaurantesEventos">
+                            <ui:repeat var="event" value="#{manageEvent.eventosRestaurantes()}">
+                                <li class="collection-item">
+                                <h:outputText escape="true" value="#{event.titulo}"/>
+                                <h:form>
+                                    <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
+                                        <f:param name="id" value="#{event.id}"/>
+                                    </h:commandLink>
+                                </h:form>
+                                </li>
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </ul>
+                </div>
+                <div class="col s4">
+                    
+                    <h:form>
+                        <p:inputText type="date" class="datepicker validate" id="fechaRestaurantes" value="#{manageEvent.fechaString}" required="false" />
+                        <h:commandButton class="btn btn-primary" value="Actualizar fecha">
+                            <f:ajax execute="fechaRestaurantes" render="restaurantesEventos" />                      
+                        </h:commandButton>   
+                    </h:form>
+                 
+                    
+                </div>
+            </div>
+            <div id="tecnologia" class="row s6">
+                <div class="col s8">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h3>Eventos tecnológicos</h3></li>
+                        <h:panelGroup id="tecnologiaEventos">
+                            <ui:repeat var="event" value="#{manageEvent.eventosTecnologia()}">
+                                <li class="collection-item">
+                                <h:outputText escape="true" value="#{event.titulo}"/>
+                                <h:form>
+                                    <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
+                                        <f:param name="id" value="#{event.id}"/>
+                                    </h:commandLink>
+                                </h:form>
+                                </li>
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </ul>
+                </div>
+                <div class="col s4">
+                    
+                    <h:form>
+                        <p:inputText type="date" class="datepicker validate" id="fechaTecnologia" value="#{manageEvent.fechaString}" required="false" />
+                        <h:commandButton class="btn btn-primary" value="Actualizar fecha">
+                            <f:ajax execute="fechaTecnologia" render="tecnologiaEventos" />                      
+                        </h:commandButton>   
+                    </h:form>
+                 
+                    
+                </div>
             </div>
             <div id="crearEvento" class="col s12">
                 <h3>Crear Evento</h3>
