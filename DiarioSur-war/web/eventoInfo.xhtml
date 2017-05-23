@@ -75,7 +75,9 @@
                                     <label for="textarea1">Comentario</label>
                                 </div>
                                 <div class="row">    
-                                    <h:commandButton class="btn btn-primary" value="Comentar" action="#" />
+                                    <h:commandButton class="btn btn-primary" value="Comentar" action="#">
+                                        <f:ajax render="comentarios"/>
+                                    </h:commandButton>
                                 </div>
                             </h:form>
                         </div>
@@ -100,13 +102,15 @@
                     <div class="row" style="margin-top: 50px">
                       <ul class="collection with-header">
                         <li class="collection-header"><h3>Comentarios</h3></li>
-                        <ui:repeat var="coment" value="#{manageEvent.evento.getComentarios()}">
-                            <li class="collection-item">
-                            <h:outputText escape="true" value="#{coment.titulo}"/>
-                            <h:outputText escape="true" value="#{coment.cuerpo}"/>
-                            <h:outputText escape="true" value="#{coment.usuario}"/> 
-                            </li>
-                        </ui:repeat>
+                        <h:panelGroup id="comentarios">
+                            <ui:repeat var="coment" value="#{manageEvent.evento.getComentarios()}">
+                                <li class="collection-item">
+                                <h:outputText escape="true" value="#{coment.titulo}"/>
+                                <h:outputText escape="true" value="#{coment.cuerpo}"/>
+                                <h:outputText escape="true" value="#{coment.usuario}"/> 
+                                </li>
+                            </ui:repeat>
+                        </h:panelGroup>
                     </ul>
                     </div>
                     
