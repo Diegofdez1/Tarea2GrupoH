@@ -356,8 +356,12 @@ public class ManageEvent {
         //Si salimos de la vista, un retutn "Evento.xhtml"
     }
 
-    public int valorarEvento(Event e) {
-        return e.getValoracion();
+    public String getValoracionEvento() {
+        if(evento.getValoracion()>=1){
+            return String.valueOf(evento.getValoracion());
+        } else {
+            return "Aun no exiten datos";
+        }
     }
 
     public List<String> tiposeventos(){
