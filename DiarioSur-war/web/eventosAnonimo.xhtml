@@ -30,9 +30,17 @@
                 });
 
             </script>
+            <script>
+                $(document).ajaxComplete(function(event, xhr, options) {
+                    if (typeof xhr.responseXML != 'undefined') { // It's undefined when plain $.ajax(), $.get(), etc is used instead of PrimeFaces ajax.
+                        fixViewState(xhr.responseXML);
+                    }
+                }
+            </script>
         </h:head>
 
         <h:body>
+            <h:outputScript name="/resources/mojarra.js" target="head" />
             <p:growl id="growl" showDetail="true" sticky="true"/>
             <nav class="nav-extended">
                 <div class="nav-wrapper">
@@ -72,11 +80,12 @@
                             <ui:repeat var="event" value="#{manageEvent.todosEventos()}">
                                 <li class="collection-item">
                                     <h:outputText escape="true" value="#{event.titulo}"/>
-                                    <h:form>
-                                        <h:commandLink value="Ver más" action="#{manageEvent.outcome()}">
+                                    <h:form id="formTodos">
+                                        <p:commandLink value="Ver más" action="#{manageEvent.outcome()}">
                                             <f:param name="id" value="#{event.id}"/>
-                                        </h:commandLink>
+                                        </p:commandLink>
                                     </h:form>
+                                    
                                 </li>
                             </ui:repeat> 
                         </h:panelGroup>
@@ -87,7 +96,7 @@
                     <h:form>
                         <p:inputText type="date" class="datepicker validate" id="fechaTodos" value="#{manageEvent.fechaString}" required="false" />
                         <h:commandButton class="btn btn-primary" value="Actualizar fecha">
-                            <f:ajax execute="fechaTodos" render="todosEventos" />                        
+                            <f:ajax execute="fechaTodos" render=":todosEventos :formTodos" />                        
                         </h:commandButton>   
                     </h:form>
                     

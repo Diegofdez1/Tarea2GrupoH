@@ -21,6 +21,7 @@ import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -31,6 +32,7 @@ import org.primefaces.model.UploadedFile;
  */
 @Named(value = "manageEvent")
 @RequestScoped
+@ViewScoped
 @ManagedBean
 public class ManageEvent {
 
@@ -113,18 +115,19 @@ public class ManageEvent {
         return comentario;
     }
     
-    public String outcome(){
-
+    public void outcome(){
+            
             FacesContext fc = FacesContext.getCurrentInstance();
             id = getIdParam(fc);
             for (Event e : eventos) {
                 if(String.valueOf(e.getId()).equals(id)){
                     this.setEvento(e);
                 }
-            System.out.println(e.getTitulo());
         }
-            System.out.println("hola");
-            return "eventoInfo.xhtml";
+            String outcome = "eventoInfo.xhtml" ;
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, outcome);
+           // return "eventoInfo.xhtml";
+            
     }
     
     public String getId(){
@@ -360,7 +363,7 @@ public class ManageEvent {
         if(evento.getValoracion()>=1){
             return String.valueOf(evento.getValoracion());
         } else {
-            return "Aun no exiten datos";
+            return "Aun no exiten datos sobre la valoración";
         }
     }
 
