@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:mp="http://primefaces.org/ui/material"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <view contentType="text/html">
+
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Diario Sur</title>
+            </f:facet>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"></link>
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+            <script type="text/javascript" src="js/materialize.min.js"></script> 
+
+        </h:head>
+       
+                    <h:body>
+                        <p:growl id="growl" showDetail="true" sticky="true"/>
+                        <nav class="nav-extended">
+                            <div class="nav-wrapper">
+                                <h:link class="brand-logo" value="Agenda Cultural" outcome="index.xhtml"/>
+                                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                                    <li><h:link class="btn btn-primary" value="Eventos" outcome="eventosAnonimo.xhtml"/></li>
+                                    <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                                    <li><h:link value="Registro" outcome="registro.xhtml"/></li>
+                                    <li><h:link value="Login" outcome="login.xhtml"/></li>
+                                </ul>
+                                <ul class="side-nav" id="mobile-demo">
+                                    <li><h:link value="Eventos" outcome="eventosAnonimo.xhtml"/></li>
+                                    <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                                    <li><h:link value="Registro" outcome="registro.xhtml"/></li>
+                                    <li><h:link value="Login" outcome="login.xhtml"/></li>
+                                </ul>
+                            </div>
+                        </nav>
+
+                        <div class="page-header">
+                            <h1>¡Todos los eventos de Málaga a un click!</h1>
+                        </div>
+
+
+
+                        <table style="width:90%">
+                            <tr>
+                                <th style="width:25%">
+                                    <div class="card">
+                                        <div class="card-image">
+                                            <img src="images/sample-1.jpg"></img>
+                                            <span class="card-title">Card Title</span>
+                                        </div>
+                                        <div class="card-content">
+                                            <p>I am a very simple card. I am good at containing small bits of information.
+                                                I am convenient because I require little markup to use effectively.</p>
+                                        </div>
+                                        <div class="card-action">
+                                            <a href="#">This is a link</a>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th style="width:25%">
+                                    <div class="card">
+                                        <div class="card-image">
+                                            <img src="images/sample-1.jpg"></img>
+                                            <span class="card-title">Card Title</span>
+                                        </div>
+                                        <div class="card-content">
+                                            <p>I am a very simple card. I am good at containing small bits of information.
+                                                I am convenient because I require little markup to use effectively.</p>
+                                        </div>
+                                        <div class="card-action">
+                                            <a href="#">This is a link</a>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th style="width:25%">
+                                    <div class="card">
+                                        <div class="card-image">
+                                            <img src="images/sample-1.jpg"></img>
+                                            <span class="card-title">Card Title</span>
+                                        </div>
+                                        <div class="card-content">
+                                            <p>I am a very simple card. I am good at containing small bits of information.
+                                                I am convenient because I require little markup to use effectively.</p>
+                                        </div>
+                                        <div class="card-action">
+                                            <a href="#">This is a link</a>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </table>
+
+
+                    </h:body>
+           
+
+    </view>
+
+</html>
