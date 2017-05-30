@@ -385,7 +385,7 @@ public class ManageEvent {
     }
 
     public String getValoracionEvento() {
-        if(evento.getValoracion().getValor()>=1){
+        if(evento.getValoracion()>=1){
             return String.valueOf(evento.getValoracion());
         } else {
             return "Aun no exiten datos sobre la valoración";

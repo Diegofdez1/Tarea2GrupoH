@@ -71,6 +71,9 @@ public enum TipoEvento {
     private TipoEvento tipo_evento;
 
     
+    private int valoracion;
+
+    
     
     public Event() {
     }
@@ -109,18 +112,19 @@ public enum TipoEvento {
     @OneToMany
     private List<Comentario> comentarios;
     
-    @OneToOne (fetch = FetchType.LAZY)
-    private Valoracion valoracion;
 
     //--------End Relaciones---------
 
-    public Valoracion getValoracion() {
+    public int getValoracion() {
         return valoracion;
     }
 
-    public void setValoracion(Valoracion valoracion) {
+    public void setValoracion(int valoracion) {
         this.valoracion = valoracion;
     }
+
+   
+    
 
   
     
