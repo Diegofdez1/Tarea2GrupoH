@@ -13,6 +13,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -27,18 +28,14 @@ public class Valoracion implements Serializable {
     
     @Column(name="valor")//enum
     private int valor;
-
-    @JoinColumn(name="valEvento",referencedColumnName="descripcion")
-    @ManyToOne
-    private Event evento;
     
     @JoinColumn(name="valUsuario",referencedColumnName="id_usuario")
     @ManyToOne
     private Usuario usuario;
-
+    
     public Valoracion() {
-    }
-
+    }   
+    
     public ValoracionId getValoracionId() {
         return valoracionId;
     }
@@ -47,13 +44,7 @@ public class Valoracion implements Serializable {
         this.valoracionId = valoracionId;
     }
 
-    public Event getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Event evento) {
-        this.evento = evento;
-    }
+    
 
     public Usuario getUsuario() {
         return usuario;

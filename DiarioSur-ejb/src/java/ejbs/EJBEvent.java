@@ -109,8 +109,6 @@ public class EJBEvent implements EJBEventLocal {
 
         Usuario us = em.find(Usuario.class, u.getCorreoE());
 
-        boolean encontrado = false;
-
         if (us != null) {
             if (us.getPassword().equalsIgnoreCase(u.getPassword())) {
                 if (u.getRol() == Rol.usuario_anonimo) {

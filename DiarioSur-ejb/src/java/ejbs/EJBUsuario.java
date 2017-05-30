@@ -117,7 +117,6 @@ public class EJBUsuario implements EJBUsuarioLocal{
       
         if (us != null) {
             if (us.getPassword().equalsIgnoreCase(pass)) {
-                 System.out.println("111111111111     " + us.toString());
                 if (us.getRol() == Rol.usuario_anonimo) {
 
                     throw new ValidacionIncorrectaException();

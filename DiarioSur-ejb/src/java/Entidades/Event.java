@@ -13,12 +13,14 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -68,37 +70,12 @@ public enum TipoEvento {
     @Enumerated
     private TipoEvento tipo_evento;
 
-    @Column(name = "valoracion", nullable = true)
-    private int valoracion;
     
-    @Column(name = "comentario", nullable = true, length = 60)
-    private String comentario;
-    
-    @Column(name = "image", nullable = true)
-    private String image;
-
     
     public Event() {
     }
-
     
-
-    public Event(int id, String titulo, String descripcion, String localizacion, Date fecha_inicio, Time hora_inicio, Date fecha_fin, String contacto, TipoEvento tipo_evento, int valoracion, String image, String comentario){
-        this.id = id;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.localizacion = localizacion;
-        this.fecha_inicio = fecha_inicio;
-        this.hora_inicio = hora_inicio;
-        this.fecha_fin = fecha_fin;
-        this.contacto = contacto;
-        this.tipo_evento = tipo_evento;
-        this.valoracion = valoracion;
-        this.image = image;
-        this.comentario = comentario;
-    }
-    
-    /*public Event(int id, String titulo, String descripcion, String localizacion, Date fecha_inicio, Time hora_inicio, String contacto, TipoEvento tipo_evento){
+    public Event(int id, String titulo, String descripcion, String localizacion, Date fecha_inicio, Time hora_inicio, String contacto, TipoEvento tipo_evento, List<Foto> images){
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -107,18 +84,7 @@ public enum TipoEvento {
         this.hora_inicio = hora_inicio;
         this.contacto = contacto;
         this.tipo_evento = tipo_evento;
-    }*/
-    
-    public Event(int id, String titulo, String descripcion, String localizacion, Date fecha_inicio, Time hora_inicio, String contacto, TipoEvento tipo_evento, String image){
-        this.id = id;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.localizacion = localizacion;
-        this.fecha_inicio = fecha_inicio;
-        this.hora_inicio = hora_inicio;
-        this.contacto = contacto;
-        this.tipo_evento = tipo_evento;
-        this.image = image;
+        this.fotos= images;
     }
     
    
@@ -130,22 +96,7 @@ public enum TipoEvento {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-            
-    public int getValoracion() {
-        return valoracion;
-    }
-
-    public void setValoracion(int valoracion) {
-        this.valoracion = valoracion;
-    }
+    
 
     //--------Relaciones---------
     @ManyToOne
@@ -157,9 +108,22 @@ public enum TipoEvento {
 
     @OneToMany
     private List<Comentario> comentarios;
+    
+    @OneToOne (fetch = FetchType.LAZY)
+    private Valoracion valoracion;
 
-    // valoracion
     //--------End Relaciones---------
+
+    public Valoracion getValoracion() {
+        return valoracion;
+    }
+
+    public void setValoracion(Valoracion valoracion) {
+        this.valoracion = valoracion;
+    }
+
+  
+    
     public Integer getId() {
         return id;
     }
@@ -222,14 +186,6 @@ public enum TipoEvento {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
     }
 
     

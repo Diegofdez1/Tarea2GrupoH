@@ -11,11 +11,8 @@ import Entidades.Event.TipoEvento;
 import Entidades.Usuario.Rol;
 import Entidades.Usuario;
 import ejbs.DiarioException;
-import ejbs.EJBComentario;
 import ejbs.EJBComentarioLocal;
-import ejbs.EJBEvent;
 import ejbs.EJBEventLocal;
-import ejbs.EJBUsuario;
 import ejbs.EJBUsuarioLocal;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -23,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import javax.annotation.PostConstruct;
+
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
@@ -332,10 +329,10 @@ public class ManageEvent {
         fecha = new java.util.Date(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
         String[] parts1 = horainiString.split(":");
         horaini = new java.sql.Time(Integer.parseInt(parts1[0]), Integer.parseInt(parts1[1]), 00);
-        Event e;
-        if(file==null){
-            e = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, "noimage.jpg");
-        }else{
+       // Event e;
+       // if(file==null){
+            Event e = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, null);
+        /*}else{
             fileName = file.getFileName();
             byte[] contents = file.getContents();
             FileOutputStream fos = new FileOutputStream("/resources/"+fileName);
@@ -347,10 +344,11 @@ public class ManageEvent {
                 fos.close();
             }
             e = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, fileName);
-        }
-        setEvento(e);
-        eventos.add(e);
-        eventEjb.getEventos().add(e);
+        }*/
+        
+        eventEjb.crearEvent(e);
+        
+        
         
         return "eventoInfo.xhtml";
      
@@ -387,7 +385,7 @@ public class ManageEvent {
     }
 
     public String getValoracionEvento() {
-        if(evento.getValoracion()>=1){
+        if(evento.getValoracion().getValor()>=1){
             return String.valueOf(evento.getValoracion());
         } else {
             return "Aun no exiten datos sobre la valoración";
