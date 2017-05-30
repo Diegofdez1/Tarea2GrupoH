@@ -5,17 +5,12 @@
  */
 package ejbs;
 
-import javax.ejb.Singleton;
-import javax.ejb.LocalBean;
-
 /**
  *
  * @author Francisco
  */
-@Singleton
-@LocalBean
-public class NewSessionBean {
+class ValidacionIncorrectaException extends DiarioException {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+  
+    
 }

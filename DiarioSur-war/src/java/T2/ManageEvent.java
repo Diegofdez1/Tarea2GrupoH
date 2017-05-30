@@ -8,8 +8,15 @@ package T2;
 import Entidades.Comentario;
 import Entidades.Event;
 import Entidades.Event.TipoEvento;
-import Entidades.Rol;
+import Entidades.Usuario.Rol;
 import Entidades.Usuario;
+import ejbs.DiarioException;
+import ejbs.EJBComentario;
+import ejbs.EJBComentarioLocal;
+import ejbs.EJBEvent;
+import ejbs.EJBEventLocal;
+import ejbs.EJBUsuario;
+import ejbs.EJBUsuarioLocal;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
@@ -55,6 +63,15 @@ public class ManageEvent {
     private UploadedFile file;
     private String fileName;
     private Comentario comentario;
+    
+        @EJB
+    EJBUsuarioLocal usuarioEjb;
+        
+        @EJB
+    EJBEventLocal eventEjb;
+        
+        @EJB
+     EJBComentarioLocal comEjb;
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -70,7 +87,7 @@ public class ManageEvent {
     public ManageEvent(){
         eventos = new ArrayList<Event>();
     }
-
+/*
     @PostConstruct
     public void init() {
         eventos = new ArrayList<Event>();
@@ -92,7 +109,7 @@ public class ManageEvent {
         eventos.add(new Event(16, "25 Piezas de sushi + vino ¡take away para 2 personas!", "Si eres un apasionado/a del sushi, disfruta del menú take away que te ofrecemos degustar, con descuento, en Sashimi Gastrobar. No te lo pienses más y aprovecha esta excelente oportunidad para degustar una bandeja de 25 piezas para recoger en el local y ¡disfrutar donde tú quieras!", "Sashimi Gastrobar, Teatinos-Universidad, Málaga", new java.util.Date(2017, 6, 7), new java.sql.Time(10, 00, 00), new java.util.Date(2017, 6, 8), "607625489", TipoEvento.restaurantes, 0, "sushi.jpg", ""));
     
     }
-    
+    */
     
     //get value from "f:param"
     public String getIdParam(FacesContext fc){
@@ -101,14 +118,18 @@ public class ManageEvent {
     }
     
     public void createComment(){
+       //////// comEjb.insertarComentario();
        comentario.setUsuario(usuario);
-       List<Comentario> aux = evento.getComentarios();
-       aux.add(comentario);
-       evento.setComentarios(aux);  
+       //List<Comentario> aux = evento.getComentarios();
+       //aux.add(comentario);
+       comEjb.getComentarios().add(comentario);
+       //eventEjb.setComentarios(aux);  HACE F !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111
+       //evento.setComentarios(aux);  
     }
 
-    public void setComentario(Comentario comentario) {
-        this.comentario = comentario;
+    public void setComentario(Comentario comentario) throws DiarioException {
+        comEjb.modificarComentario(comentario);
+        //this.comentario = comentario;
     }
 
     public Comentario getComentario() {
@@ -119,6 +140,7 @@ public class ManageEvent {
             
             FacesContext fc = FacesContext.getCurrentInstance();
             id = getIdParam(fc);
+            eventos=eventEjb.getEventos();
             for (Event e : eventos) {
                 if(String.valueOf(e.getId()).equals(id)){
                     this.setEvento(e);
@@ -260,7 +282,8 @@ public class ManageEvent {
         this.control = control;
     }
 
-    public List<Usuario> getUsuarios() {
+    public List<Usuario> getUsuarios() throws DiarioException {
+        usuarios=usuarioEjb.getUsuarios();
         return usuarios;
     }
 
@@ -269,14 +292,16 @@ public class ManageEvent {
     }
 
     public List<Event> getEventos() {
+        eventos = eventEjb.getEventos();
         return eventos;
     }
 
     public void setEventos(List<Event> eventos) {
         this.eventos = eventos;
+        //eventEjb; METODO EJB SETEVENTOS MISSING 
     }
 
-    public List<Event> getPendientes() {
+    public List<Event> getPendientes() { // DONDE ESTAMOS ALMACENANDO PENDIENTES?
         return pendientes;
     }
 
@@ -325,6 +350,7 @@ public class ManageEvent {
         }
         setEvento(e);
         eventos.add(e);
+        eventEjb.getEventos().add(e);
         
         return "eventoInfo.xhtml";
      
@@ -352,10 +378,11 @@ public class ManageEvent {
         }
     }
 
-    public void comentarEvento(Event e, Comentario com) {
+    public void comentarEvento(Event e, Comentario com) throws DiarioException {
         evento = e;
-        List<Comentario> comentarios = evento.getComentarios();
-        comentarios.add(com);
+        //List<Comentario> comentarios = evento.getComentarios();
+        comEjb.insertarComentario(com);  /////// 
+        //comentarios.add(com);
         //Si salimos de la vista, un retutn "Evento.xhtml"
     }
 
@@ -392,6 +419,7 @@ public class ManageEvent {
     public List<Event> buscarEvento(String busqueda, String filtro) {
         List<Event> res = new ArrayList<Event>();
         if (filtro.equalsIgnoreCase("titulo")) {
+            eventos=eventEjb.getEventos();
             for (Event e : eventos) {
                 if (e.getTitulo().equalsIgnoreCase(busqueda)) {
                     res.add(e);
@@ -399,6 +427,7 @@ public class ManageEvent {
             }
 
         } else if (filtro.equalsIgnoreCase("tipo")) {
+            eventos=eventEjb.getEventos();
             for (Event e : eventos) {
                 for (TipoEvento te : TipoEvento.values()) {
                     if (te.toString().equalsIgnoreCase(busqueda)) {
@@ -435,6 +464,7 @@ public class ManageEvent {
             selectedDate = new java.util.Date(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[2]));
         }
         List<Event> res = new ArrayList<Event>();
+        eventos=eventEjb.getEventos();
         for (Event e : eventos) {
             if((selectedDate==null || e.getFecha_inicio().equals(selectedDate)) && te.equals(e.getTipo_evento())){
               res.add(e);  

@@ -6,12 +6,13 @@
 package T2;
 
 import Entidades.Event;
-import Entidades.Rol;
 import Entidades.Usuario;
+import ejbs.DiarioException;
+import ejbs.EJBEventLocal;
+import ejbs.EJBUsuarioLocal;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -27,8 +28,14 @@ public class Control implements Serializable {
     private Usuario usuario;
     private List<Usuario> usuarios;
     private List<Event> eventos;
+    
+        @EJB
+    EJBUsuarioLocal usuarioEjb;
+        
+        @EJB
+     EJBEventLocal eventEjb;
 
-    @PostConstruct
+    /*@PostConstruct
     public void init() {
         usuarios = new ArrayList<>();
         usuarios.add(new Usuario("Diego", "Fernandez", "diego@gmail.com", "diego", 789456213, Rol.usuario_registrado));
@@ -36,7 +43,7 @@ public class Control implements Serializable {
         usuarios.add(new Usuario("Hind", "Gutierrez", "hind@gmail.com", "hind", 789456213, Rol.usuario_registrado));
 
     }
-
+*/
     public Control() {
     }
 
@@ -52,22 +59,25 @@ public class Control implements Serializable {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-        usuarios.add(usuario);
+    public void setUsuario(Usuario u) throws DiarioException {
+        usuarioEjb.modificarUsuario(u);
+        //usuarios.add(u);
     }
 
     public List<Event> getEventos() {
+        eventos=eventEjb.getEventos();
         return eventos;
     }
 
     public void setEventos(Event e) {
+        eventos=eventEjb.getEventos();
         eventos.add(e);
-        this.eventos = eventos;
+        //this.eventos = eventos;
     }
 
     public String home() {
 
+        
         if (usuario == null) {
             return "index.xhtml";
         } else {

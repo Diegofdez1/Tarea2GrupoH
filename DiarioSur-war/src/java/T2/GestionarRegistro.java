@@ -5,8 +5,12 @@
  */
 package T2;
 
-import Entidades.Rol;
+import Entidades.Usuario.Rol;
 import Entidades.Usuario;
+import ejbs.DiarioException;
+import ejbs.EJBUsuario;
+import ejbs.EJBUsuarioLocal;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -26,9 +30,38 @@ public class GestionarRegistro {
     private String password;
     private String password2;
     private int telefono;
+    
+        @EJB
+    EJBUsuarioLocal usuarioEjb;
 
     @Inject
     private Control control;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public EJBUsuarioLocal getUsuarioEjb() {
+        return usuarioEjb;
+    }
+
+    public void setUsuarioEjb(EJBUsuarioLocal usuarioEjb) {
+        this.usuarioEjb = usuarioEjb;
+    }
+
+    public Control getControl() {
+        return control;
+    }
+
+    public void setControl(Control control) {
+        this.control = control;
+    }
+    
+    
 
     public GestionarRegistro() {
     }
@@ -86,9 +119,15 @@ public class GestionarRegistro {
     public String validar() {
 
             usuario = new Usuario(nombre, apellidos, email, password, telefono, Rol.usuario_registrado);
-            System.out.println(usuario.toString());
-            control.setUsuario(usuario);
-            control.getUsuarios().add(usuario);
+            
+            try{
+                 usuarioEjb.registrarUsuario(usuario);
+            }catch(DiarioException de){
+                de.toString();
+            }
+           
+            /// control.setUsuario(usuario);
+           // control.getUsuarios().add(usuario);
  
         return "login.xhtml";
 

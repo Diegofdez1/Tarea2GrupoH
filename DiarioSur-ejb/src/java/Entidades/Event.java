@@ -19,6 +19,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -30,8 +32,6 @@ public class Event implements Serializable{
 public enum TipoEvento {
     deporte, musica, cultura, viajes, cursos, restaurantes, tecnologia
 }
-
-    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,12 +49,15 @@ public enum TipoEvento {
     @Column(name = "localizacion", nullable = false, length = 40)
     private String localizacion;
 
+    
+    @Temporal(TemporalType.DATE)
     @Column(name = "fecha_inicio", nullable = false)
     private java.util.Date fecha_inicio;
 
     @Column(name = "hora_inicio", nullable = false)
     private java.sql.Time hora_inicio;
     
+    @Temporal(TemporalType.DATE)
     @Column(name = "fecha_fin", nullable = true)
     private java.util.Date fecha_fin;
 
@@ -73,6 +76,12 @@ public enum TipoEvento {
     
     @Column(name = "image", nullable = true)
     private String image;
+
+    
+    public Event() {
+    }
+
+    
 
     public Event(int id, String titulo, String descripcion, String localizacion, Date fecha_inicio, Time hora_inicio, Date fecha_fin, String contacto, TipoEvento tipo_evento, int valoracion, String image, String comentario){
         this.id = id;
@@ -240,6 +249,15 @@ public enum TipoEvento {
         this.comentarios = comentarios;
     }
 
+    public Time getHora_inicio() {
+        return hora_inicio;
+    }
+
+    public void setHora_inicio(Time hora_inicio) {
+        this.hora_inicio = hora_inicio;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;

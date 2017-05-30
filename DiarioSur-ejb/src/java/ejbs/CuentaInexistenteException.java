@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entidades;
+package ejbs;
 
 /**
  *
- * @author diego
+ * @author Francisco
  */
-public enum Rol {
-    administrador, periodista, superusuario, usuario_registrado, usuario_anonimo
+class CuentaInexistenteException extends DiarioException {
+
+    
     
 }
-
-// usuario

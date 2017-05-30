@@ -7,6 +7,7 @@ package Entidades;
 
 import Entidades.Event;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -35,8 +36,32 @@ public class Valoracion implements Serializable {
     @ManyToOne
     private Usuario usuario;
 
-    
+    public Valoracion() {
+    }
 
+    public ValoracionId getValoracionId() {
+        return valoracionId;
+    }
+
+    public void setValoracionId(ValoracionId valoracionId) {
+        this.valoracionId = valoracionId;
+    }
+
+    public Event getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Event evento) {
+        this.evento = evento;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public int getValor() {
         return valor;
@@ -45,6 +70,33 @@ public class Valoracion implements Serializable {
     public void setValor(int valor) {
         this.valor = valor;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(this.valoracionId);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Valoracion other = (Valoracion) obj;
+        if (!Objects.equals(this.valoracionId, other.valoracionId)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
 
 

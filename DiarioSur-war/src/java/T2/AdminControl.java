@@ -6,12 +6,17 @@
 package T2;
 
 import Entidades.Event;
+import ejbs.DiarioException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
+import ejbs.EJBEvent;
+import ejbs.EJBEventLocal;
+import ejbs.EJBUsuario;
+import javax.ejb.EJB;
 
 /**
  *
@@ -23,6 +28,11 @@ public class AdminControl implements Serializable {
     private Event evento;
     private List<Event> pendientes;
     private List<Event> eventos;
+    
+
+    @EJB
+    EJBEventLocal eventEjb;
+    
 
     /**
      * Creates a new instance of AdminControl
@@ -32,21 +42,24 @@ public class AdminControl implements Serializable {
         eventos= new ArrayList<>();
     }
     
-    public String borrarEvento(Event e)
+    public String borrarEvento(Event e) throws DiarioException
     {
-     eventos.remove(e);
+      eventEjb.borrarEvent(e);
+     //eventos.remove(e);
      return "eventosAdm.xhtm";
     }
     
-    public void validarEvento(Event e)
+    public void validarEvento(Event e) throws DiarioException
     {
         evento=e;
-        eventos.add(evento);
+        eventEjb.crearEvent(e);
+        //eventos.add(evento);
         pendientes.remove(e);
         //Nos quedamos en la misma vista con el evento validado
     }
     public void rechazarEvento (Event e)
     {
+        
         pendientes.remove(e);
     }
             

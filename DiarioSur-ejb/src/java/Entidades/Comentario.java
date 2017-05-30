@@ -39,6 +39,9 @@ public class Comentario implements Serializable {
     private Usuario usuario;
 
     //--------End Relaciones---------
+
+    public Comentario() {
+    }
     
     
 

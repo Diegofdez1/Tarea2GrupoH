@@ -25,6 +25,31 @@ public class ValoracionId implements Serializable {
     
     @Column(name="id_usuario",nullable=false)
     private int usuario;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getEvento() {
+        return evento;
+    }
+
+    public void setEvento(int evento) {
+        this.evento = evento;
+    }
+
+    public int getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(int usuario) {
+        this.usuario = usuario;
+    }
+    
     
 
     @Override

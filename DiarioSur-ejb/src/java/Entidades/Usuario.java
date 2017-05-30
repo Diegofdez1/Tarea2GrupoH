@@ -6,14 +6,14 @@
 package Entidades;
 import java.util.List;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
 
 /**
  *
@@ -22,18 +22,20 @@ import javax.persistence.OneToMany;
 @Entity
 public class Usuario implements Serializable {
 
+    public enum Rol{     
+        administrador, periodista, superusuario, usuario_registrado, usuario_anonimo}
+    
+
+    
     private static final long serialVersionUID = 1L;
-     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_usuario")
-    private Long id;
      
-    @Column (name= "nombre", nullable=false, length = 10)
+    @Column (name= "nombre", nullable=false, length = 100)
     private String nombre;
     
     @Column (name= "apellidos", nullable=false, length = 20)
     private String apellidos;
 
+    @Id
     @Column (name = "correoE", nullable = false, length = 20)
     private String correoE;
     
@@ -44,8 +46,15 @@ public class Usuario implements Serializable {
     private int telefono;
     
     @Enumerated(EnumType.STRING)
-    @Column (name = "rol", nullable = false, length = 10)
+    @Column (name = "rol", nullable = false, length = 100)
     private Rol rol;
+    
+   
+    
+   public Usuario() {
+        
+    }
+   
 
     public Usuario(String nombre, String apellidos, String correoE, String password, int telefono,Rol rol) {
         this.nombre = nombre;
@@ -53,7 +62,7 @@ public class Usuario implements Serializable {
         this.correoE = correoE;
         this.password = password;
         this.telefono = telefono;
-        this.rol =rol;
+        this.rol = rol;
         
     }
     
@@ -69,9 +78,7 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy="usuario")
     private List<Comentario> comentarios;
 
-    public Usuario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     public List<Comentario> getComentarios() {
         return comentarios;
@@ -82,14 +89,6 @@ public class Usuario implements Serializable {
     
     public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -161,27 +160,33 @@ public class Usuario implements Serializable {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
-    
-    
+
+  
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.correoE);
+        return hash;
+    }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Usuario other = (Usuario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if (!Objects.equals(this.correoE, other.correoE)) {
             return false;
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", correoE=" + correoE + ", password=" + password + ", telefono=" + telefono + ", rol=" + rol + ", eventos=" + eventos + ", fotos=" + fotos + ", comentarios=" + comentarios + '}';
-    }
-
+    
+    
     
     
     

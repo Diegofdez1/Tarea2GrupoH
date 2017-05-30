@@ -5,22 +5,17 @@
  */
 package T2;
 
-import Entidades.Rol;
+
 import Entidades.Usuario;
-import java.util.ArrayList;
+import ejbs.DiarioException;
+import ejbs.EJBUsuarioLocal;
 import java.util.List;
-import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
-
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -33,30 +28,35 @@ public class Login {
     private String email;
     private String pass;
     private List<Usuario> usuarios;
+    
+        @EJB
+    EJBUsuarioLocal usuarioEjb;
 
     @Inject
     private Control ctrl;
     
     
-    @PostConstruct
+   /* @PostConstruct
     public void init() {
         usuarios = new ArrayList<>();
          for(Usuario u : ctrl.getUsuarios()){
             usuarios.add(u);
         }
-    }
+    }*/
 
     public Login(){
   
     }
     
-    public List<Usuario> getUsuarios() {
+    public List<Usuario> getUsuarios() throws DiarioException {
+        usuarios=usuarioEjb.getUsuarios();     //¿NECESARIO? 
         return usuarios;
     }
 
-    public void setUsuarios() {
-        this.usuarios = ctrl.getUsuarios();
-    }
+   /* public void setUsuarios() {
+        
+        //this.usuarios = ctrl.getUsuarios(); QUÉ ES ESTO? JAJA H
+    }*/
 
     public String getPass() {
         return pass;
@@ -76,25 +76,12 @@ public class Login {
 
    
 
-    public String autenticar() { // autenticar checked and approved. 
-        boolean encontrado = false;
-        for (Usuario u : usuarios) {
-            if (u.getCorreoE().equalsIgnoreCase(email)) {
-                if (u.getPassword().equals(pass)) {
-                    ctrl.setUsuario(u);
-                   encontrado=true;
-                }
-            }
-        }
-                
-        if(!encontrado){
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "contraseña errónea", "contraseña errónea"));
-            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario no existe", "El usuario no existe"));
-            return "login.xhtml";
-        }
-        
-        return ctrl.home();
+    public String autenticar() throws DiarioException { // autenticar checked and approved. 
+       Usuario user = new Usuario(null, null,email,pass,0,null);
+       Usuario encontrado = usuarioEjb.compruebaLogin(user);
+        System.out.println("AUTENTICAaAAAARRRRRRR   " + encontrado.toString());
+       ctrl.setUsuario(encontrado);
+       return ctrl.home();
     }
 
 }

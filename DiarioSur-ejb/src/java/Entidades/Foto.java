@@ -30,8 +30,8 @@ public class Foto implements Serializable {
     @Column (name = "nombre", nullable = false, length = 20)
     private String nombre;
     
-    @Column (name = "path", nullable = false, length = 40)
-    private String path;
+    @Column (name = "camino", nullable = false, length = 40)
+    private String camino;
     
     //--------Relaciones---------
     @ManyToOne
@@ -40,13 +40,19 @@ public class Foto implements Serializable {
     
     //--------End Relaciones---------
 
-    public String getPath() {
-        return path;
+    public Foto() {
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public String getCamino() {
+        return camino;
     }
+
+    public void setCamino(String camino) {
+        this.camino = camino;
+    }
+    
+    
+
 
     public String getNombre() {
         return nombre;
