@@ -331,7 +331,8 @@ public class ManageEvent {
         horaini = new java.sql.Time(Integer.parseInt(parts1[0]), Integer.parseInt(parts1[1]), 00);
        // Event e;
        // if(file==null){
-            Event e = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, null);
+            evento = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, null);
+            System.out.println("44444444444444444444444    " + evento.toString());
         /*}else{
             fileName = file.getFileName();
             byte[] contents = file.getContents();
@@ -346,7 +347,7 @@ public class ManageEvent {
             e = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, fileName);
         }*/
         
-        eventEjb.crearEvent(e);
+        eventEjb.crearEvent(evento);
         
         
         
@@ -384,13 +385,13 @@ public class ManageEvent {
         //Si salimos de la vista, un retutn "Evento.xhtml"
     }
 
-    public String getValoracionEvento() {
+   /* public String getValoracionEvento() {
         if(evento.getValoracion()>=1){
             return String.valueOf(evento.getValoracion());
         } else {
             return "Aun no exiten datos sobre la valoración";
         }
-    }
+    }*/
 
     public List<String> tiposeventos(){
         List<String> res = new ArrayList<String>();

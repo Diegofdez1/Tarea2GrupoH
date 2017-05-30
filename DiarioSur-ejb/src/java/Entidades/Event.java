@@ -70,13 +70,25 @@ public enum TipoEvento {
     @Enumerated
     private TipoEvento tipo_evento;
 
+    private boolean aceptado;
     
+    @Column(name ="valoracion", nullable = true)
     private int valoracion;
 
     
     
     public Event() {
     }
+
+    public boolean isAceptado() {
+        return aceptado;
+    }
+
+    public void setAceptado(boolean aceptado) {
+        this.aceptado = aceptado;
+    }
+    
+    
     
     public Event(int id, String titulo, String descripcion, String localizacion, Date fecha_inicio, Time hora_inicio, String contacto, TipoEvento tipo_evento, List<Foto> images){
         this.id = id;
@@ -88,6 +100,7 @@ public enum TipoEvento {
         this.contacto = contacto;
         this.tipo_evento = tipo_evento;
         this.fotos= images;
+        this.aceptado = false;
     }
     
    
@@ -240,7 +253,9 @@ public enum TipoEvento {
 
     @Override
     public String toString() {
-        return "Entidades.NewEntity[ id=" + id + " ]";
+        return "Event{" + "id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", localizacion=" + localizacion + ", fecha_inicio=" + fecha_inicio + ", hora_inicio=" + hora_inicio + ", fecha_fin=" + fecha_fin + ", contacto=" + contacto + ", tipo_evento=" + tipo_evento + ", valoracion=" + valoracion + ", usuario=" + usuario + ", fotos=" + fotos + ", comentarios=" + comentarios + '}';
     }
+
+    
 
 }

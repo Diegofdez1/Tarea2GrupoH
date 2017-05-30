@@ -31,8 +31,8 @@ public class Login {
     
         @EJB
     EJBUsuarioLocal usuarioEjb;
-
-    @Inject
+        
+        @Inject
     private Control ctrl;
     
     

@@ -48,16 +48,14 @@
                         <h:outputFormat value="#{manageEvent.evento.titulo}"/>
                     </h2>    
                     <div class="card horizontal">
-                        <div class="card-image">
-                            <h:graphicImage value="resources/#{manageEvent.evento.image}"/>
-                        </div>
+                     
                         <div class="card-stacked">
                             <div class="card-content">
                                 <h:outputFormat class="card-content" value="#{manageEvent.evento.descripcion}"/>
                             </div>
                             <div class="card-action">
                                 <!--<a href="#">Ir a la página</a>-->
-                                <h:outputFormat value="#{manageEvent.valoracionEvento}" />
+                                <h:outputFormat value="#{manageEvent.evento.valoracion}" />
                             </div>
                         </div>
                     </div>

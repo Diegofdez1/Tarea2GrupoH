@@ -5,7 +5,6 @@
  */
 package ejbs;
 
-import Entidades.Comentario;
 import Entidades.Event;
 import Entidades.Usuario.Rol;
 import Entidades.Usuario;
@@ -40,10 +39,6 @@ public class EJBEvent implements EJBEventLocal {
     // "Insert Code > Add Business Method")
     @Override
     public void crearEvent(Event e) throws DiarioException  {
-       
-        Usuario u = em.find(Usuario.class, e.getUsuario());
-
-        compruebaLogin(u);
 
         em.persist(e);
         
@@ -71,7 +66,7 @@ public class EJBEvent implements EJBEventLocal {
     }
     
     
-    
+    @Override
     public List<Event> getEventos(){
         TypedQuery query = em.createQuery("Select e from Event e", Event.class);
         return query.getResultList();
