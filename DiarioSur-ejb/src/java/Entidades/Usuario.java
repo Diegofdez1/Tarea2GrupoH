@@ -161,6 +161,13 @@ public class Usuario implements Serializable {
         this.telefono = telefono;
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" + "nombre=" + nombre + ", apellidos=" + apellidos + ", correoE=" + correoE + ", password=" + password + ", telefono=" + telefono + ", rol=" + rol + ", eventos=" + eventos + ", fotos=" + fotos + ", comentarios=" + comentarios + '}';
+    }
+
+    
+    
   
     public int hashCode() {
         int hash = 7;

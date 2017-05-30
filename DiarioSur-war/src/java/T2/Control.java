@@ -60,8 +60,7 @@ public class Control implements Serializable {
     }
 
     public void setUsuario(Usuario u) throws DiarioException {
-        usuarioEjb.modificarUsuario(u);
-        //usuarios.add(u);
+        usuario = u;
     }
 
     public List<Event> getEventos() {

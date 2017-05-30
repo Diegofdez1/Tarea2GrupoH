@@ -23,7 +23,7 @@ public interface EJBUsuarioLocal {
    public List<Usuario> getUsuarios() throws DiarioException; //Para que lo quieres?? "Para el get en el login"
     //public void registrarUsuario(Usuario u)throws AgendaException;
     public void validarCuenta(String cuenta, String rol) throws DiarioException;
-    public Usuario compruebaLogin(Usuario u) throws DiarioException;
+    public Usuario compruebaLogin(String correo, String pass) throws DiarioException;
    // public Usuario refrescarUsuario(Usuario u)throws DiarioException;
    // public void modificar(Contacto c) throws AgendaException;
 }

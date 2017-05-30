@@ -51,7 +51,7 @@ public class EJBUsuario implements EJBUsuarioLocal{
     public void borrarUsuario(Usuario u) throws DiarioException{
         Usuario us = em.find(Usuario.class, u);
 
-        compruebaLogin(us);
+        compruebaLogin(us.getCorreoE(),us.getPassword());
 
         em.remove(us);
     }
@@ -61,7 +61,7 @@ public class EJBUsuario implements EJBUsuarioLocal{
         
         Usuario us = em.find(Usuario.class, u);
 
-        compruebaLogin(us);
+        compruebaLogin(us.getCorreoE(),us.getPassword());
 
         em.merge(us);
     }
@@ -109,18 +109,16 @@ public class EJBUsuario implements EJBUsuarioLocal{
 
         
     
-   
-    @Override
-    public Usuario compruebaLogin(Usuario u)  throws DiarioException{
+   @Override
+    public Usuario compruebaLogin(String correo, String pass)  throws DiarioException{
         
-       Usuario us = em.find(Usuario.class, u.getCorreoE());
-
-       System.out.println("COMPRUEBA LOGINNNNNNN   " + us.toString());
+       Usuario us = em.find(Usuario.class, correo);
        
-       
+      
         if (us != null) {
-            if (us.getPassword().equalsIgnoreCase(u.getPassword())) {
-                if (u.getRol() == Rol.usuario_anonimo) {
+            if (us.getPassword().equalsIgnoreCase(pass)) {
+                 System.out.println("111111111111     " + us.toString());
+                if (us.getRol() == Rol.usuario_anonimo) {
 
                     throw new ValidacionIncorrectaException();
                 }
@@ -130,7 +128,7 @@ public class EJBUsuario implements EJBUsuarioLocal{
         } else {
             throw new CuentaInexistenteException();
         }
-        
+
         return us;
 
     }
