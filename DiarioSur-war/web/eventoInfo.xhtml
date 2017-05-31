@@ -4,10 +4,10 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:mp="http://primefaces.org/ui/material"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <view contentType="text/html">
-        
+
         <h:head>   
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
@@ -21,101 +21,248 @@
         </h:head>
 
         <h:body>
-            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <c:choose>
+                <c:when  test="#{empty control.usuario}">
+                    <p:growl id="growl" showDetail="true" sticky="true"/>
 
-            <nav class="nav-extended">
-                <div class="nav-wrapper">
-                    <h:link class="brand-logo" value="Agenda Cultural" outcome="index.xhtml"/>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><h:link class="btn btn-primary" value="Eventos" outcome="eventosAnonimo.xhtml"/></li>
-                        <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
-                        <li><h:link value="Registro" outcome="registro.xhtml"/></li>
-                        <li><h:link value="Login" outcome="login.xhtml"/></li>
-                    </ul>
-                    <ul class="side-nav" id="mobile-demo">
-                        <li><h:link value="Eventos" outcome="eventosAnonimo.xhtml"/></li>
-                        <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
-                        <li><h:link value="Registro" outcome="registro.xhtml"/></li>
-                        <li><h:link value="Login" outcome="login.xhtml"/></li>
-                    </ul>
-                </div>
-            </nav>
-            
-            <div class="container center-align">
-                <div class="col s12 m7">
-                    <h2 class="header">
-                        <h:outputFormat value="#{manageEvent.evento.titulo}"/>
-                    </h2>    
-                    <div class="card horizontal">
-                     
-                        <div class="card-stacked">
-                            <div class="card-content">
-                                <h:outputFormat class="card-content" value="#{manageEvent.evento.descripcion}"/>
+                    <nav class="nav-extended">
+                        <div class="nav-wrapper">
+                            <h:link class="brand-logo" value="Agenda Cultural" outcome="index.xhtml"/>
+                            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                                <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                                <li><h:link value="Registro" outcome="registro.xhtml"/></li>
+                                <li><h:link value="Login" outcome="login.xhtml"/></li>
+                            </ul>
+                            <ul class="side-nav" id="mobile-demo">
+                                <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                                <li><h:link value="Registro" outcome="registro.xhtml"/></li>
+                                <li><h:link value="Login" outcome="login.xhtml"/></li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <div class="container center-align">
+                        <div class="col s12 m7">
+                            <h2 class="header">
+                                <h:outputFormat value="#{manageEvent.evento.titulo}"/>
+                            </h2>    
+                            <div class="card horizontal">
+
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <h:outputFormat class="card-content" value="#{manageEvent.evento.descripcion}"/>
+                                    </div>   
+                                </div>
                             </div>
-                            <div class="card-action">
-                                <!--<a href="#">Ir a la página</a>-->
-                                <h:outputFormat value="#{manageEvent.evento.valoracion}" />
-                            </div>    
                         </div>
                     </div>
-                    <!--Input comment-->
-                    <div class="row" style="margin-top: 100px">
-                        <div class="col s8">
-                            <h5>Comenta el evento</h5>
-                            <h:form id="agnadirComentario">
-                                <div class="input-field col s12">
-                                    <p:inputText class="validate" id="titulo" value="#{manageEvent.comentario.titulo}" required="true"/>
-                                    <label for="titulo">Titulo del comentario</label>
-                                    <p:message for="titulo" display="text"></p:message>
-                                </div>
-                                <div class="input-field col s12">
-                                    <h:inputTextarea id="textarea1" class="materialize-textarea" value="#{manageEvent.comentario.cuerpo}"></h:inputTextarea>
-                                    <label for="textarea1">Comentario</label>
-                                </div>
-                                <div class="row">    
-                                    <h:commandButton class="btn btn-primary" value="Comentar" action="#">
-                                        <f:ajax render="comentarios"/>
-                                    </h:commandButton>
-                                </div>
-                            </h:form>
+                </c:when>
+                <c:otherwise>
+                    <p:growl id="growl" showDetail="true" sticky="true"/>
+
+                    <nav class="nav-extended">
+                        <div class="nav-wrapper">
+                            <h:link class="brand-logo" value="Agenda Cultural" outcome="index.xhtml"/>
+                            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                                <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                                <li> <h:form>
+                                    <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                                </h:form> </li>
+                            </ul>
+                            <ul class="side-nav" id="mobile-demo">
+                                <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                                <li> <h:form>
+                                    <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                                </h:form> </li>
+                            </ul>
                         </div>
-                        <div class="col s4">
-                            <div class="container center-align">
-                                <h5>Valora el evento</h5>
-                                <h:form>
-                                    <h:selectOneRadio value="#">
-                                        <f:selectItem itemValue="1" itemLabel="1" />
-                                        <f:selectItem itemValue="2" itemLabel="2" />
-                                        <f:selectItem itemValue="3" itemLabel="3" />
-                                        <f:selectItem itemValue="4" itemLabel="4" />
-                                        <f:selectItem itemValue="5" itemLabel="5" />
-                                    </h:selectOneRadio>
-                                    <div class="row">    
-                                        <h:commandButton class="btn btn-primary" value="Valorar" action="#" />
+                    </nav>
+
+                    <div class="container center-align">
+                        <div class="col s12 m7">
+                            <h2 class="header">
+                                <h:outputFormat value="#{manageEvent.evento.titulo}"/>
+                            </h2>    
+                            <div class="card horizontal">
+
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <h:outputFormat class="card-content" value="#{manageEvent.evento.descripcion}"/>
                                     </div>
-                                </h:form>
+                                    <div class="card-action">
+                                        <!--<a href="#">Ir a la página</a>-->
+                                        <h:outputFormat value="#{manageEvent.evento.valoracion}" />
+                                    </div>    
+                                </div>
                             </div>
+                            <!--Input comment-->
+                            <div class="row" style="margin-top: 100px">
+                                <div class="col s8">
+                                    <h5>Comenta el evento</h5>
+                                    <h:form id="agnadirComentario">
+
+                                        <div class="input-field col s12">
+                                            <p:inputText class="validate" id="titulo" value="#{manageEvent.titulocomentario}" required="true"/>
+                                            <label for="titulo">Titulo del comentario</label>
+                                            <p:message for="titulo" display="text"></p:message>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <h:inputTextarea id="textarea1" class="materialize-textarea" value="#{manageEvent.cuerpocomentario}"></h:inputTextarea>
+                                            <label for="textarea1">Comentario</label>
+                                        </div>
+                                        <div class="row">    
+                                            <h:commandButton class="btn btn-primary" value="Comentar" action="#{manageEvent.createComment()}">
+                                                <!-- <f:ajax render="comentarios"/> -->
+                                            </h:commandButton>
+                                        </div>
+                                    </h:form>
+                                </div>
+                                <div class="col s4">
+                                    <div class="container center-align">
+                                        <h5>Valora el evento</h5>
+                                        <h:form>
+                                            <h:selectOneRadio value="#{manageEvent.valoracion}">
+                                                <f:selectItem itemValue="1" itemLabel="1" />
+                                                <f:selectItem itemValue="2" itemLabel="2" />
+                                                <f:selectItem itemValue="3" itemLabel="3" />
+                                                <f:selectItem itemValue="4" itemLabel="4" />
+                                                <f:selectItem itemValue="5" itemLabel="5" />
+                                            </h:selectOneRadio>
+                                            <div class="row">    
+                                                <h:commandButton class="btn btn-primary" value="Valorar" action="#{manageEvent.valorarevento()}" />
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 50px">
+                                <ul class="collection with-header">
+                                    <li class="collection-header"><h3>Comentarios</h3></li>
+                                    <h:panelGroup id="comentarios">
+                                        <ui:repeat var="coment" value="#{manageEvent.evento.getComentarios()}">
+                                            <ul>
+
+                                                <li class="collection-item"><h:outputText escape="true" value="#{coment.titulo}"/> </li>
+                                                <li class="collection-item"> <h:outputText escape="true" value="#{coment.cuerpo}"/> </li>
+                                                <li class="collection-item"> <h:outputText escape="true" value="#{coment.usuario}"/> </li>
+
+                                            </ul>
+                                        </ui:repeat>
+                                    </h:panelGroup>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 50px">
-                      <ul class="collection with-header">
-                        <li class="collection-header"><h3>Comentarios</h3></li>
-                        <h:panelGroup id="comentarios">
-                            <ui:repeat var="coment" value="#{manageEvent.evento.getComentarios()}">
-                                <li class="collection-item">
-                                <h:outputText escape="true" value="#{coment.titulo}"/>
-                                <h:outputText escape="true" value="#{coment.cuerpo}"/>
-                                <h:outputText escape="true" value="#{coment.usuario}"/> 
-                                </li>
-                            </ui:repeat>
-                        </h:panelGroup>
-                    </ul>
-                    </div>
-                    
-                </div>
-            </div>
-            
+                </c:otherwise>
+                <c:when test="#{control.usuario.rol == 'periodista' }">
+                    <p:growl id="growl" showDetail="true" sticky="true"/>
+
+                    <nav class="nav-extended">
+                        <div class="nav-wrapper">
+                            <h:link class="brand-logo" value="Agenda Cultural" outcome="periodista.xhtml"/>
+                            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                                <li> <h:form>
+                                    <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                                </h:form> </li>
+                            </ul>
+                            <ul class="side-nav" id="mobile-demo">
+                                <li> <h:form>
+                                    <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                                </h:form> </li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <div class="container center-align">
+                        <div class="col s12 m7">
+                            <h2 class="header">
+                                <h:outputFormat value="#{manageEvent.evento.titulo}"/>
+                            </h2>    
+                            <div class="card horizontal">
+
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <h:outputFormat class="card-content" value="#{manageEvent.evento.descripcion}"/>
+                                    </div>
+                                    <div class="card-action">
+                                        <!--<a href="#">Ir a la página</a>-->
+                                        <h:outputFormat value="#{manageEvent.evento.valoracion}" />
+                                    </div>   
+                                    <h:form>
+                                        <div class="row">    
+                                            <h:commandButton class="btn btn-primary" value="Confirmar Evento" action="#{manageEvent.aceptar()}" />
+                                             <h:commandButton class="btn btn-primary" value="Modificar Evento" action="#{editEvento.modificar()}" />
+                                            <h:commandButton class="btn btn-primary" value="Eliminar Evento" action="#{editEvento.modificar()}" />
+                                        </div>
+                                    </h:form>
+                                </div>
+                            </div>
+                            <!--Input comment-->
+                           <!-- <div class="row" style="margin-top: 100px">
+                                <div class="col s8">
+                                    <h5>Comenta el evento</h5>
+                                    <h:form id="agnadirComentario">
+                                        <div class="input-field col s12">
+                                            <p:inputText class="validate" id="titulo" value="#{manageEvent.titulocomentario}" required="true"/>
+                                            <label for="titulo">Titulo del comentario</label>
+                                            <p:message for="titulo" display="text"></p:message>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <h:inputTextarea id="textarea1" class="materialize-textarea" value="#{manageEvent.cuerpocomentario}"></h:inputTextarea>
+                                            <label for="textarea1">Comentario</label>
+                                        </div>
+                                        <div class="row">    
+                                            <h:commandButton class="btn btn-primary" value="Comentar" action="#{manageEvent.createComment()}">
+                                                <f:ajax render="comentarios"/>
+                                            </h:commandButton>
+                                        </div>
+                                    </h:form>
+                                </div>
+                                <div class="col s4">
+                                    <div class="container center-align">
+                                        <h5>Valora el evento</h5>
+                                        <h:form>
+                                            <h:selectOneRadio value="#{manageEvent.valoracion}">
+                                                <f:selectItem itemValue="1" itemLabel="1" />
+                                                <f:selectItem itemValue="2" itemLabel="2" />
+                                                <f:selectItem itemValue="3" itemLabel="3" />
+                                                <f:selectItem itemValue="4" itemLabel="4" />
+                                                <f:selectItem itemValue="5" itemLabel="5" />
+                                            </h:selectOneRadio>
+                                            <div class="row">    
+                                                <h:commandButton class="btn btn-primary" value="Valorar" action="#{manageEvent.valorarevento()}" />
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 50px">
+                                <ul class="collection with-header">
+                                    <li class="collection-header"><h3>Comentarios</h3></li>
+                                    <h:panelGroup id="comentarios">
+                                        <ui:repeat var="coment" value="#{manageEvent.evento.getComentarios()}">
+                                            <ul>
+
+                                                <li class="collection-item"><h:outputText escape="true" value="#{coment.titulo}"/> </li>
+                                                <li class="collection-item"> <h:outputText escape="true" value="#{coment.cuerpo}"/> </li>
+                                                <li class="collection-item"> <h:outputText escape="true" value="#{coment.usuario}"/> </li>
+
+                                            </ul>
+                                        </ui:repeat>
+                                    </h:panelGroup>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div> -->
+
+
+                </c:when>
+            </c:choose>
         </h:body>
     </view>
 </html>

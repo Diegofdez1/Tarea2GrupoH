@@ -33,7 +33,6 @@ public class EJBUsuario implements EJBUsuarioLocal{
 
     @Override
     public void registrarUsuario(Usuario u) throws DiarioException{
-        System.out.println("EJBUSUARIOOOOOOOO  " + u.toString());
         Usuario user = em.find(Usuario.class, u.getCorreoE());
         if (user != null) {
             // El usuario ya existe
@@ -49,21 +48,15 @@ public class EJBUsuario implements EJBUsuarioLocal{
 
     @Override
     public void borrarUsuario(Usuario u) throws DiarioException{
-        Usuario us = em.find(Usuario.class, u);
-
-        compruebaLogin(us.getCorreoE(),us.getPassword());
-
+        Usuario us = em.find(Usuario.class, u.getCorreoE());
         em.remove(us);
     }
 
     @Override
     public void modificarUsuario(Usuario u) throws DiarioException {
-        
-        Usuario us = em.find(Usuario.class, u);
-
-        compruebaLogin(us.getCorreoE(),us.getPassword());
-
-        em.merge(us);
+        System.out.println("MODIFICAAAAAARRRRR   " + u.toString());
+        Usuario us = em.find(Usuario.class, u.getCorreoE());
+        em.merge(u);
     }
 
  

@@ -35,13 +35,21 @@ public class Comentario implements Serializable {
     
      //--------Relaciones---------
     @ManyToOne
-    @JoinColumn(name="usuario", nullable=false)
+    @JoinColumn(name="usuario", nullable=true)
     private Usuario usuario;
 
     //--------End Relaciones---------
 
     public Comentario() {
     }
+
+    public Comentario(String titulo, String cuerpo) {
+        this.id= Long.MAX_VALUE;
+        this.titulo = titulo;
+        this.cuerpo = cuerpo;
+    }
+    
+    
     
     
 

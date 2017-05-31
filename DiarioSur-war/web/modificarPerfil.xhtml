@@ -7,7 +7,7 @@
       xmlns:mp="http://primefaces.org/ui/material">
 
     <f:view contentType="text/html">
-        
+        <p:growl id="growl" showDetail="true" sticky="true"/>
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
@@ -20,33 +20,64 @@
         </h:head>
 
         <h:body>
-            
+
             <nav class="nav-extended">
                 <div class="nav-wrapper">
                     <h:link class="brand-logo" value="Agenda Cultural" outcome="index.xhtml"/>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
-                        <li><h:link value="Registro" outcome="registro.xhtml"/></li>
-                        <li><h:link value="Login" outcome="login.xhtml"/></li>
+                        <li> <h:form>
+                            <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                        </h:form> </li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
                         <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
-                        <li><h:link value="Registro" outcome="registro.xhtml"/></li>
-                        <li><h:link value="Login" outcome="login.xhtml"/></li>
+                        <li> <h:form>
+                            <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                        </h:form> </li>
+
                     </ul>
                 </div>
+
             </nav>
 
-            
             <div class="page-header">
-                <h3>Recuperación de contraseña</h3>
+                <h3>Actualizar Perfil</h3>
             </div>
-            
+            <h:form>
+                <div>
+                    <ul>
+                        <li>
+                        <h:outputLabel for="email" value="Email: " style="font-weight:bold"/>
+                        <p:outputLabel escape="true" value="#{perfil.email}" />
+                        </li>
 
-            
+                        <li>
+                        <h:outputLabel for="name" value="Nombre: " style="font-weight:bold"/>
+                        <p:inputText   value="#{perfil.nombre}" />
+                        </li>
+                        <li>
+                        <h:outputLabel for="surname" value="Apellidos: " style="font-weight:bold"/>
+                        <p:inputText  value="#{perfil.apellidos}"  />
+                        </li>
+                        <li>
+                        <h:outputLabel for="phone" value="Teléfono: " style="font-weight:bold"/>
+                        <p:inputText  value="#{perfil.telefono}"  />
+                        </li>
+
+                    </ul>
+
+                    <h:form>
+                        <ul>
+                            <li><h:commandButton class="btn btn-primary" value="Actualizar Datos" action="#{perfil.actualizar()}"/></li>
+                        </ul>
+                    </h:form>
+                </div>
+            </h:form>
+
         </h:body>
-        
+
     </f:view>
-    
+
 </html>

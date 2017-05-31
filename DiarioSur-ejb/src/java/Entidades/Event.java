@@ -13,14 +13,14 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -70,6 +70,7 @@ public enum TipoEvento {
     @Enumerated
     private TipoEvento tipo_evento;
 
+    @Column(name="aceptado", nullable = false)
     private boolean aceptado;
     
     @Column(name ="valoracion", nullable = true)
@@ -86,6 +87,7 @@ public enum TipoEvento {
 
     public void setAceptado(boolean aceptado) {
         this.aceptado = aceptado;
+
     }
     
     
@@ -113,6 +115,9 @@ public enum TipoEvento {
         this.titulo = titulo;
     }
     
+    public void addComentario(Comentario c){
+        this.comentarios.add(c);
+    }
 
     //--------Relaciones---------
     @ManyToOne
@@ -253,8 +258,10 @@ public enum TipoEvento {
 
     @Override
     public String toString() {
-        return "Event{" + "id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", localizacion=" + localizacion + ", fecha_inicio=" + fecha_inicio + ", hora_inicio=" + hora_inicio + ", fecha_fin=" + fecha_fin + ", contacto=" + contacto + ", tipo_evento=" + tipo_evento + ", valoracion=" + valoracion + ", usuario=" + usuario + ", fotos=" + fotos + ", comentarios=" + comentarios + '}';
+        return "Event{" + "id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", localizacion=" + localizacion + ", fecha_inicio=" + fecha_inicio + ", hora_inicio=" + hora_inicio + ", fecha_fin=" + fecha_fin + ", contacto=" + contacto + ", tipo_evento=" + tipo_evento + ", aceptado=" + aceptado + ", valoracion=" + valoracion + ", usuario=" + usuario + ", fotos=" + fotos + ", comentarios=" + comentarios + '}';
     }
+
+    
 
     
 

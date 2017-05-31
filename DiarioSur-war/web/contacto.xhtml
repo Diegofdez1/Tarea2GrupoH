@@ -4,10 +4,10 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:mp="http://primefaces.org/ui/material">
+      xmlns:mp="http://primefaces.org/ui/material" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <f:view contentType="text/html">
-        
+
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
@@ -20,41 +20,77 @@
         </h:head>
 
         <h:body>
-            
-            <p:growl id="growl" showDetail="true" sticky="true"/>
-            
-            <nav class="nav-extended">
-                <div class="nav-wrapper">
-                    <h:link class="brand-logo" value="Agenda Cultural" outcome="index.xhtml"/>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li class="active"><h:link value="Contacto" outcome="contacto.xhtml"/></li>
-                        <li><h:link value="Registro" outcome="registro.xhtml"/></li>
-                        <li><h:link value="Login" outcome="login.xhtml"/></li>
-                    </ul>
-                    <ul class="side-nav" id="mobile-demo">
-                        <li class="active"><h:link value="Contacto" outcome="contacto.xhtml"/></li>
-                        <li><h:link value="Registro" outcome="registro.xhtml"/></li>
-                        <li><h:link value="Login" outcome="login.xhtml"/></li>
-                    </ul>
-                </div>
-            </nav>
-            
-            <div class="page-header">
-                <h3>Contacta con nosotros</h3> <br/>
-             
-                <p>¿En qué podemos ayudarte?</p> <br/>
-                <p>     Si tienes alguna duda, o quieres consultarnos algo, ¡te lo p onemos fácil! Ponemos a tu alcance un servicio
-                de atención al cliente rápido y eficiente para que nos preguntes todo lo que te interese saber.</p>
-                
-                <b>Teléfono de Atención al Cliente</b><br/>
-                    España: 902 20 20 20
-                
-            </div>
+            <c:choose>
+                <c:when test="#{empty control.usuario}">
+                    <p:growl id="growl" showDetail="true" sticky="true"/>
 
-            
+                    <nav class="nav-extended">
+                        <div class="nav-wrapper">
+                            <h:link class="brand-logo" value="Agenda Cultural" outcome="index.xhtml"/>
+                            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                                <li class="active"><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                                <li><h:link value="Registro" outcome="registro.xhtml"/></li>
+                                <li><h:link value="Login" outcome="login.xhtml"/></li>
+                            </ul>
+                            <ul class="side-nav" id="mobile-demo">
+                                <li class="active"><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                                <li><h:link value="Registro" outcome="registro.xhtml"/></li>
+                                <li><h:link value="Login" outcome="login.xhtml"/></li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <div class="page-header">
+                        <h3>Contacta con nosotros</h3> <br/>
+
+                        <p>¿En qué podemos ayudarte?</p> <br/>
+                        <p>     Si tienes alguna duda, o quieres consultarnos algo, ¡te lo p onemos fácil! Ponemos a tu alcance un servicio
+                            de atención al cliente rápido y eficiente para que nos preguntes todo lo que te interese saber.</p>
+
+                        <b>Teléfono de Atención al Cliente</b><br/>
+                        España: 902 20 20 20
+
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <p:growl id="growl" showDetail="true" sticky="true"/>
+
+                    <nav class="nav-extended">
+                        <div class="nav-wrapper">
+                            <h:link class="brand-logo" value="Agenda Cultural" outcome="index.xhtml"/>
+                            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                                <li class="active"><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                                <li> <h:form>
+                                    <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                                </h:form> </li>
+                            </ul>
+                            <ul class="side-nav" id="mobile-demo">
+                                <li class="active"><h:link value="Contacto" outcome="contacto.xhtml"/></li>
+                                <li> <h:form>
+                                    <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                                </h:form> </li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <div class="page-header">
+                        <h3>Contacta con nosotros</h3> <br/>
+
+                        <p>¿En qué podemos ayudarte?</p> <br/>
+                        <p>     Si tienes alguna duda, o quieres consultarnos algo, ¡te lo p onemos fácil! Ponemos a tu alcance un servicio
+                            de atención al cliente rápido y eficiente para que nos preguntes todo lo que te interese saber.</p>
+
+                        <b>Teléfono de Atención al Cliente</b><br/>
+                        España: 902 20 20 20
+
+                    </div>
+                </c:otherwise>
+            </c:choose>
+
         </h:body>
-        
+
     </f:view>
-    
+
 </html>

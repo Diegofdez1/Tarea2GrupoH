@@ -12,10 +12,10 @@ import ejbs.EJBEventLocal;
 import ejbs.EJBUsuarioLocal;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -29,12 +29,12 @@ public class Control implements Serializable {
     private Usuario usuario;
     private List<Usuario> usuarios;
     private List<Event> eventos;
-    
-        @EJB
+
+    @EJB
     EJBUsuarioLocal usuarioEjb;
-        
-        @EJB
-     EJBEventLocal eventEjb;
+
+    @EJB
+    EJBEventLocal eventEjb;
 
     /*@PostConstruct
     public void init() {
@@ -44,7 +44,7 @@ public class Control implements Serializable {
         usuarios.add(new Usuario("Hind", "Gutierrez", "hind@gmail.com", "hind", 789456213, Rol.usuario_registrado));
 
     }
-*/
+     */
     public Control() {
     }
 
@@ -65,26 +65,41 @@ public class Control implements Serializable {
     }
 
     public List<Event> getEventos() {
-        eventos=eventEjb.getEventos();
+        eventos = eventEjb.getEventos();
         return eventos;
     }
 
     public void setEventos(Event e) {
-        eventos=eventEjb.getEventos();
+        eventos = eventEjb.getEventos();
         eventos.add(e);
         //this.eventos = eventos;
     }
 
+    public EJBUsuarioLocal getUsuarioEjb() {
+        return usuarioEjb;
+    }
+
+    public void setUsuarioEjb(EJBUsuarioLocal usuarioEjb) {
+        this.usuarioEjb = usuarioEjb;
+    }
+
+    public EJBEventLocal getEventEjb() {
+        return eventEjb;
+    }
+
+    public void setEventEjb(EJBEventLocal eventEjb) {
+        this.eventEjb = eventEjb;
+    }
+
     public String home() {
 
-        
         if (usuario == null) {
             return "index.xhtml";
         } else {
             //usuarios.add(usuario.getId().intValue(), usuario);
             switch (usuario.getRol()) {
                 case usuario_registrado:
-                    return "eventosregistrado.xhtml";
+                    return "index.xhtml";
                 case periodista:
                     return "periodista.xhtml"; //(Vista no existente)
                 case superusuario:
@@ -95,6 +110,25 @@ public class Control implements Serializable {
 
     }
 
+    public String getIdParam(FacesContext fc) {
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        return params.get("id");
+    }
+
+    public void modificar(Usuario u) throws DiarioException {
+        
+        System.out.println("USUARIOOOOOOOO MODI     " + u.toString() );
+        usuarioEjb.modificarUsuario(u);
+            
+
+    }
+
+    public String borrarUsuario(Usuario u) throws DiarioException{
+        usuarioEjb.borrarUsuario(u);
+        this.setUsuario(null);
+        return "index.xhtml";
+    }
+    
     public String logout() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.getExternalContext().invalidateSession();

@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:mp="http://primefaces.org/ui/material"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <view contentType="text/html">
+
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Diario Sur</title>
+            </f:facet>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"></link>
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+            <script type="text/javascript" src="js/materialize.min.js"></script> 
+
+        </h:head>
+
+        <h:body>
+
+            <view contentType="text/html">
+
+                <h:head>
+                    <f:facet name="first">
+                        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                        <title>Diario Sur</title>
+                    </f:facet>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"></link>
+                    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+                    <script type="text/javascript" src="js/materialize.min.js"></script> 
+                    <script>
+                        $(document).ready(function () {
+                            $('select').material_select();
+                        });
+                    </script>
+                    <script>
+                        $('.datepicker').pickadate({
+                            selectMonths: true, // Creates a dropdown to control month
+                            selectYears: 15 // Creates a dropdown of 15 years to control year
+                        });
+
+                    </script>
+                    <script>
+                        $(document).ajaxComplete(function (event, xhr, options) {
+                            if (typeof xhr.responseXML != 'undefined') { // It's undefined when plain $.ajax(), $.get(), etc is used instead of PrimeFaces ajax.
+                                fixViewState(xhr.responseXML);
+                            }
+                        }
+                    </script>
+                </h:head>
+
+                <h:body>
+                    <h:outputScript name="/resources/mojarra.js" target="head" />
+                    <p:growl id="growl" showDetail="true" sticky="true"/>
+                    <nav class="nav-extended">
+                        <div class="nav-wrapper">
+                            <h:link class="brand-logo" value="Agenda Cultural" outcome="periodista.xhtml"/>
+                            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                                <li> <h:form>
+                                    <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                                </h:form> </li>
+                            </ul>
+                            <ul class="side-nav" id="mobile-demo">
+                                <li> <h:form>
+                                    <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                                </h:form> </li>
+                            </ul>
+                        </div>
+                        <div class="nav-content">
+                            <ul class="tabs tabs-transparent">
+                                <li class="tab"><a href="#Eventos">Eventos</a></li>
+                                <li class="tab"><a href="#Usuarios">Usuarios</a></li>
+                                <li class="tab right"><a href="#crearEvento">Crear Evento</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <div id="Eventos" class="row s6">
+                        <div class="col s8"> 
+                            <ul id ="todosList" class="collection with-header">
+                                <li class="collection-header"><h3>Todos los Eventos</h3></li>
+                                <h:panelGroup id="todosEventos">
+                                    <ui:repeat var="event" value="#{manageEvent.todosEventosPeriodista()}">
+                                        <li class="collection-item">
+                                        <h:outputText escape="true" value="#{event.titulo}"/>
+                                        <h:form id="formTodos">
+                                            <p:commandLink value="Ver más" action="#{manageEvent.outcome()}">
+                                                <f:param name="id" value="#{event.id}"/>
+                                            </p:commandLink>
+                                        </h:form>
+
+                                        </li>
+                                    </ui:repeat> 
+                                </h:panelGroup>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="Usuarios" class="row s6">
+                        <div class="col s8">
+                            <ul class="collection with-header">
+                                <li class="collection-header"><h3>Usuarios</h3></li>
+                                <h:panelGroup id="deportesEventos">
+                                    <ui:repeat var="usuario" value="#{manageEvent.Usuarios()}">
+                                        <ul>
+                                        <li class="collection-item">
+                                        <h:outputText escape="true" value="Correo: " style="font-weight:bold"/>    
+                                        <h:outputText escape="true" value="#{usuario.correoE}"/>
+                                        <h:outputText escape="true" value="      Telefono: " style="font-weight:bold"/>
+                                        <h:outputText escape="true" value="#{usuario.telefono}"/>
+                                        <h:outputText escape="true" value="      Nombre: " style="font-weight:bold"/>
+                                        <h:outputText escape="true" value="#{usuario.nombre}"/>
+                                        <h:outputText escape="true" value="      Apellidos: " style="font-weight:bold"/>
+                                        <h:outputText escape="true" value="#{usuario.apellidos}"/>
+                                        <h:outputText escape="true" value="      Rol: " style="font-weight:bold"/>
+                                        <h:outputText escape="true" value="#{usuario.rol}"/>
+                                        <h:form>
+                                            <h:commandLink value="Eliminar Usuario" action="#{manageEvent.borrarUsuario(usuario)}">
+                                                <f:param name="id" value="#{usuario.correoE}"/>
+                                            </h:commandLink>
+                                        </h:form>
+                                        </li>
+                                        </ul>
+                                    </ui:repeat>
+                                </h:panelGroup>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+                    <div id="crearEvento" class="col s12">
+                        <h3>Crear Evento</h3>
+                        <div class ="container">
+                            <div class="row">
+                                <div class="col-sm-4 align-self-center">
+
+                                    <h:form enctype="multipart/form-data" id="manageEvent" class="container center-align">
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <h:selectOneMenu class="validate" id="tipo" value="#{manageEvent.tipoNum}" required="true">
+                                                    <f:selectItem itemValue="" itemDisabled="true" itemLabel="Tipo de evento*"/>
+                                                    <f:selectItem itemValue="deporte" itemLabel="Evento deportivo"/>
+                                                    <f:selectItem itemValue="musica" itemLabel="Evento musical"/>
+                                                    <f:selectItem itemValue="cultura" itemLabel="Evento cultural"/>
+                                                    <f:selectItem itemValue="viajes" itemLabel="Evento para viajar"/>
+                                                    <f:selectItem itemValue="cursos" itemLabel="Evento para aprender"/>
+                                                    <f:selectItem itemValue="restaurantes" itemLabel="Evento en restaurante"/>
+                                                    <f:selectItem itemValue="tecnologia" itemLabel="Evento tecnológico"/>
+                                                </h:selectOneMenu>
+                                                <p:message for="tipo" display="text"></p:message>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <p:inputText class="validate" id="phone" value="#{manageEvent.telefono}" required="true"/>
+                                                <label for="phone">Tlf de Contacto*</label>
+                                                <p:message for="phone" display="text"></p:message>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <p:inputText class="validate" id="titulo" value="#{manageEvent.titulo}" required="true"/>
+                                                <label for="titulo">Titulo*</label>
+                                                <p:message for="titulo" display="text"></p:message>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <p:inputText class="validate" id="contenido" value="#{manageEvent.contenido}" required="true"/>
+                                                <label for="contenio">Contenido*</label>
+                                                <p:message for="contenido" display="text"></p:message>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <p:inputText class="validate" id="localizacion" value="#{manageEvent.localizacion}" required="true"/>
+                                                <label for="localizacion">Localización*</label>
+                                                <p:message for="localizacion" display="text"></p:message>
+                                            </div>
+                                        </div>  
+                                        <div class="row">
+                                            <div class="input-field col s6">                                                
+                                                <p:inputText type="date" class="datepicker validate" id="fecha" value="#{manageEvent.fechaString}" required="false"/>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <p:inputText class="validate" id="horaini" value="#{manageEvent.horainiString}" required="false"/>
+                                                <label for="horaini">Hora de inicio </label>
+                                            </div>
+                                        </div>
+                                        <div class="row center-align">
+                                            <div class="file-field input-field col s6 offset-s3">
+                                                <div class="btn center-align">
+                                                    <span>Foto</span>
+                                                    <h:inputFile value="#{manageEvent.file}" id="file" required="false"/>
+                                                </div>
+                                                <div class="file-path-wrapper">
+                                                    <input class="file-path validate" type="text"></input>
+                                                </div>
+                                            </div>
+                                        </div> 
+
+                                        <div class="row center-align">    
+                                            <h:commandButton class="btn btn-primary align-self-center" value="Crear" action="#{manageEvent.nuevoEvento()}" style="margin-top:20px"/>
+                                        </div>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </h:body>
+
+            </view>
+        </h:body>
+    </view>
+</html>

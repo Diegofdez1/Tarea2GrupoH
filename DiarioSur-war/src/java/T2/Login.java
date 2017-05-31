@@ -79,7 +79,6 @@ public class Login {
     public String autenticar() throws DiarioException { // autenticar checked and approved. 
        Usuario user = usuarioEjb.compruebaLogin(email,pass);
        
-       System.out.println("AUTENTICAR NUEVOOOOOOO   " + user.toString());
        ctrl.setUsuario(user);
        return ctrl.home();
     }

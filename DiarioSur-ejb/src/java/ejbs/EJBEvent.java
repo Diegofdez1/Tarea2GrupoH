@@ -39,9 +39,7 @@ public class EJBEvent implements EJBEventLocal {
     // "Insert Code > Add Business Method")
     @Override
     public void crearEvent(Event e) throws DiarioException  {
-
         em.persist(e);
-        
     }
 
     @Override
@@ -57,11 +55,6 @@ public class EJBEvent implements EJBEventLocal {
 
     @Override
     public void modificarEvento(Event e) throws DiarioException {
-
-        Usuario u = em.find(Usuario.class, e.getUsuario());
-
-        compruebaLogin(u);
-
         em.merge(e);
     }
     
@@ -100,6 +93,12 @@ public class EJBEvent implements EJBEventLocal {
         
     }
 
+    private void compruebaEvento(Event e) throws DiarioException{
+        Event res = em.find(Event.class, e.getId());
+        if(res==null){
+            throw new DiarioException("NO EXISTE EL EVENTOOO");
+        }
+    }
     private void compruebaLogin(Usuario u) throws DiarioException {
 
         Usuario us = em.find(Usuario.class, u.getCorreoE());

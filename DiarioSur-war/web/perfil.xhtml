@@ -20,7 +20,7 @@
         </h:head>
 
         <h:body>
-            
+
             <nav class="nav-extended">
                 <div class="nav-wrapper">
                     <h:link class="brand-logo" value="Agenda Cultural" outcome="index.xhtml"/>
@@ -28,15 +28,15 @@
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
                         <li> <h:form>
-                        <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                            <h:commandLink value="LogOut" action="#{control.logout()}"/>
                         </h:form> </li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
                         <li><h:link value="Contacto" outcome="contacto.xhtml"/></li>
                         <li> <h:form>
-                        <h:commandLink value="LogOut" action="#{control.logout()}"/>
+                            <h:commandLink value="LogOut" action="#{control.logout()}"/>
                         </h:form> </li>
-                        
+
                     </ul>
                 </div>
 
@@ -45,37 +45,42 @@
             <div class="page-header">
                 <h3>Perfil de usuario</h3>
             </div>
-            <div>
-                <h4>Datos personales</h4>
-            </div>
-            <div>
-            <h:panelGrid columns="2" cellpadding="50">
-                    <h:outputLabel for="email" value="Email: " />
-                    <h:outputLabel for="email" value="#{control.usuario.correoE}" />
 
-                    <h:outputLabel for="name" value="Nombre: " />
-                    <h:outputLabel for="name" value="#{control.usuario.nombre}" />
-
-                    <h:outputLabel for="surname" value="Apellidos: " />
-                    <h:outputLabel for="surname" value="#{control.usuario.apellidos}"  />
-
-                    <h:outputLabel for="phone" value="Teléfono: " />
-                    <h:outputLabel for="phone" value="#{control.usuario.telefono}"  />
-
-                </h:panelGrid>
-            </div>
             <div>
-                <h4>Datos de interés</h4>
+                <ul>
+                    <li>
+                    <h:outputLabel for="email" value="Email: " style="font-weight:bold"/>
+                    <p:outputLabel escape="true" value="#{control.usuario.correoE}" />
+                    </li>
+                     <li>
+                    <h:outputLabel for="phone" value="Contraseña " style="font-weight:bold"/>
+                    <p:outputLabel  value="#{control.usuario.password}"  />
+                    </li>
+                    <li>
+                    <h:outputLabel for="name" value="Nombre: " style="font-weight:bold"/>
+                    <p:outputLabel   value="#{control.usuario.nombre}" />
+                    </li>
+                    <li>
+                    <h:outputLabel for="surname" value="Apellidos: " style="font-weight:bold"/>
+                    <p:outputLabel  value="#{control.usuario.apellidos}"  />
+                    </li>
+                    <li>
+                    <h:outputLabel for="phone" value="Teléfono: " style="font-weight:bold"/>
+                    <p:outputLabel  value="#{control.usuario.telefono}"  />
+                    </li>
+                   
+                </ul>
+
+                <h:form>
+                    <ul>
+                        <li><h:commandButton class="btn btn-primary" value="Actualizar Datos" action="#{perfil.modificar()}"/>
+                        <h:commandButton class="btn btn-primary" value="Eliminar Perfil"  action="#{control.borrarUsuario(control.usuario)}"/></li>
+                    </ul>
+                </h:form>
             </div>
-             
-            <div>
-                <h:outputLabel value="¿Quieres formar parte de nuestro equipo de periodistas? Pincha " />
-                <h:link value=" aquí " outcome="contacto.xhtml"/>
-                <h:outputLabel value=" y contacta con nosotros. " />
-            </div>
-            
+
         </h:body>
-        
+
     </f:view>
-    
+
 </html>

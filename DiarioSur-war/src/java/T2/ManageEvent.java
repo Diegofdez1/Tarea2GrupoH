@@ -14,7 +14,12 @@ import ejbs.DiarioException;
 import ejbs.EJBComentarioLocal;
 import ejbs.EJBEventLocal;
 import ejbs.EJBUsuarioLocal;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,25 +27,26 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
+import javax.mail.Part;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+//import org.apache.catalina.fileupload.PartItem;
 
 /**
  *
  * @author Grupo H
  */
 @Named(value = "manageEvent")
-@RequestScoped
-@ViewScoped
-@ManagedBean
-public class ManageEvent {
-
+@SessionScoped
+public class ManageEvent implements Serializable{
 
     private String titulo;
     private String contenido;
@@ -60,15 +66,46 @@ public class ManageEvent {
     private UploadedFile file;
     private String fileName;
     private Comentario comentario;
+    private int valoracion;
+    private String titulocomentario;
+    private String cuerpocomentario;
+
+    public int getValoracion() {
+        return valoracion;
+    }
+
+    public void setValoracion(int valoracion) {
+        this.valoracion = valoracion;
+    }
+
+    public String getTitulocomentario() {
+        return titulocomentario;
+    }
+
+    public void setTitulocomentario(String titulocomentario) {
+        this.titulocomentario = titulocomentario;
+    }
+
+    public String getCuerpocomentario() {
+        return cuerpocomentario;
+    }
+
+    public void setCuerpocomentario(String cuerpocomentario) {
+        this.cuerpocomentario = cuerpocomentario;
+    }
     
-        @EJB
+    
+    
+    
+
+    @EJB
     EJBUsuarioLocal usuarioEjb;
-        
-        @EJB
+
+    @EJB
     EJBEventLocal eventEjb;
-        
-        @EJB
-     EJBComentarioLocal comEjb;
+
+    @EJB
+    EJBComentarioLocal comEjb;
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -79,12 +116,12 @@ public class ManageEvent {
     }
     private List<Event> eventos;
     private Control control;
-    public String id;
-    
-    public ManageEvent(){
-        eventos = new ArrayList<Event>();
+
+
+    public ManageEvent() {
     }
-/*
+
+    /*
     @PostConstruct
     public void init() {
         eventos = new ArrayList<Event>();
@@ -106,22 +143,19 @@ public class ManageEvent {
         eventos.add(new Event(16, "25 Piezas de sushi + vino ¡take away para 2 personas!", "Si eres un apasionado/a del sushi, disfruta del menú take away que te ofrecemos degustar, con descuento, en Sashimi Gastrobar. No te lo pienses más y aprovecha esta excelente oportunidad para degustar una bandeja de 25 piezas para recoger en el local y ¡disfrutar donde tú quieras!", "Sashimi Gastrobar, Teatinos-Universidad, Málaga", new java.util.Date(2017, 6, 7), new java.sql.Time(10, 00, 00), new java.util.Date(2017, 6, 8), "607625489", TipoEvento.restaurantes, 0, "sushi.jpg", ""));
     
     }
-    */
-    
+     */
     //get value from "f:param"
-    public String getIdParam(FacesContext fc){
-            Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-            return params.get("id");
+    public String getIdParam(FacesContext fc) {
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        return params.get("id");
     }
-    
-    public void createComment(){
-       //////// comEjb.insertarComentario();
-       comentario.setUsuario(usuario);
-       //List<Comentario> aux = evento.getComentarios();
-       //aux.add(comentario);
-       comEjb.getComentarios().add(comentario);
-       //eventEjb.setComentarios(aux);  HACE F !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111
-       //evento.setComentarios(aux);  
+
+    public String createComment() throws DiarioException{
+        Comentario c = new Comentario(titulocomentario, cuerpocomentario);
+        evento.addComentario(c);
+        eventEjb.modificarEvento(evento);
+        return "index.xhtml";
+        
     }
 
     public void setComentario(Comentario comentario) throws DiarioException {
@@ -132,27 +166,39 @@ public class ManageEvent {
     public Comentario getComentario() {
         return comentario;
     }
+
+    public void valorarevento() throws DiarioException
+    {
+        int val = (evento.getValoracion() + valoracion)/2;
+        evento.setValoracion(val);
+        eventEjb.refrescarEvento(evento);
+    }
     
-    public void outcome(){
-            
-            FacesContext fc = FacesContext.getCurrentInstance();
-            id = getIdParam(fc);
-            eventos=eventEjb.getEventos();
-            for (Event e : eventos) {
-                if(String.valueOf(e.getId()).equals(id)){
-                    this.setEvento(e);
-                }
+    public void outcome() {
+
+        FacesContext fc = FacesContext.getCurrentInstance();
+        String id = getIdParam(fc);
+        eventos = eventEjb.getEventos();
+        for (Event e : eventos) {
+            if (String.valueOf(e.getId()).equals(id)) {
+                this.setEvento(e);         
+            }
         }
-            String outcome = "eventoInfo.xhtml" ;
-            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, outcome);
-           // return "eventoInfo.xhtml";
-            
+        String outcome = "eventoInfo.xhtml";
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, outcome);
+
     }
     
-    public String getId(){
-        return id;
+    public void borrarUsuario(Usuario u) throws DiarioException{
+        usuarioEjb.borrarUsuario(u);
     }
-            
+
+    public String aceptar() throws DiarioException {
+        evento.setAceptado(true);
+        eventEjb.modificarEvento(evento);
+        return "periodista.xhtml";
+
+    }
 
     public String getTitulo() {
         return titulo;
@@ -185,7 +231,7 @@ public class ManageEvent {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
+
     public void setFechaString(String fechaString) {
         this.fechaString = fechaString;
     }
@@ -209,7 +255,7 @@ public class ManageEvent {
     public void setHoraini(java.sql.Time horaini) {
         this.horaini = horaini;
     }
-    
+
     public void setHorainiString(String horainiString) {
         this.horainiString = horainiString;
     }
@@ -241,7 +287,6 @@ public class ManageEvent {
     public void setFoto(String foto) {
         this.foto = foto;
     }
-    
 
     public ManageEvent(Event e) {
         evento = e;
@@ -264,6 +309,7 @@ public class ManageEvent {
     }
 
     public UploadedFile getFile() {
+        
         return file;
     }
 
@@ -279,13 +325,8 @@ public class ManageEvent {
         this.control = control;
     }
 
-    public List<Usuario> getUsuarios() throws DiarioException {
-        usuarios=usuarioEjb.getUsuarios();
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+    public List<Usuario> Usuarios() throws DiarioException {
+        return usuarioEjb.getUsuarios();
     }
 
     public List<Event> getEventos() {
@@ -322,20 +363,30 @@ public class ManageEvent {
         return "eventos.xhtml";
     }
 
-    public String nuevoEvento() throws Exception{
+  /* public void save(){
+        try(InputStream input = file.){
+            Files.copy(input, new File("/WEB-INF/resources/", file.getFileName()).toPath());
+            foto = file.getFileName();
+            System.out.println(foto);
+        }catch(IOException e){
+            
+        }
+    }*/
+    
+    public String nuevoEvento() throws Exception {
         Random rnd = new Random();
         tipo = TipoEvento.valueOf(tipoNum);
         String[] parts = fechaString.split("-");
         fecha = new java.util.Date(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
         String[] parts1 = horainiString.split(":");
         horaini = new java.sql.Time(Integer.parseInt(parts1[0]), Integer.parseInt(parts1[1]), 00);
-       // Event e;
-       // if(file==null){
-            evento = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, null);
-            System.out.println("44444444444444444444444    " + evento.toString());
-        /*}else{
+        // Event e;
+         //if(file==null){
+        evento = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, null);
+        evento.setAceptado(false);
+       /* }else{
             fileName = file.getFileName();
-            byte[] contents = file.getContents();
+            byte[] contents = file.get
             FileOutputStream fos = new FileOutputStream("/resources/"+fileName);
             try{
                 fos.write(contents);
@@ -344,17 +395,15 @@ public class ManageEvent {
             }finally{
                 fos.close();
             }
-            e = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, fileName);
-        }*/
-        
+            evento = new Event(rnd.nextInt(), titulo, contenido, localizacion, fecha, horaini, telefono, tipo, fileName);
+        }
+*/
         eventEjb.crearEvent(evento);
-        
-        
-        
+
         return "eventoInfo.xhtml";
-     
+
     }
-    
+
     /*public void uploadFile(FileUploadEvent event) throws Exception{
         UploadedFile uploadedFile = event.getFile();
         fileName = uploadedFile.getFileName();
@@ -369,38 +418,30 @@ public class ManageEvent {
             fos.close();
         }    
     }*/
-    
-    public void upload() {
+  /*  public void upload() throws MessagingException {
         if (file != null) {
             FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
+    */
 
-    public void comentarEvento(Event e, Comentario com) throws DiarioException {
-        evento = e;
-        //List<Comentario> comentarios = evento.getComentarios();
-        comEjb.insertarComentario(com);  /////// 
-        //comentarios.add(com);
-        //Si salimos de la vista, un retutn "Evento.xhtml"
-    }
-
-   /* public String getValoracionEvento() {
+    /* public String getValoracionEvento() {
         if(evento.getValoracion()>=1){
             return String.valueOf(evento.getValoracion());
         } else {
             return "Aun no exiten datos sobre la valoración";
         }
     }*/
-
-    public List<String> tiposeventos(){
+    public List<String> tiposeventos() {
         List<String> res = new ArrayList<String>();
-        for(TipoEvento aux :  Event.TipoEvento.values()){
-            res.add( aux.toString());
+        for (TipoEvento aux : Event.TipoEvento.values()) {
+            res.add(aux.toString());
         }
-        
+
         return res;
     }
+
     public List<Event> eventosRelacionados(Event e) {
         List<Event> res = new ArrayList<Event>();
         for (Event x : res) {
@@ -414,11 +455,10 @@ public class ManageEvent {
 
     }
 
-
     public List<Event> buscarEvento(String busqueda, String filtro) {
         List<Event> res = new ArrayList<Event>();
         if (filtro.equalsIgnoreCase("titulo")) {
-            eventos=eventEjb.getEventos();
+            eventos = eventEjb.getEventos();
             for (Event e : eventos) {
                 if (e.getTitulo().equalsIgnoreCase(busqueda)) {
                     res.add(e);
@@ -426,7 +466,7 @@ public class ManageEvent {
             }
 
         } else if (filtro.equalsIgnoreCase("tipo")) {
-            eventos=eventEjb.getEventos();
+            eventos = eventEjb.getEventos();
             for (Event e : eventos) {
                 for (TipoEvento te : TipoEvento.values()) {
                     if (te.toString().equalsIgnoreCase(busqueda)) {
@@ -442,66 +482,85 @@ public class ManageEvent {
     public List<Event> todosEventos() {
         List<Event> res = new ArrayList<Event>();
         java.util.Date selectedDate = null;
-        if(fechaString!=null && fechaString.matches("(\\d{4})-(\\d{2})-(\\d{2})")){
+        if (fechaString != null && fechaString.matches("(\\d{4})-(\\d{2})-(\\d{2})")) {
             String fecha[] = fechaString.split("-");
             selectedDate = new java.util.Date(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[2]));
         }
-        
-        for (Event e : eventos) {
-            if(selectedDate==null || e.getFecha_inicio().equals(selectedDate)){
+
+        for (Event e : eventEjb.getEventos()) {
+            if ((selectedDate == null || e.getFecha_inicio().equals(selectedDate)) && e.isAceptado()) {
                 res.add(e);
-            }    
+            }
         }
         return res;
     }
-    
+
+    public List<Event> todosEventosPeriodista() {
+        List<Event> res = new ArrayList<Event>();
+        java.util.Date selectedDate = null;
+        if (fechaString != null && fechaString.matches("(\\d{4})-(\\d{2})-(\\d{2})")) {
+            String fecha[] = fechaString.split("-");
+            selectedDate = new java.util.Date(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[2]));
+        }
+
+        for (Event e : eventEjb.getEventos()) {
+            if ((selectedDate == null || e.getFecha_inicio().equals(selectedDate)) && !e.isAceptado()) {
+                res.add(e);
+            }
+        }
+        return res;
+    }
+
     public List<Event> eventosTipo(TipoEvento te) {
 
         java.util.Date selectedDate = null;
-        if(fechaString!=null && fechaString.matches("(\\d{4})-(\\d{2})-(\\d{2})")){
+        if (fechaString != null && fechaString.matches("(\\d{4})-(\\d{2})-(\\d{2})")) {
             String fecha[] = fechaString.split("-");
             selectedDate = new java.util.Date(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[2]));
         }
         List<Event> res = new ArrayList<Event>();
-        eventos=eventEjb.getEventos();
+        eventos = eventEjb.getEventos();
         for (Event e : eventos) {
-            if((selectedDate==null || e.getFecha_inicio().equals(selectedDate)) && te.equals(e.getTipo_evento())){
-              res.add(e);  
+            if ((selectedDate == null || e.getFecha_inicio().equals(selectedDate)) && te.equals(e.getTipo_evento()) && e.isAceptado()) {
+                res.add(e);
             }
-            
+
         }
         return res;
     }
     
-    public List<Event> eventosDeportivos(){
+    public String modificar(){
+        this.setTitulo(evento.getTitulo());
+        this.setContenido(evento.getDescripcion());
+        return "modificarEvento.xhtml";
+    }
+
+    public List<Event> eventosDeportivos() {
         return eventosTipo(TipoEvento.deporte);
     }
-    
-    public List<Event> eventosMusicales(){
+
+    public List<Event> eventosMusicales() {
         return eventosTipo(TipoEvento.musica);
     }
-    
-    public List<Event> eventosCulturales(){
+
+    public List<Event> eventosCulturales() {
         return eventosTipo(TipoEvento.cultura);
     }
-    
-    public List<Event> eventosViajes(){
+
+    public List<Event> eventosViajes() {
         return eventosTipo(TipoEvento.viajes);
     }
-    
-    public List<Event> eventosCursos(){
+
+    public List<Event> eventosCursos() {
         return eventosTipo(TipoEvento.cursos);
     }
-    
-    public List<Event> eventosRestaurantes(){
+
+    public List<Event> eventosRestaurantes() {
         return eventosTipo(TipoEvento.restaurantes);
     }
-    
-    public List<Event> eventosTecnologia(){
+
+    public List<Event> eventosTecnologia() {
         return eventosTipo(TipoEvento.tecnologia);
     }
-        
-    
-    
-    
+
 }
